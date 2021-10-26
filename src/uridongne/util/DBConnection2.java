@@ -6,9 +6,9 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 
-public class DBConnection {
+public class DBConnection2 {
 
-	String DB_URL="jdbc:oracle:thin:@matching_medium?TNS_ADMIN=C:/Wallet_matching";
+	String DB_URL="jdbc:oracle:thin:@matching_medium?TNS_ADMIN=/Users/hsh/Desktop/kosta/uridongne_sub/Wallet_matching";
 	String DB_USER = "ADMIN";
 	String DB_PASSWORD = "Kosta226good";
 	public void test() throws ClassNotFoundException, SQLException {
