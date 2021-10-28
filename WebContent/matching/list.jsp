@@ -22,7 +22,7 @@ $(function(){
 		
 		/* console.log(td_arr[0]); */
 		if(td_arr[0] != "id"){
-			location.href='detail?res_number='+td_arr[0];
+			location.href='detail?mat_id='+td_arr[0];
 		}
 		
 	});
@@ -34,29 +34,21 @@ $(function(){
 <table border="1" id="matching_list">
 	<tr>
 		<td hidden=true>id</td>
-		<td>장소</td>
-		<td>매칭날짜</td>
-		<td>몇대몇</td>
+		<td>순서</td>
+		<td>방이름</td>
+		<td>인원</td>
+		<td>경기날짜</td>
+		<td>작성날짜</td>
 	</tr>
-<%-- 	<c:forEach var="i" begin="0" end="2" step="1" >	
+ 	<c:forEach var="item" items="${createList}" varStatus="list">
    		<tr align="center">
-      		<td>1</td>
-      		<td>2</td>
-      		<td>3</td>
-   		</tr>
- 	</c:forEach> --%>
- 	<tr>
- 		<td hidden=true>1</td>
- 		<td>dfdf</td>
- 		<td>fdfdf</td>
- 		<td>dhwgwgw</td>
- 	</tr>
- 	<tr>
- 		<td hidden=true>2</td>
- 		<td>dfdf</td>
- 		<td>fdfdf</td>
- 		<td>dhwgwgw</td>
- 	</tr>
+   			<td hidden=true>${item.mat_id}</td>
+        	<td>${list.count}</td>
+         	<td>${item.mat_title}</td>
+         	<td>${item.nowjoin_people}/${item.mat_people}</td>
+        </tr>
+ 	</c:forEach>
+
 </table>
 </body>
 </html>
