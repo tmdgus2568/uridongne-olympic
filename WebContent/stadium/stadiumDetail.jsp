@@ -1,41 +1,43 @@
+<%@ page language="java" contentType="text/html; charset=EUC-KR"
+    pageEncoding="EUC-KR"%>
 <html>
     <head>
         <meta charset="utf-8">
-        <title>Stadium ìœ„ì¹˜</title>
+        <title>Stadium À§Ä¡</title>
         <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=710efed9d2e1e3e45ce6777b45016c59"></script>
         
     </head>
 
     <body>
-        <!-- ì§€ë„ë¥¼ í‘œì‹œí•  div -->
+        <!-- Áöµµ¸¦ Ç¥½ÃÇÒ div -->
         <div id="map" style="width:40%;height:600px;"></div>
     </body>
 </html>
 
 <script>
-    // ì§€ë„ë¥¼ í‘œì‹œí•  div 
+    // Áöµµ¸¦ Ç¥½ÃÇÒ div 
     let mapContainer = document.getElementById('map'),
         mapOption = { 
-            // ì§€ë„ì˜ ì¤‘ì‹¬ì¢Œí‘œ
+            // ÁöµµÀÇ Áß½ÉÁÂÇ¥
             //center: new kakao.maps.LatLng(33.450701, 126.570667), 
             center: new kakao.maps.LatLng(37.5031, 127.07889), //y, x 
-            // ì§€ë„ì˜ í™•ëŒ€ ë ˆë²¨(1~14) ê°’ì´ í´ ìˆ˜ë¡ ì§€ë„ê°€ ì¶•ì†Œ ë˜ì–´ ë³´ì„.
+            // ÁöµµÀÇ È®´ë ·¹º§(1~14) °ªÀÌ Å¬ ¼ö·Ï Áöµµ°¡ Ãà¼Ò µÇ¾î º¸ÀÓ.
             level: 5
         };
 
-    // ì§€ë„ë¥¼ í‘œì‹œí•  divì™€ ì§€ë„ ì˜µì…˜ìœ¼ë¡œ ì§€ë„ë¥¼ ìƒì„±.
+    // Áöµµ¸¦ Ç¥½ÃÇÒ div¿Í Áöµµ ¿É¼ÇÀ¸·Î Áöµµ¸¦ »ı¼º.
     let map = new kakao.maps.Map(mapContainer, mapOption); 
 
 
-    // ë§ˆì»¤ê°€ í‘œì‹œë  ìœ„ì¹˜.
+    // ¸¶Ä¿°¡ Ç¥½ÃµÉ À§Ä¡.
     //let markerPosition  = new kakao.maps.LatLng(33.450701, 126.570667); 
     let markerPosition  = new kakao.maps.LatLng(37.5031, 127.07889); //test
 
-    // ë§ˆì»¤ë¥¼ ìƒì„±.
+    // ¸¶Ä¿¸¦ »ı¼º.
     let marker = new kakao.maps.Marker({
         position: markerPosition
     });
 
-    // ë§ˆì»¤ë¥¼ í•´ë‹¹ ìœ„ì¹˜ì— ì„¤ì •
+    // ¸¶Ä¿¸¦ ÇØ´ç À§Ä¡¿¡ ¼³Á¤
     marker.setMap(map);
 </script>
