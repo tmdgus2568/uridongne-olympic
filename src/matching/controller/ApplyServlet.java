@@ -21,15 +21,17 @@ import matching.model.Mat_createVO;
 @WebServlet("/matching/apply")
 public class ApplyServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-    private Mat_applyService applyService = new Mat_applyService();
-    private Mat_createService createService = new Mat_createService();
+	private String dbPath = getServletContext().getRealPath(".")+"/WEB-INF/Wallet_matching";
+
+    private Mat_applyService applyService = new Mat_applyService(dbPath);;
+    private Mat_createService createService = new Mat_createService(dbPath);;
     
     
 
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-	
+		
 		Mat_createVO create = new Mat_createVO();
 		create = createService.selectById(Integer.parseInt(request.getParameter("mat_id")));
 		System.out.println(create);

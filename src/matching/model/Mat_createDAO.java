@@ -11,7 +11,13 @@ import java.util.List;
 import uridongne.util.DBConnection2;
 
 public class Mat_createDAO {
+	String path;
 	
+	
+	public Mat_createDAO(String path) {
+		this.path = path;
+	}
+
 	// 매칭 생성 방을 모두 조회한다 
 	public List<Mat_createVO> selectAll(){
 		
@@ -22,7 +28,7 @@ public class Mat_createDAO {
 		String sql = "select * from matching_create";
 		
 		try {
-			conn = DBConnection2.dbConnect();
+			conn = DBConnection2.dbConnect(path);
 			st = conn.prepareStatement(sql);
 			rs = st.executeQuery();
 			while(rs.next()) {
@@ -49,7 +55,7 @@ public class Mat_createDAO {
 		ResultSet rs = null;
 		String sql = "select * from matching_create where mat_id=?";
 		try {
-			conn = DBConnection2.dbConnect();
+			conn = DBConnection2.dbConnect(path);
 			st = conn.prepareStatement(sql);
 			st.setInt(1,id);
 			rs = st.executeQuery();

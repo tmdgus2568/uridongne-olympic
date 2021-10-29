@@ -7,6 +7,12 @@ import java.sql.SQLException;
 import uridongne.util.DBConnection2;
 
 public class Mat_applyDAO {
+	String path;
+	public Mat_applyDAO(String path) {
+		this.path = path;
+	}
+	
+	
 	public int insertApply(Mat_applyVO apply) {
 		Connection conn = null;
 		PreparedStatement st = null;
@@ -14,7 +20,7 @@ public class Mat_applyDAO {
 		int result = 0;
 		
 		try {
-			conn = DBConnection2.dbConnect();
+			conn = DBConnection2.dbConnect(path);
 			st = conn.prepareStatement(sql);
 			st.setInt(1,apply.getMat_create().getMat_id());
 			st.setString(2, apply.getUser_id());
