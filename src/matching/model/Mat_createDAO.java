@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-import uridongne.util.DBConnection2;
+import uridongne.util.DBConnection;
 
 public class Mat_createDAO {
 	String path;
@@ -28,7 +28,7 @@ public class Mat_createDAO {
 		String sql = "select * from matching_create";
 		
 		try {
-			conn = DBConnection2.dbConnect(path);
+			conn = DBConnection.dbConnect(path);
 			st = conn.prepareStatement(sql);
 			rs = st.executeQuery();
 			while(rs.next()) {
@@ -36,11 +36,11 @@ public class Mat_createDAO {
 			}
 
 			
-		} catch (ClassNotFoundException | SQLException e) {
+		} catch ( SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}finally {
-			DBConnection2.dbClose(conn, st, rs);
+			DBConnection.dbClose(conn, st, rs);
 		}
 		
 		return createList;
@@ -55,7 +55,7 @@ public class Mat_createDAO {
 		ResultSet rs = null;
 		String sql = "select * from matching_create where mat_id=?";
 		try {
-			conn = DBConnection2.dbConnect(path);
+			conn = DBConnection.dbConnect(path);
 			st = conn.prepareStatement(sql);
 			st.setInt(1,id);
 			rs = st.executeQuery();
@@ -63,11 +63,11 @@ public class Mat_createDAO {
 				create = makeCreate(rs);
 			}
 		
-		} catch (ClassNotFoundException | SQLException e) {
+		} catch ( SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}finally {
-			DBConnection2.dbClose(conn, st, rs);
+			DBConnection.dbClose(conn, st, rs);
 		}
 		return create;
 	}

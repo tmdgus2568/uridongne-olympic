@@ -27,7 +27,7 @@ public class ListServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		String dbPath = getServletContext().getRealPath(".")+"/WEB-INF/Wallet_matching";
+		String dbPath = getServletContext().getRealPath(".");
 		System.out.println("dbPath: "+dbPath);
 		
 		createService = new Mat_createService(dbPath);

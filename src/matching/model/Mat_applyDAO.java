@@ -4,7 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
-import uridongne.util.DBConnection2;
+import uridongne.util.DBConnection;
 
 public class Mat_applyDAO {
 	String path;
@@ -20,7 +20,7 @@ public class Mat_applyDAO {
 		int result = 0;
 		
 		try {
-			conn = DBConnection2.dbConnect(path);
+			conn = DBConnection.dbConnect(path);
 			st = conn.prepareStatement(sql);
 			st.setInt(1,apply.getMat_create().getMat_id());
 			st.setString(2, apply.getUser_id());
@@ -29,11 +29,11 @@ public class Mat_applyDAO {
 			result = st.executeUpdate();
 			
 			
-		} catch (ClassNotFoundException | SQLException e) {
+		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}finally {
-			DBConnection2.dbClose(conn, st, null);
+			DBConnection.dbClose(conn, st, null);
 		}
 		return result;
 		
