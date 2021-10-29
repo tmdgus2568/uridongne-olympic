@@ -30,12 +30,9 @@ public class DBConnection {
 	public static void dbClose(Connection conn, PreparedStatement st, ResultSet rs) {
 		// TODO Auto-generated method stub
 		try {
-			if (rs != null)
-				rs.close();
-			if (st != null)
-				st.close();
-			if (conn != null)
-				conn.close();
+			if(rs!=null)rs.close();
+			if(st!=null)st.close();
+			if(conn!=null)conn.close();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
