@@ -1,9 +1,11 @@
 package member.controller;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.Arrays;
 
 import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -19,11 +21,13 @@ import member.model.MemberVO;
 @WebServlet("/member/memberjoin")
 public class MemberInsertServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
 		request.setCharacterEncoding("utf-8");
+		
 		MemberVO mem = makeMem(request);
-		MemberService service = new MemberService();
+		String path = getServletContext().getRealPath(".");
+		MemberService service = new MemberService(path);
 		int result = service.memberInsert(mem);
 		
 		request.setAttribute("message", result > 0? "입력성공" : "입력실패");

@@ -8,13 +8,19 @@ import uridongne.util.DBConnection;
 
 public class MemberDAO {
 
+	String path;
+
+	public MemberDAO(String path) {
+		this.path = path;
+	}
+	
 	public int memberInsert(MemberVO mem) {
 		int result = 0; // insert 건수
 		String sql = "insert into member values (?,?,?,?,?,?,?,?,?,sysdate,?)";
 		Connection con = null;
 		PreparedStatement st = null;
 		try {
-			con = DBConnection.dbConnect();
+			con = DBConnection.dbConnect(path);
 			st = con.prepareStatement(sql);
 			st.setString(1, mem.getUser_id());
 			st.setString(2, mem.getUser_pw());
