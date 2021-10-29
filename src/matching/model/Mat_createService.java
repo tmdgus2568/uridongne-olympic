@@ -3,8 +3,15 @@ package matching.model;
 import java.util.List;
 
 public class Mat_createService {
+	Mat_createDAO mat_createDAO;
 	
-	Mat_createDAO mat_createDAO = new Mat_createDAO();
+	
+	public Mat_createService(String path) {
+
+		mat_createDAO= new Mat_createDAO(path);
+	}
+
+	
 	
 	public List<Mat_createVO> selectAll(){
 		return mat_createDAO.selectAll();

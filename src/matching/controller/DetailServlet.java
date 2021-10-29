@@ -19,7 +19,8 @@ import matching.model.Mat_createVO;
 @WebServlet("/matching/detail")
 public class DetailServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	private Mat_createService createService = new Mat_createService();
+	private String path = getServletContext().getRealPath(".")+"/WEB-INF/Wallet_matching";
+	private Mat_createService createService = new Mat_createService(path);
        
     /**
      * @see HttpServlet#HttpServlet()

@@ -19,14 +19,21 @@ import matching.model.Mat_createVO;
 @WebServlet("/matching/list")
 public class ListServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	private Mat_createService createService = new Mat_createService();
+	
+	private Mat_createService createService ;
        
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
+		String dbPath = getServletContext().getRealPath(".");
+		System.out.println("dbPath: "+dbPath);
+		
+		createService = new Mat_createService(dbPath);
+		
 		List<Mat_createVO> createList = createService.selectAll();
+		
 		
 		for(Mat_createVO item : createList) {
 			System.out.println(item);
