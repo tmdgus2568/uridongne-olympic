@@ -1,5 +1,5 @@
 package reservation.model;
 
-public class model {
+public class ReservationDAO {
 
 }
