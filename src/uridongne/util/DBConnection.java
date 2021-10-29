@@ -11,6 +11,7 @@ public class DBConnection {
 	String DB_URL="jdbc:oracle:thin:@matching_medium?TNS_ADMIN=C:/Wallet_matching";
 	String DB_USER = "ADMIN";
 	String DB_PASSWORD = "Kosta226good";
+	
 	public void test() throws ClassNotFoundException, SQLException {
 	
 		Class.forName("oracle.jdbc.driver.OracleDriver");
