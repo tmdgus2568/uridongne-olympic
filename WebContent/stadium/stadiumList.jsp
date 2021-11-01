@@ -5,89 +5,105 @@
 <!DOCTYPE html>
 <html>
 <head>
+<link
+	href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css"
+	rel="stylesheet"
+	integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3"
+	crossorigin="anonymous">
+<script
+	src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+	integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
+	crossorigin="anonymous"></script>
+<style>
+.cls1 {
+	text-align: center;
+	font-size: 30px;
+}
+</style>
 <meta charset="UTF-8">
 <title>경기장정보</title>
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script>
+	$(function() {
+		$("#searchButton").click(
+				function() {
+					//alert($("#sports").val());
+					//alert($("#location").val());
+					$.ajax({
+						url : "stadiumSearch",
+						// data:{"sports":"'" + $("#sports").val()+"'", "location":"'"+$("#location").val()+"'"},
+						data : "sports=" + $("#sports").val() + "&location="
+								+ $("#location").val(),
+						success : function(resposedata) {
+							$("#here").html(resposedata);
+						}
+					});
+				});
+	});
 </script>
-</head>
-<body>
 
-</script>
 </head>
+
 <body>
-		<div>
-			<form>
-				<fieldset>
-                    <legend>경기장 정보 검색</legend>                    
-                    <label>검색분류</label>
-                        <select name = "f">
-                            <option ${(param.f == "stadium_id")? "selected" : ""} value = "stadium_id">경기장번호</option>
-                            <option ${(param.f == "stadium_name")? "selected" : ""} value = "stadium_name">경기장명</option>
-                            <option ${(param.f == "sports_name")? "selected" : ""} value = "sports_name">경기종목</option>
-                            <option ${(param.f == "stadium_address")? "selected" : ""} value = "stadium_address">지역</option>
-                        </select>
-                    <label>검색어</label>
-                        <input type = "text" name = "q" value = "${param.q}"/>
-                        <input type = "submit" value = "검색">                
-                </fieldset>        
-			
-				
-			</form>	
-		</div>	
-	
-		<div>
-			<h3 >경기장 목록</h3>
-			<table >
-				<thead>
-					<td>
-						<td>경기장번호</td>
-						<td>경기장명</td>
-						<td>경기종목</td>
-					</td>
-				</thead>							
-				<tbody>	
-							
-				<c:forEach var = "n" items = "${list }">
+	<h3>경기장 정보검색</h3>
+	<br>
+	<!-- <label for="sports" style="float: center">경기장 종목선택</label> -->
+	<label for="sports" style="float: center"></label>
+	<!-- <select class="form-select" aria-label="Default select example" id="sports" id="sports" size="1">  -->
+	<select class="btn btn-secondary btn-lm dropdown-toggle"
+		aria-label="Default select example" id="sports" id="sports" size="1">
+		<option value="">경기장 종목선택</option>
+		<option value="농구장">농구장</option>
+		<option value="배구장">배구장</option>
+		<option value="야구장">야구장</option>
+		<option value="족구장">족구장</option>
+		<option value="축구장">축구장</option>
+		<option value="테니스장">테니스장</option>
+		<option value="풋살장">풋살장</option>
+	</select>
+<!-- 	<label for="location" style="float: left">지역선택</label> -->
+	<label for="location" style="float: left"> </label>
+	<!--  	<select class="form-select" aria-label="Default select example" id="location" id="location" size="1">-->
+	<select class="btn btn-secondary btn-lm dropdown-toggle"
+		aria-label="Default select example" id="location" id="location"
+		size="1">
+		<option value="">지역선택</option>
+		<option value="강동구">강동구</option>
+		<option value="강남구">강남구</option>
+		<option value="강서구">강서구</option>
+		<option value="강북구">강북구</option>
+		<option value="마포구">마포구</option>
+		<option value="노원구">노원구</option>
+	</select>
+	<button id="searchButton" type="button"
+		class="btn btn-secondary btn-lm">검색하기</button>
+	<!--  type="button" class="btn btn-secondary btn-sm" disabled-->
+
+<br><br><br>
+	<div id="here">
+		<h3>경기장 목록</h3>
+		<table class="table">
+			<thead>
+				<th scope="col">경기장명</th>
+				<th scope="col">이용요금</th>
+				<th scope="col">수용가능인원</th>
+				<th scope="col">경기장종류</th>
+				</tr>
+			<tbody>
+				<c:forEach var="stadium" items="${stadiumList }">
 					<tr>
-						<td>${n.id }</td>
-						<td><a href="detail?id=${n.id }">${n.stadium_id }</a></td>
-						<td>${n.stadium_name}</td>
-						<td>	${n.sports_name}</td>					
-						</td>
-						<td>
-							<fmt:formatNumber pattern = "####,###" value="${n.hit}" />							
-						</td>
+						<td><a href="detail?id=${stadium.stadium_name }">${stadium.stadium_name }</a></td>
+						<td>${stadium.payment_method }</td>
+						<td>${stadium.stadium_number}</td>
+						<td>${stadium.sports_name}</td>
 					</tr>
-				</c:forEach>				
-					
-				</tbody>
-			</table>
-		</div>
-		
-		<div>
-			<c:set var = "page" value = "${(empty param.p)? 1 : param.p}"/>
-			<c:set var = "startNum" value = "${page-(page-1)%5}" />
-			<c:set var = "lastNum" value = "23" />
-			
-			<c:if test="${startNum > 1}">
-				<span><a href = "?p=${startNum - 1}&f=&q=">이전</a> </span>
-			</c:if>
-			<c:if test="${startNum <= 1}">
-				<span onclick = "alert('이전 페이지가 없습니다.');">이전</span>
-			</c:if>
-			
-			<span>
-				<c:forEach var = "i" begin = "0" end = "4">
-					<a href = "?p=${startNum + i}&f=&q=">${startNum + i}</a>
-				</c:forEach>		
-			</span>
-			
-			<c:if test="${startNum < lastNum }">
-				<span><a href = "?p=${startNum + 5}&f=&q=">다음</a> </span>
-			</c:if>
-			<c:if test="${startNum >= lastNum }">
-				<span onclick = "alert('다음 페이지가 없습니다.');">다음</span>
-			</c:if>		
-		</div>
+				</c:forEach>
+
+			</tbody>
+			</thead>
+		</table>
+	</div>
 
 </body>
 </html>
