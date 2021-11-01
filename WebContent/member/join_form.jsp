@@ -74,14 +74,16 @@
 			<tr>
 				<td>관심 종목</td>
 				<td><input type="checkbox" name="user_interest" value="농구">농구
-					<input type="checkbox" name="user_interest" value="배구">배구 <input
-					type="checkbox" name="user_interest" value="배드민턴">배드민턴 <input
-					type="checkbox" name="user_interest" value="야구">야구 <br>
-					<input type="checkbox" name="user_interest" value="족구">족구 <input
-					type="checkbox" name="user_interest" value="축구">축구 <input
-					type="checkbox" name="user_interest" value="탁구">탁구 <input
-					type="checkbox" name="user_interest" value="테니스">테니스 <input
-					type="checkbox" name="user_interest" value="풋살">풋살</td>
+					<input type="checkbox" name="user_interest" value="배구">배구 
+					<input type="checkbox" name="user_interest" value="배드민턴">배드민턴 
+					<input type="checkbox" name="user_interest" value="야구">야구 
+					<br>
+					<input type="checkbox" name="user_interest" value="족구">족구 
+					<input type="checkbox" name="user_interest" value="축구">축구 
+					<input type="checkbox" name="user_interest" value="탁구">탁구 
+					<input type="checkbox" name="user_interest" value="테니스">테니스 
+					<input type="checkbox" name="user_interest" value="풋살">풋살
+				</td>
 			</tr>
 		</table>
 

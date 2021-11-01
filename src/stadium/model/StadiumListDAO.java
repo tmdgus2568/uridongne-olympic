@@ -13,7 +13,7 @@ public class StadiumListDAO {
 	static final String SQL_SELECT_ALL = "select stadium_id, stadium_name, sports_name from stadium";
 	public List<StadiumListVO> selectAll() {
 		List<StadiumListVO> stadiumList = new ArrayList<>();
-		Connection conn = DBConnection.dbConnect();
+		Connection conn = null;
 		PreparedStatement st = null;
 		ResultSet rs = null;
 		try {
