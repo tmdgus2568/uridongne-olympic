@@ -10,10 +10,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import matching.model.Mat_applyService;
-import matching.model.Mat_applyVO;
-import matching.model.Mat_createService;
-import matching.model.Mat_createVO;
+import matching.model.MatApplyService;
+import matching.model.MatApplyVO;
+import matching.model.MatCreateJoinVO;
+import matching.model.MatCreateService;
+import matching.model.MatCreateVO;
 
 /**
  * Servlet implementation class ApplyServlet
@@ -21,10 +22,9 @@ import matching.model.Mat_createVO;
 @WebServlet("/matching/apply")
 public class ApplyServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	private String dbPath = getServletContext().getRealPath(".")+"/WEB-INF/Wallet_matching";
 
-    private Mat_applyService applyService = new Mat_applyService(dbPath);;
-    private Mat_createService createService = new Mat_createService(dbPath);;
+    private MatApplyService applyService;
+    private MatCreateService createService;
     
     
 
@@ -32,11 +32,14 @@ public class ApplyServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		
-		Mat_createVO create = new Mat_createVO();
-		create = createService.selectById(Integer.parseInt(request.getParameter("mat_id")));
-		System.out.println(create);
+		String dbPath = getServletContext().getRealPath(".");
+		createService = new MatCreateService(dbPath);
 		
-		request.setAttribute("create", create);
+		MatCreateJoinVO createJoin = new MatCreateJoinVO();
+		createJoin = createService.selectById(Integer.parseInt(request.getParameter("mat_id")));
+		System.out.println(createJoin);
+		
+		request.setAttribute("createJoin", createJoin);
 		
 		RequestDispatcher rd = request.getRequestDispatcher("applyForm.jsp");
 		
@@ -52,25 +55,33 @@ public class ApplyServlet extends HttpServlet {
     // apply에 저장 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		Mat_applyVO apply = new Mat_applyVO();
+		
+		String dbPath = getServletContext().getRealPath(".");
+		createService = new MatCreateService(dbPath);
+		applyService = new MatApplyService(dbPath);
+		
+		MatApplyVO apply = new MatApplyVO();
 		HttpSession session = request.getSession();
 		
 		request.setCharacterEncoding("utf-8");
 		
 		// 방 id로 방 가져와서 저장 
-		Mat_createVO create = new Mat_createVO();
+		MatCreateJoinVO createJoin = new MatCreateJoinVO();
 		
 		System.out.println("param: "+request.getParameter("mat_id"));
-		create = createService.selectById(Integer.parseInt(request.getParameter("mat_id")));
+		createJoin = createService.selectById(Integer.parseInt(request.getParameter("mat_id")));
 		
 		// apply 테이블에 저장 
 		apply.setUser_id(session.getAttribute("test_id").toString());
-		apply.setMat_create(create);
+		apply.setMat_id(Integer.parseInt(request.getParameter("mat_id")));
 		apply.setTogether(Integer.parseInt(request.getParameter("together")));
 		
 		int result = applyService.insertApply(apply);
 		
-		if(result > 0) response.sendRedirect("list?message=success");
+		if(result > 0) {
+			
+			response.sendRedirect("list?message=success");
+		}
 		else response.sendRedirect("list?message=failed");
 		
 	}
