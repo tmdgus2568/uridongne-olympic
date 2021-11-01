@@ -12,14 +12,15 @@
 <h1>매칭 상세정보</h1>
 <%-- <h1>${param.res_number}</h1> --%>
 <div>
-	<div>방이름: ${create.mat_title}</div>
-	<div>내용: ${create.mat_content}</div>
-	<div>경기날짜: </div>
-	<div>인원수: </div>
-	<div>1인당 예상가격: </div>
+	<div>방이름: ${createJoin.mat_title}</div>
+	<div>내용: ${createJoin.mat_content}</div>
+	<div>경기날짜: ${createJoin.play_date} 
+	${createJoin.play_start}~${createJoin.play_end}</div>
+	<div>인원수: ${createJoin.nowjoin_people}/${createJoin.mat_people}</div>
+	<div>1인당 예상가격: 약 ${createJoin.stadium_price/createJoin.mat_people}원</div>
 	
 </div>
-<button onClick="apply(${create.mat_id})">참가하기</button>
+<button onClick="apply(${createJoin.mat_id})">참가하기</button>
 <!-- <button href a=""></button>
 <form action="detail" method="get">
 	<button type="submit">신청하기</button>
