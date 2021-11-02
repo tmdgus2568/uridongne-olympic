@@ -191,6 +191,7 @@ public class MatCreateDAO {
 		mcrs.setStadium_end(rs.getString("stadium_end"));
 		mcrs.setStadium_photo(rs.getString("stadium_photo"));
 		mcrs.setMat_max(rs.getInt("mat_max"));
+		mcrs.setLocation(rs.getString("location"));
 		
 		return mcrs;
 	}

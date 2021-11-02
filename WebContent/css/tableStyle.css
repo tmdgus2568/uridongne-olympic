@@ -1,0 +1,28 @@
+@charset "UTF-8";
+
+/* 테이블 전체 */
+.table_style{
+	border-collapse:collapse;
+	line-height:1.5;
+	margin:20px 10px;
+	width:100%;
+	text-align:center;
+}
+
+
+/* 테이블의 타이틀 부분  */
+.table_title{
+	background:black;
+	color:white;
+	height:50px;
+	font-weight:bold;
+}
+
+/* 테이블의 내용 부분  */
+.table_content{
+	height:50px;
+}
+
+.table_content:hover{
+	background:lightgrey;
+}

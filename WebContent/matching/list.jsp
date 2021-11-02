@@ -4,8 +4,47 @@
 <!DOCTYPE html>
 <html>
 <head>
+	<link href="../css/tableStyle.css" rel="stylesheet" type="text/css">
+	<link href="../css/contentStyle.css" rel="stylesheet" type="text/css">
+	<style>
+		.select_style{
+			width:80px;
+			height:30px;
+			border-radius:10px;
+			border:1px solid grey;
+			text-align:center;
+		}
+		
+		.search_style{
+			margin-left:8px;
+			width:300px;
+			height:28px;
+			border-radius:10px;
+			border:1px solid grey;
+			
+		}
+		button{
+			/* background-image:url(../image/search_icon.png);
+			background-repeat:no-repeat;
+			background-position:0px 0px;
+			border:none;
+			width:40px;
+			height:40px; */
+			background:black;
+			color:white;
+			width:100px;
+			height:30px;
+			border-radius:10px;
+			font-size:14px;
+			font-weight:normal;
+			
+		}
+		
+	</style>
+</head>
 <meta charset="UTF-8">
-<title>매칭 리스트</title>
+<title>매칭 참여</title>
+
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <script type="text/javascript">
 $(function(){
@@ -39,83 +78,84 @@ $(function(){
 	
 });
 </script>
-<style>
-table{
-	text-align: center;
-}
-</style>
+
 </head>
 <body>
-<h1>매칭 리스트</h1>
-<form method="get" id="search">
-	<div>
-		<select name="sports">
-			<option value="none">종목 선택</option>
-			<c:forEach var="item" items="${sportsNameList}" varStatus="list">
+<%@ include file="../header.jsp" %>
+<div class="content" text-align="center">
+	<h2>매칭 참여</h2>
+	<form method="get" id="search" align="right">
+		<div>
+			<select name="sports" class="select_style">
+				<option value="none">종목 선택</option>
+				<c:forEach var="item" items="${sportsNameList}" varStatus="list">
+					<c:choose>
+						<c:when test="${param.sports eq item}">
+							<option value="${item}" selected>${item}</option>	
+						</c:when>
+						<c:otherwise>
+							<option value="${item}">${item}</option>
+						</c:otherwise>
+					</c:choose>	
+				</c:forEach>
+			</select>
+			<select name="option" class="select_style">
 				<c:choose>
-					<c:when test="${param.sports eq item}">
-						<option value="${item}" selected>${item}</option>	
+					<c:when test="${param.option eq 'none'}">
+						<option value="none" selected>검색</option>	
 					</c:when>
 					<c:otherwise>
-						<option value="${item}">${item}</option>
+						<option value="none">검색</option>
 					</c:otherwise>
-				</c:choose>	
-			</c:forEach>
-		</select>
-		<select name="option">
-			<c:choose>
-				<c:when test="${param.option eq 'none'}">
-					<option value="none" selected>검색</option>	
-				</c:when>
-				<c:otherwise>
-					<option value="none">검색</option>
-				</c:otherwise>
-			</c:choose>
-			<c:choose>
-				<c:when test="${param.option eq 'content'}">
-					<option value="content" selected>내용</option>	
-				</c:when>
-				<c:otherwise>
-					<option value="content">내용</option>
-				</c:otherwise>
-			</c:choose>
-			<c:choose>
-				<c:when test="${param.option eq 'title'}">
-					<option value="title" selected>제목</option>	
-				</c:when>
-				<c:otherwise>
-					<option value="title">제목</option>
-				</c:otherwise>
-			</c:choose>
-		</select>
-		
-		<input type="text" name="filter" value="${param.filter}">
-		<button type="submit">검색하기</button>
-	</div>
-<br>
-</form>
-<table border="1" id="matching_list">
-	<tr>
-		<td hidden=true>id</td>
-		<td>순서</td>
-		<td>방이름</td>
-		<td>인원</td>
-		<td>종목</td>
-		<td>지역명</td>
-		<td>경기날짜</td>
-	</tr>
- 	<c:forEach var="item" items="${createJoinList}" varStatus="list">
-   		<tr align="center">
-   			<td hidden=true>${item.mat_id}</td>
-        	<td>${list.count}</td>
-         	<td>${item.mat_title}</td>
-         	<td>${item.nowjoin_people}/${item.mat_people}</td>
-         	<td>${item.sports_name}</td>
-         	<td></td>
-         	<td>${item.play_date}</td>
-        </tr>
- 	</c:forEach>
+				</c:choose>
+				<c:choose>
+					<c:when test="${param.option eq 'content'}">
+						<option value="content" selected>내용</option>	
+					</c:when>
+					<c:otherwise>
+						<option value="content">내용</option>
+					</c:otherwise>
+				</c:choose>
+				<c:choose>
+					<c:when test="${param.option eq 'title'}">
+						<option value="title" selected>제목</option>	
+					</c:when>
+					<c:otherwise>
+						<option value="title">제목</option>
+					</c:otherwise>
+				</c:choose>
+			</select>
+			
+			<input type="text" name="filter" value="${param.filter}" class="search_style">
+			<button type="submit" id="search_btn">검색하기</button>
+		</div>
+	<br>
+	</form>
+	<table border="1" class="table_style" align="center" id="matching_list">
+		<tr class="table_title">
+			<td hidden=true>id</td>
+			<td>순서</td>
+			<td>방이름</td>
+			<td>인원</td>
+			<td>종목</td>
+			<td>지역명</td>
+			<td>경기날짜</td>
+		</tr>
+	 	<c:forEach var="item" items="${createJoinList}" varStatus="list">
+	   		<tr align="center" class="table_content">
+	   			<td hidden=true>${item.mat_id}</td>
+	        	<td>${list.count}</td>
+	         	<td>${item.mat_title}</td>
+	         	<td>${item.nowjoin_people}/${item.mat_people}</td>
+	         	<td>${item.sports_name}</td>
+	         	<td>${item.location}</td>
+	         	<td>${item.play_date}</td>
+	        </tr>
+	 	</c:forEach>
 
-</table>
+	</table>	
+
+</div>
+<%@ include file="../footer.jsp" %>
 </body>
 </html>
