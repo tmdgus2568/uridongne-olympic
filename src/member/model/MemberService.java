@@ -12,4 +12,9 @@ public class MemberService {
 		return dao.memberInsert(mem);
 	}
 
+	public MemberVO logincheck(String user_id, String user_pwd) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }
