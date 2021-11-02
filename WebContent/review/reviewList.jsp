@@ -11,16 +11,18 @@
 	font-size: 30px;
 }
 </style>
-<meta charset="EUC-KR">
+<meta charset="UTF-8">
 <title>리뷰목록</title>
 </head>
 <body>
+	<p align="center"><a href="">최신순</a>/<a href="">평점순</a></p>
 	<table align="center" border="1" width="80%">
 		<tr height="10" align="center">
 			<td>작성자</td>
+			<td>경기장</td>
+			<td>경기날짜</td>			
 			<td>후기</td>
-			<td>별점</td>
-			<td>작성일</td>
+			<td>평점</td>
 		</tr>
 		<c:choose>
 			<c:when test="${empty reviewList}">
@@ -36,16 +38,17 @@
 				<c:forEach var="review" items="${reviewList }">
 					<tr align="center">
 						<td>${review.user_id}</td>
+						<td>${review.stadium_name}</td>
+						<td>${review.play_date }</td>						
 						<td>${review.review_content }</td>
 						<td>${review.review_star }</td>
-						<td>${review.review_date }</td>						
+						 
 					</tr>
 				</c:forEach>
 			</c:when>
 		</c:choose>
 	</table>
-	<a href="${contextPath}/reviewForm.jsp">
-	<p class="cls1">후기 남기기</p></a>
+	<a href="reviewForm.jsp?res_number=1"><p class="cls1">후기 남기기</p></a>
 </body>
 </html>
 

@@ -1,6 +1,8 @@
 package matching.model;
 
-public class Mat_createVO {
+import reservation.model.ReservationVO;
+
+public class MatCreateVO {
 	private int mat_id;
 	
 	private int res_number; // 예약번호, reference : stadium_reservation(res_number) -> 추후에 객체로 바꾸기 
@@ -11,11 +13,11 @@ public class Mat_createVO {
 	private String mat_content;
 	
 
-	public Mat_createVO() {
+	public MatCreateVO() {
 		super();
 	}
 
-	public Mat_createVO(int mat_id, int res_number, int mat_people, int nowjoin_people, String mat_status, String mat_title, String mat_content) {
+	public MatCreateVO(int mat_id, int res_number, int mat_people, int nowjoin_people, String mat_status, String mat_title, String mat_content) {
 		super();
 		this.mat_id = mat_id;
 		this.res_number = res_number;
@@ -26,6 +28,19 @@ public class Mat_createVO {
 		this.mat_content = mat_content;
 	}
 	
+	
+	
+	public MatCreateVO(int mat_id, ReservationVO reservation, int mat_people, int nowjoin_people,
+			String mat_status, String mat_title, String mat_content) {
+		super();
+		this.mat_id = mat_id;
+		this.mat_people = mat_people;
+		this.nowjoin_people = nowjoin_people;
+		this.mat_status = mat_status;
+		this.mat_title = mat_title;
+		this.mat_content = mat_content;
+	}
+
 	public int getMat_id() {
 		return mat_id;
 	}

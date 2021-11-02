@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import member.model.MemberService;
 import stadium.model.StadiumListService;
 import stadium.model.StadiumListVO;
 
@@ -19,24 +20,18 @@ import stadium.model.StadiumListVO;
 @WebServlet("/stadium/stadiumList")
 public class StadiumListServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	private StadiumListService stalistService = new StadiumListService();
 
-	public StadiumListServlet() {
-		super();
-	}
+
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		List<StadiumListVO> stadiumList = stalistService.selectAllService();
-
-		for (StadiumListVO item : stadiumList) {
-			System.out.println(item);
-		}
-
-		// 실패했으면 createList == null
-		request.setAttribute("createList", stadiumList);
-		RequestDispatcher rd = request.getRequestDispatcher("stadiumList.jsp");
+		String path = getServletContext().getRealPath(".");
+		StadiumListService stadiumlistService = new StadiumListService(path);
+		List<StadiumListVO> stadiumList = stadiumlistService.selectAllService();
+	
+		request.setAttribute("stadiumList", stadiumList);  //db데이터를 저장
+		RequestDispatcher rd = request.getRequestDispatcher("stadiumList.jsp");  //jsp가 stadiumList에 담긴 정보를 가져와서 사용
 		rd.forward(request, response);
 
 	}
@@ -48,6 +43,7 @@ public class StadiumListServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		// TODO Auto-generated method stub
+		
 		doGet(request, response);
 	}
 

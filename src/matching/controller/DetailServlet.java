@@ -10,8 +10,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import matching.model.Mat_createService;
-import matching.model.Mat_createVO;
+import matching.model.MatApplyService;
+import matching.model.MatCreateJoinVO;
+import matching.model.MatCreateService;
+import matching.model.MatCreateVO;
 
 /**
  * Servlet implementation class DetailServlet
@@ -19,7 +21,7 @@ import matching.model.Mat_createVO;
 @WebServlet("/matching/detail")
 public class DetailServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	private Mat_createService createService = new Mat_createService();
+	private MatCreateService createService;
        
     /**
      * @see HttpServlet#HttpServlet()
@@ -34,15 +36,16 @@ public class DetailServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		getData(request, response);
+		String dbPath = getServletContext().getRealPath(".");
+		createService = new MatCreateService(dbPath);
 		
 		// res_number값을 가지고 상세 정보를 보여준다.
 		// 작성자 아이디, 위치, 인원 현황? 등등...
-		Mat_createVO create = new Mat_createVO();
-		create = createService.selectById(Integer.parseInt(request.getParameter("mat_id")));
-		System.out.println(create);
+		MatCreateJoinVO createJoin = new MatCreateJoinVO();
+		createJoin = createService.selectById(Integer.parseInt(request.getParameter("mat_id")));
+		System.out.println(createJoin);
 		
-		request.setAttribute("create", create);
+		request.setAttribute("createJoin", createJoin);
 		
 		// 임시로 세션에 아이디와 비밀번호 저장 
         HttpSession session = request.getSession();

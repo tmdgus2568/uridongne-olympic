@@ -10,8 +10,12 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import review.model.ReviewService;
+import matching.model.Mat_createVO;
+import member.model.MemberService;
 import review.model.ReviewVO;
+import review.model.ReviewListVO;
+import review.model.ReviewService;
+
 
 /**
  * Servlet implementation class ReviewListServlet
@@ -20,17 +24,23 @@ import review.model.ReviewVO;
 public class ReviewListServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
+	private ReviewService reviewService;
+	
+	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		ReviewService reviewService = new ReviewService();
-		List<ReviewVO> reviewList = reviewService.selectAllReview();
 		
-		//리뷰리스트 출력 코드 추가!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+		String path = getServletContext().getRealPath(".");
+		reviewService = new ReviewService(path);
+		List<ReviewListVO> reviewList = reviewService.selectAllReview();
 		
-		request.setAttribute("reviewlist", reviewService.selectAllReview());//"사용할변수", 조회된 내용 전부 저장		
-		RequestDispatcher rd = request.getRequestDispatcher("reviewlist.jsp");//보여줄페이지
+		
+		for(ReviewListVO list : reviewList) {
+			System.out.println(list);
+		}
+		
+		
+		request.setAttribute("reviewList", reviewList);//"사용할변수", 조회된 내용 전부 저장		
+		RequestDispatcher rd = request.getRequestDispatcher("reviewList.jsp");//보여줄페이지
 		rd.forward(request, response);
 	}
 
