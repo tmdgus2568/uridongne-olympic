@@ -27,6 +27,6 @@
 	</div>
 	<button type="submit">완료</button>
 </form>
-<%@ include file="../footer.jsp" %>
+
 </body>
 </html>
