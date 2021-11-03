@@ -11,16 +11,33 @@ import uridongne.util.DBConnection;
 
 public class StadiumListDAO {
 	String path;
-	static final String SQL_SELECT_ALL = "select distinct stadium_name, payment_method, stadium_number, sports_name from stadium order by 1";
-	static final String SQL_SELECT_sports = "select stadium_name, payment_method, stadium_number, STADIUM_ADDRESS "
-			+ " from stadium where sports_name = ? and stadium_address like ? "
+	
+	
+	static final String SQL_SELECT_ALL = "select stadium_id, stadium_name, payment_method, "
+			+ " stadium_number, sports_name, location "
+			+ " from stadium "
 			+ " order by 1";
 	
+	static final String SQL_SELECT_sports = "select stadium_id, stadium_name, payment_method, "
+			+ " stadium_number, sports_name, location "
+			+ " from stadium where sports_name = ? and location like ? "
+			+ " order by 1";
 	
+	static final String SQL_SELECT_Address = "select address_x, address_y, stadium_address "
+			+ " from stadium ";
+	
+	static final String SQL_SELECT_Detail = "select * "
+			+ " from stadium "
+			+ " where stadium_id = ? "
+			+ " order by 1";
+	
+ 
 	public StadiumListDAO(String path) {
 		this.path=path;
 	}
-	//전체 경기장정보 리스트(필터전)
+	
+	
+	//전체 경기장정보 리스트(필터전 전체 화면)
 	public List<StadiumListVO> selectAll() {
 		List<StadiumListVO> stadiumList = new ArrayList<>();
 		Connection conn = null;
@@ -31,7 +48,7 @@ public class StadiumListDAO {
 			st = conn.prepareStatement(SQL_SELECT_ALL);
 			rs = st.executeQuery();
 			while (rs.next()) {
-				stadiumList.add( makeEmp1(rs));
+				stadiumList.add( make1(rs));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -40,17 +57,21 @@ public class StadiumListDAO {
 		}
 		return stadiumList;
 	}
-	private StadiumListVO makeEmp1(ResultSet rs) throws SQLException {
+	private StadiumListVO make1(ResultSet rs) throws SQLException {
 		StadiumListVO stadium=new StadiumListVO();
+		stadium.setStadium_id(rs.getString("stadium_id"));
 		stadium.setStadium_name(rs.getString("stadium_name"));
 		stadium.setPayment_method(rs.getString("payment_method"));
 		stadium.setStadium_number(rs.getInt("stadium_number"));
 		stadium.setSports_name(rs.getString("sports_name"));
+		stadium.setLocation(rs.getString("location"));
 		return stadium;
 	}
 	
+	
+	
 	//전체 경기장정보: 종목 및 지역 필터 리스트 
-	public List<StadiumListVO> selectSports(String sports_name, String stadium_address) {
+	public List<StadiumListVO> selectSports(String sports_name, String location) {
 		List<StadiumListVO> stadiumsprt = new ArrayList<>();
 		Connection conn = null;
 		PreparedStatement st = null;
@@ -59,11 +80,11 @@ public class StadiumListDAO {
 			conn=DBConnection.dbConnect(path);
 			st = conn.prepareStatement(SQL_SELECT_sports);
 			st.setString(1, sports_name);
-			st.setString(2, "%"+stadium_address+"%");
+			st.setString(2, "%"+location+"%");
 			rs = st.executeQuery();
 			while (rs.next()) {
-				stadiumsprt.add( makeEmp2(rs));
-				System.out.println(rs.getString("stadium_name"));
+				stadiumsprt.add( make2(rs));
+				//System.out.println(rs.getString("stadium_name"));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -72,12 +93,92 @@ public class StadiumListDAO {
 		}
 		return stadiumsprt;
 	}
-	private StadiumListVO makeEmp2(ResultSet rs) throws SQLException {
+	private StadiumListVO make2(ResultSet rs) throws SQLException {
 		StadiumListVO stadium=new StadiumListVO();
+		stadium.setStadium_name(rs.getString("stadium_id"));
 		stadium.setStadium_name(rs.getString("stadium_name"));
 		stadium.setPayment_method(rs.getString("payment_method"));
 		stadium.setStadium_number(rs.getInt("stadium_number"));
-		stadium.setStadium_address(rs.getString("stadium_address"));
+		stadium.setSports_name(rs.getString("sports_name"));
+		stadium.setLocation(rs.getString("location"));
 		return stadium;
 	}
+	
+	
+	//주소 가져오기: x, y좌표, 주소
+		public List<StadiumListVO> selectAddress() {
+			List<StadiumListVO> stadiumadr = new ArrayList<>();
+			Connection conn = null;
+			PreparedStatement st = null;
+			ResultSet rs = null;
+			try {
+				conn=DBConnection.dbConnect(path);
+				st = conn.prepareStatement(SQL_SELECT_Address);
+				//st.setString(1, sports_name);
+				//st.setString(2, "%"+location+"%");
+				rs = st.executeQuery();
+				while (rs.next()) {
+					stadiumadr.add( make3(rs));
+					//System.out.println(rs.getString("stadium_name"));
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			} finally {
+				DBConnection.dbClose(conn, st, rs);
+			}
+			return stadiumadr;
+		}
+		private StadiumListVO make3(ResultSet rs) throws SQLException {
+			StadiumListVO stadium=new StadiumListVO();
+			stadium.setAddress_x(rs.getString("address_x"));
+			stadium.setAddress_y(rs.getString("address_y"));
+			stadium.setStadium_address(rs.getString("stadium_address"));
+			return stadium;
+		}
+		
+		//디테일
+		public StadiumListVO selectDetail(String stadium_id) {
+			StadiumListVO stadiumdetail = null;
+			Connection conn = null;
+			PreparedStatement st = null;
+			ResultSet rs = null;
+			try {
+				conn=DBConnection.dbConnect(path);
+				st = conn.prepareStatement(SQL_SELECT_Detail);
+				st.setString(1, stadium_id);
+				rs = st.executeQuery();
+				while (rs.next()) {
+					stadiumdetail = make4(rs);
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			} finally {
+				DBConnection.dbClose(conn, st, rs);
+			}
+			return stadiumdetail;
+		}
+		private StadiumListVO make4(ResultSet rs) throws SQLException {
+			StadiumListVO stadium=new StadiumListVO();
+			stadium.setStadium_id(rs.getString("stadium_id"));
+			stadium.setStadium_name(rs.getString("stadium_name"));
+			stadium.setSports_name(rs.getString("sports_name"));
+			stadium.setLocation(rs.getString("location"));
+			stadium.setPayment_method(rs.getString("payment_method"));
+			stadium.setStadium_address(rs.getString("stadium_address"));
+			stadium.setAddress_x(rs.getString("address_x"));
+			stadium.setAddress_y(rs.getString("address_y"));
+			stadium.setStadium_phone(rs.getString("stadium_phone"));
+			stadium.setStadium_start(rs.getString("stadium_start"));
+			stadium.setStadium_end(rs.getString("stadium_end"));
+			stadium.setStadium_photo(rs.getString("stadium_photo"));
+			stadium.setStadium_number(rs.getInt("stadium_number"));
+			stadium.setMat_max(rs.getInt("mat_max"));
+			stadium.setStadium_parking(rs.getInt("stadium_parking"));
+			stadium.setStadium_shower(rs.getInt("stadium_shower"));
+			stadium.setStadium_char(rs.getString("stadium_char"));
+			return stadium;
+		}
+
+
+		
 }

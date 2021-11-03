@@ -10,21 +10,25 @@
 </head>
 <body>
 	<div>
-		<h3>경기장 목록</h3>
-		<table>
-			<tr>
-				<th>경기장명</th>
-				<th>이용요금</th>
-				<th>수용가능인원</th>
-				<th>경기장종류</th>
-			</tr>
+			<h3>경기장 목록</h3>
+		<table class="table">
+			<thead>
+				<th scope="col">경기장번호</th>
+				<th scope="col">경기장명</th>
+				<th scope="col">이용요금</th>
+				<th scope="col">수용가능인원</th>
+				<th scope="col">경기장종류</th>
+				<th scope="col">지역</th>
+				</tr>
 			<tbody>
-				<c:forEach var="stadium" items="${stadiumList }">
+				<c:forEach var="stadium" items="${stadiumList}">
 					<tr>
-						<td><a href="detail?id=${stadium.stadium_name }">${stadium.stadium_name }</a></td>
-						<td>${stadium.payment_method }</td>
+						<td><a href="stadiumDetail?id=${stadium.stadium_id}">${stadium.stadium_id}</a></td>
+						<td>${stadium.stadium_name}</td>
+						<td>${stadium.payment_method}</td>
 						<td>${stadium.stadium_number}</td>
 						<td>${stadium.sports_name}</td>
+						<td>${stadium.location}</td>
 					</tr>
 				</c:forEach>
 
