@@ -128,6 +128,8 @@ $(function(){
 		$('.money').text("약 "+Math.ceil(10000/$(this).val()) + " 원");
 		
 	});	
+	
+	
 });
 
 </script>
@@ -167,7 +169,7 @@ $(function(){
 		
 		</div>
 		<div align="center" class="buttons">
-			<input type="button" value="취소하기">
+			<input type="button" value="취소하기" id="cancel_btn">
 			<input type="submit" value="생성하기">
 		</div>
 	</form>
