@@ -2,17 +2,17 @@ package review.model;
 
 import java.sql.Date;
 
-public class ReviewPossVO {
+public class ReviewInfoVO {
 	private String stadium_name; 
 	private String sports_name;
 	private Date res_date;
 	private Date play_date;
 	
-	public ReviewPossVO() {
+	public ReviewInfoVO() {
 		
 	}
 	
-	public ReviewPossVO(String stadium_name, String sports_name, Date res_date, Date play_date) {
+	public ReviewInfoVO(String stadium_name, String sports_name, Date res_date, Date play_date) {
 		super();
 		this.stadium_name = stadium_name;
 		this.sports_name = sports_name;

@@ -1,5 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
-	pageEncoding="EUC-KR"%>
+<%@ page language="java" contentType="text/html; charset=EUC-KR" pageEncoding="EUC-KR"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -8,7 +8,7 @@
 <link href="../css/starRating.css" rel="stylesheet" type="text/css">
 <script src="http://code.jquery.com/jquery-latest.min.js"></script>
 <script>
-   function readURL(input) {
+   /* function readURL(input) {
       if (input.files && input.files[0]) {
 	      var reader = new FileReader();
 	      reader.onload = function (e) {
@@ -16,7 +16,7 @@
           }
          reader.readAsDataURL(input.files[0]);
       }
-  }  
+  }   */
   function backToList(obj){
     obj.action="list";
     obj.submit();
@@ -25,26 +25,40 @@
 </head>
 <body>
 	<h1 style="text-align: center">${review.user_id}님 후기를 남겨주세요!</h1>
-	<h3 style="text-align: center">${review.stadium_name}의 시설 이용에 얼마나 만족하셨나요?</h3>
-	<form name="reviewForm" method="post"  action="list"
-		action="${contextPath}/upload.do" 
-		enctype="multipart/form-data">
+	<h3 style="text-align: center">${review.stadium_name}시설 이용에 얼마나 만족하셨나요?</h3>
+	<table align="center" border="1" width="80%">
+	<tr height="10" align="center">
+			<td>경기장</td>
+			<td>종목</td>
+			<td>예약일</td>
+			<td>경기일</td>			
+		</tr>
+		<c:forEach var="info" items="${infoList }">
+			<tr align="center">
+				<td>${info.stadium_name}</td>
+				<td>${info.sports_name }</td>
+				<td>${info.res_date }</td>
+				<td>${info.play_date }</td>						
+			</tr>
+		</c:forEach>
+	</table>
+	<form action="reviewinsert" name="reviewForm" method="post">
 		<table border=0 align="center">
 		<tr>
 				<!-- 평점 선택창 -->
     			<f:label path="rating">
 	    			<td align="right">평가:</td>
-	    			<td align="right">
+	    			<td align="left">
 		    			<div class="star-rating space-x-4 mx-auto">
-							<input type="radio" id="5-stars" name="rating" value="5" v-model="ratings"/>
+							<input type="radio" id="5-stars" name="review_star" value="5" v-model="ratings"/>
 							<label for="5-stars" class="star pr-4">★</label>
-							<input type="radio" id="4-stars" name="rating" value="4" v-model="ratings"/>
+							<input type="radio" id="4-stars" name="review_star" value="4" v-model="ratings"/>
 							<label for="4-stars" class="star">★</label>
-							<input type="radio" id="3-stars" name="rating" value="3" v-model="ratings"/>
+							<input type="radio" id="3-stars" name="review_star" value="3" v-model="ratings"/>
 							<label for="3-stars" class="star">★</label>
-							<input type="radio" id="2-stars" name="rating" value="2" v-model="ratings"/>
+							<input type="radio" id="2-stars" name="review_star" value="2" v-model="ratings"/>
 							<label for="2-stars" class="star">★</label>
-							<input type="radio" id="1-star" name="rating" value="1" v-model="ratings" />
+							<input type="radio" id="1-star" name="review_star" value="1" v-model="ratings" />
 							<label for="1-star" class="star">★</label>
 						</div>
 					</td>
@@ -55,14 +69,12 @@
 				<td colspan=2><textarea name="review_content" rows="10" cols="65"
 						maxlength="4000"></textarea></td>
 			</tr>
-						
-			
-			<tr>
+									
+			<!-- <tr>
 				<td align="right">이미지 첨부:</td>
-				<td><input type="file" name="review_photo"
-					onchange="readURL(this);" /></td>
+				<td><input type="file" name="review_photo" /></td>
 				<td><img id="preview" src="#" width=200 height=200 /></td>
-			</tr>
+			</tr> -->
 
 			<tr>
 				<td align="right"></td>
