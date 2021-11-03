@@ -39,6 +39,7 @@ public class MatCreateJoinVO {
 	int stadium_parking;	
 	int stadium_shower;	
 	String stadium_char;
+	String location;
 	
 	public MatCreateJoinVO() {
 		super();
@@ -228,6 +229,12 @@ public class MatCreateJoinVO {
 	}
 	public void setStadium_char(String stadium_char) {
 		this.stadium_char = stadium_char;
+	}
+	public String getLocation() {
+		return location;
+	}
+	public void setLocation(String location) {
+		this.location = location;
 	}
 	
 	

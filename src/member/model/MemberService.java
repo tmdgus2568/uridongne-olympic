@@ -17,4 +17,12 @@ public class MemberService {
 		return null;
 	}
 
+	public MemberVO kakaoLoginCheck(String user_id) {
+		return dao.kakaoLoginCheck(user_id);
+	}
+
+	public MemberVO generalLoginCheck(String user_id, String user_pw) {
+		return dao.generalLoginCheck(user_id, user_pw);
+	}
+
 }

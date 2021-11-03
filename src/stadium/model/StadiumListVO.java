@@ -17,15 +17,18 @@ public class StadiumListVO {
 	int stadium_parking;	
 	int stadium_shower;	
 	String stadium_char;
+	String location;
+	
 	
 	public StadiumListVO() {
 		
 	}
 	
+
 	public StadiumListVO(String stadium_id, String stadium_name, String sports_name, String payment_method,
 			String stadium_address, String address_x, String address_y, String stadium_phone, String stadium_start,
 			String stadium_end, String stadium_photo, int stadium_number, int mat_max, int stadium_parking,
-			int stadium_shower, String stadium_char) {
+			int stadium_shower, String stadium_char, String location) {
 		super();
 		this.stadium_id = stadium_id;
 		this.stadium_name = stadium_name;
@@ -43,8 +46,10 @@ public class StadiumListVO {
 		this.stadium_parking = stadium_parking;
 		this.stadium_shower = stadium_shower;
 		this.stadium_char = stadium_char;
+		this.location = location;
 	}
-
+	
+	
 	
 	public String getStadium_id() {
 		return stadium_id;
@@ -174,15 +179,25 @@ public class StadiumListVO {
 		this.stadium_char = stadium_char;
 	}
 
+	public String getLocation() {
+		return location;
+	}
+
+	public void setLocation(String location) {
+		this.location = location;
+	}
+
+	
 	@Override
 	public String toString() {
-		return "stadiumListDTO [stadium_id=" + stadium_id + ", stadium_name=" + stadium_name + ", sports_name="
+		return "StadiumListVO [stadium_id=" + stadium_id + ", stadium_name=" + stadium_name + ", sports_name="
 				+ sports_name + ", payment_method=" + payment_method + ", stadium_address=" + stadium_address
 				+ ", address_x=" + address_x + ", address_y=" + address_y + ", stadium_phone=" + stadium_phone
 				+ ", stadium_start=" + stadium_start + ", stadium_end=" + stadium_end + ", stadium_photo="
 				+ stadium_photo + ", stadium_number=" + stadium_number + ", mat_max=" + mat_max + ", stadium_parking="
-				+ stadium_parking + ", stadium_shower=" + stadium_shower + ", stadium_char=" + stadium_char + "]";
-	}	
+				+ stadium_parking + ", stadium_shower=" + stadium_shower + ", stadium_char=" + stadium_char
+				+ ", location=" + location + "]";
+	}
 	
 	
 }

@@ -3,7 +3,7 @@ package stadium.model;
 import java.util.List;
 
 public class StadiumListService {
-	StadiumListDAO stadiumListdao; 
+	StadiumListDAO stadiumListdao;
 
 	public StadiumListService(String path) {
 		stadiumListdao = new StadiumListDAO(path);
@@ -12,9 +12,17 @@ public class StadiumListService {
 	public List<StadiumListVO> selectAllService() {
 		return stadiumListdao.selectAll();
 	}
-	
-	public List<StadiumListVO> selectSports(String sports_name, String stadium_address) {
-		return stadiumListdao.selectSports(sports_name, stadium_address);
+
+	public List<StadiumListVO> selectSports(String sports_name, String location) {
+		return stadiumListdao.selectSports(sports_name, location);
+	}
+
+	public List<StadiumListVO> selectAddress() {
+		return stadiumListdao.selectAddress();
+	}
+
+	public StadiumListVO selectDetail(String stadium_id) {
+		return stadiumListdao.selectDetail(stadium_id);
 	}
 
 }

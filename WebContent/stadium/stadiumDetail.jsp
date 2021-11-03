@@ -6,9 +6,18 @@
 <meta charset="utf-8">
 <title>경기장 상세정보</title>
 <style>
+.imagearea {
+	width: 50%
+}
+
+.Detailarea {
+	width: 50%
+}
+.flex-row{display:flex;}
+
 .map_wrap {
 	position: relative;
-	width: 100%;
+	width: 80%;
 	height: 350px;
 }
 
@@ -43,47 +52,81 @@
 </style>
 </head>
 <body>
-	<div>
-		<h3>경기장 정보</h3>
-		<div>
-			<div>경기장명: ${stadium.stadium_name}</div>
-			<div>이용요금: ${stadium.payment}</div>
-			<div>수용가능인원: ${stadium.stadium_number}</div>
-			<div>경기가능인원: ${stadium.mat_max}</div>
-			<div>경기장종류: ${stadium.sports_name}</div>
-			<div>경기장연락처: ${stadium.stadium_phone}</div>
-			<div>경기장주소: ${stadium.stadium_address}</div>
-			<div>이용시작일: ${stadium.stadium_start}</div>
-			<div>이용종료일: ${stadium.stadium_end}</div>
-			<div>경기장주소: ${stadium.stadium_address}</div>
-			<div>주차가능여부: ${stadium.stadium_parking}</div>
-			<div>샤워시설유무: ${stadium.stadium_shower}</div>
-			<div>상세정보: ${stadium.stadium_char}</div>
-			
+
+<h1>경기장 정보</h1>
+
+	<section class="imagearea">
+		<p><img src="${stadium.stadium_photo}" width="500"><p>
+
+	<aside class="Detailarea">
+				<div>
+					<div>
+						<div>경기장명: ${stadium.stadium_name}</div>
+						<div>이용요금: ${stadium.payment_method}</div>
+						<div>수용가능인원: ${stadium.stadium_number}</div>
+						<div>매칭총인원: ${stadium.mat_max}</div>
+						<div>경기장종류: ${stadium.sports_name}</div>
+						<div>경기장연락처: ${stadium.stadium_phone}</div>
+						<div>경기장주소: ${stadium.location}</div>
+						<div>이용시작일: ${stadium.stadium_start}</div>
+						<div>이용종료일: ${stadium.stadium_end}</div>
+						<div>경기장주소: ${stadium.stadium_address}</div>
+						<div>주차가능여부: ${stadium.stadium_parking}</div>
+						<div>샤워시설유무: ${stadium.stadium_shower}</div>
+						<div>상세정보: ${stadium.stadium_char}</div>
+						<div>x좌표: ${stadium.address_x}</div>
+						<div>y좌표: ${stadium.address_y}</div>
+						<%-- <div>사진: ${stadium.stadium_photo}</div> --%>
+					</div>
+					<button onClick="review(${review.review_id})">상세리뷰 보러가기>>></button>
+					<br> <br>
+
+				</div>
+			</form>
+		</aside>
+
+		<!-- 카카오맵  -->
+		<div class="map_wrap">
+			<div id="map"
+				style="width: 80%; height: 100%; position: relative; overflow: hidden;"></div>
+			<div class="hAddr">
+				<span class="title">지도중심기준 행정동 주소정보</span> <span id="centerAddr"></span>
+			</div>
 		</div>
-		<button onClick="review(${review.review_id})">상세리뷰 보러가기>>></button><br><br>
 
+		<script type="text/javascript"
+			src="//dapi.kakao.com/v2/maps/sdk.js?appkey=710efed9d2e1e3e45ce6777b45016c59&libraries=services"></script>
+		<script>
+		
+	<%--	let lat = ${stadium.address_x};
+		let lng = ${stadium.address_y};
+		getAddr(lat,lng);
+		function getAddr(lat,lng){
+		    let geocoder = new kakao.maps.services.Geocoder();
 
-	</div>
+		    let coord = new kakao.maps.LatLng(lat, lng);
+		    let callback = function(result, status) {
+		        if (status === kakao.maps.services.Status.OK) {
+		            console.log(result);
+		        }
+		    };
 
-	<div class="map_wrap">
-		<div id="map"
-			style="width: 100%; height: 100%; position: relative; overflow: hidden;"></div>
-		<div class="hAddr">
-			<span class="title">지도중심기준 행정동 주소정보</span> <span id="centerAddr"></span>
-		</div>
-	</div>
-
-	<script type="text/javascript"
-		src="//dapi.kakao.com/v2/maps/sdk.js?appkey=710efed9d2e1e3e45ce6777b45016c59&libraries=services"></script>
-	<script>
+		    geocoder.coord2Address(coord.getLng(), coord.getLat(), callback);
+		}
+	
+		
+		
+	   var lat = ${stadium.address_x};
+	   alert(lat);
+	
+	--%>
 		var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
 		mapOption = {
 			center : new kakao.maps.LatLng(37.566826, 126.9786567), // 지도의 중심좌표
 			level : 1
 		// 지도의 확대 레벨
 		};
-
+ 
 		// 지도를 생성합니다    
 		var map = new kakao.maps.Map(mapContainer, mapOption);
 
