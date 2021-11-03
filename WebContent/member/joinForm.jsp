@@ -13,7 +13,6 @@
 			<tr>
 				<td>아이디</td>
 				<td><input type="text" id="user_id" name="user_id">
-				<div class="check_font" id="id_check"></div>
 				<td>
 			</tr>
 			<tr>
@@ -26,7 +25,7 @@
 			</tr>
 			<tr>
 				<td>생년월일</td>
-				<td><input type="text" id="user_birth" name="user_birth"></td>
+				<td><input type="date" id="user_birth" name="user_birth"></td>
 			</tr>
 			<tr>
 				<td>이메일</td>
@@ -39,7 +38,7 @@
 			<tr>
 				<td>도시</td>
 				<td><input type="text" id="user_city" name="user_city"
-					value="서울특별시"></td>
+					value="서울특별시" readonly="readonly"></td>
 			</tr>
 			<tr>
 				<td>구</td>
@@ -74,17 +73,19 @@
 			<tr>
 				<td>관심 종목</td>
 				<td><input type="checkbox" name="user_interest" value="농구">농구
-					<input type="checkbox" name="user_interest" value="배구">배구 <input
-					type="checkbox" name="user_interest" value="배드민턴">배드민턴 <input
-					type="checkbox" name="user_interest" value="야구">야구 <br>
-					<input type="checkbox" name="user_interest" value="족구">족구 <input
-					type="checkbox" name="user_interest" value="축구">축구 <input
-					type="checkbox" name="user_interest" value="탁구">탁구 <input
-					type="checkbox" name="user_interest" value="테니스">테니스 <input
-					type="checkbox" name="user_interest" value="풋살">풋살</td>
+					<input type="checkbox" name="user_interest" value="배구">배구 
+					<input type="checkbox" name="user_interest" value="배드민턴">배드민턴 
+					<input type="checkbox" name="user_interest" value="야구">야구 
+					<br>
+					<input type="checkbox" name="user_interest" value="족구">족구 
+					<input type="checkbox" name="user_interest" value="축구">축구 
+					<input type="checkbox" name="user_interest" value="탁구">탁구 
+					<input type="checkbox" name="user_interest" value="테니스">테니스 
+					<input type="checkbox" name="user_interest" value="풋살">풋살
+				</td>
 			</tr>
 		</table>
-
+		<input type="hidden" id="login_platform" name="login_platform" value="일반">
 		<input type="submit" value="회원가입">
 		<input type="reset" value="재입력">
 	</form>
