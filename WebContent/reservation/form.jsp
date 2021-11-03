@@ -1,5 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -17,23 +20,34 @@
 	.refer{font-size: 12px}
 </style>
 <script>
+	//종목선택 > 지역옵션 표시
 	$(function() {
 		$("#sports_name").change(function() {
-			$.ajax({ //종목 이름이 서블릿으로 넘어감
+			$.ajax({
 				url : "getRegionBySports",
 				data : {
 					"sports_name" : $("#sports_name").val()
 				},
 				success : function(responseData) {
-					$("#stadium_address").html(responseData);
+					$("#location").html(responseData);
 				}
 			});
 		});
 	});
-
+	
+	//지역선택 > datepicker 표시
+	$(function() {
+		$("#location").change(function() {
+			if($("#hide").css("display") == "none"){
+				$("#hide").show();
+			}
+		});
+	});
+	
+	//날짜선택 > 예약가능 경기장 표시
 	$(function() {
 		$("#datepicker").change(function() {
-			$.ajax({ //날짜가 서블릿으로 넘어감
+			$.ajax({ //날짜,종목,지역이 서블릿으로 넘어감
 				url : "getStadiumByDate",
 				data : {
 					"datepicker" : $("#datepicker").val(),
@@ -47,9 +61,16 @@
 		});
 	});
 	
+	//datepicker 옵션
 	$(function() {
 		$("#datepicker").datepicker({
-			minDate : 0
+			minDate : 0,
+			dateFormat: 'yy/mm/dd',
+			dayNamesMin: ['일', '월', '화', '수', '목', '금', '토'],
+			monthNames: ['1월','2월','3월','4월','5월','6월', '7월','8월','9월','10월','11월','12월'],
+			monthNamesShort: ['1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월'], 
+			showMonthAfterYear: true,
+			yearSuffix: "년"
 		});
 	});
 </script>
@@ -73,9 +94,9 @@
 				<option value="풋살장">풋살</option>
 			</select>
 
-			<span id="stadium_address"> </span>
+			<span id="location"> </span>
 
-			<p><input type="text" id="datepicker" name="datepicker" value="날짜선택"> </p>
+			<span id="hide" style="display: none;"><input type="text" id="datepicker" name="datepicker" value="📅 경기일 선택"> </span>
 			
 			<p id="availStaduim"> </p>
 
@@ -84,24 +105,24 @@
 		
 		<!-- 나의예약정보 -->
 		<aside class="reserveDetails">
-			<form name="reserveInfo" method="get" action="reserveConfirmed">
+			<form name="reserveInfo" method="post" action="reserveConfirmed">
 				<h3>나의 예약 정보</h3>
 				<hr>
 				<table>
 					<tr>
-						<td>이용장소</td>
+						<td>🌈 경기장소</td>
+						<td id="seletedStadium"></td>
+					</tr>
+					<tr>
+						<td>🌈 경기일자</td>
+						<td id="seletedDate"></td>
+					</tr>
+					<tr>
+						<td>🌈 경기시간</td>
 						<td></td>
 					</tr>
 					<tr>
-						<td>이용일자</td>
-						<td></td>
-					</tr>
-					<tr>
-						<td>이용시간</td>
-						<td></td>
-					</tr>
-					<tr>
-						<td>취소기간</td>
+						<td>🌈 취소기간</td>
 						<td></td>
 					</tr>
 					<tr>
@@ -109,7 +130,7 @@
 						<td class="refer">(이용일 5일 전까지 취소 가능)</td>
 					</tr>
 					<tr>
-						<td>결제금액</td>
+						<td>🌈 결제금액</td>
 						<td></td>
 					</tr>
 					<tr>

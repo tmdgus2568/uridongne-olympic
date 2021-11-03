@@ -1,5 +1,6 @@
 package reservation.model;
 
+import java.util.List;
 import java.util.Set;
 
 public class ReservationService {
@@ -16,7 +17,12 @@ public class ReservationService {
 		return dao.selectBySports(sports);
 	}
 
-	public Object getStadiumByDate(String sports_name, String datepicker, String region) {
-		return dao.getStadiumByDate(sports_name, datepicker, region);
+	public List<AvailStadiumVO> getStadiumByDate(String sports_name, String region, String datepicker) {
+		return dao.getStadiumByDate(sports_name, region, datepicker);
+	}
+
+	public Object getAvailTime(String sports_name, String region, String datepicker) {
+		
+		return dao.getAvailTime(sports_name, region, datepicker);
 	}
 }
