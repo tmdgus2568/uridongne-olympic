@@ -1,0 +1,8 @@
+@charset "UTF-8";
+
+/* 메뉴바 밑 부터의 모든 내용부분 */
+.content{
+	width:960px;
+	margin:0 auto;
+	padding-top:50px;
+}
