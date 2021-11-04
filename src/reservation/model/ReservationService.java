@@ -21,8 +21,4 @@ public class ReservationService {
 		return dao.getStadiumByDate(sports_name, region, datepicker);
 	}
 
-	public Object getAvailTime(String sports_name, String region, String datepicker) {
-		
-		return dao.getAvailTime(sports_name, region, datepicker);
-	}
 }
