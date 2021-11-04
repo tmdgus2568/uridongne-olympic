@@ -1,12 +1,46 @@
 <%@page import="member.model.MemberVO"%>
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
-	pageEncoding="EUC-KR"%>
-<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="EUC-KR">
+<meta charset="UTF-8">
 <title>Insert title here</title>
+<style type="text/css">
+ul {
+	list-style-type: none;
+	padding: 0px;
+	margin: 0px;
+	width: 100px;
+	background: white;
+	height: 100%;
+	overflow: auto;
+	position: fixed;
+}
+
+li a {
+	text-decoration: none;
+	padding: 10px;
+	display: block;
+	color: #000;
+	font-weight: bold;
+}
+
+li a:hover {
+	background: #333;
+	color: #fff;
+}
+
+li a.home {
+	background: #333;
+	color: #fff;
+}
+
+.cd1 {
+	margin-left: 120px;
+}
+</style>
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 
@@ -15,103 +49,84 @@
 		$('#user_state').val("${member.getUser_state() }").prop("selected",
 				true);
 	});
-	
+
 	$(function() {
 
-		   var strData = "${member.getUser_interest() }";
-		   var arrInterest = strData.split(", ");
-		   
-		   console.log(arrInterest[0]);
+		var strData = "${member.getUser_interest() }";
+		var arrInterest = strData.split(", ");
 
-		    $('.user_interest').prop('checked', false); // ÀÏ´Ü ¸ğµÎ uncheck
+		console.log(arrInterest[0]);
 
-		    for (var nArrCnt in arrInterest) {
+		$('.user_interest').prop('checked', false); // ì¼ë‹¨ ëª¨ë‘ uncheck
 
-		                    $("input[name=user_interest][value="+arrInterest[nArrCnt]+"]").prop("checked",true);
+		for ( var nArrCnt in arrInterest) {
 
-		    }    
+			$("input[name=user_interest][value=" + arrInterest[nArrCnt] + "]")
+					.prop("checked", true);
 
-		});
-	
+		}
+
+	});
 </script>
 </head>
 <body>
-	
-	<table>
-		<tr>
-			<td>¾ÆÀÌµğ</td>
-			<td><input type="text" id="user_id" name="user_id"
-				value="${member.getUser_id() }"></td>
-			<td>
-		</tr>
-		<tr>
-			<td>ÀÌ¸§</td>
-			<td><input type="password" id="user_name" name="user_name"
-				value="${member.getUser_name() }"></td>
-		</tr>
-		<tr>
-			<td>»ı³â¿ùÀÏ</td>
-			<td><input type="text" id="date" name="date"
-				value="${member.getUser_birth() }"></td>
-		</tr>
-		<tr>
-			<td>ÀÌ¸ŞÀÏ</td>
-			<td><input type="text" id="email" name="email"
-				value="${member.getUser_email() }"></td>
-		</tr>
-		<tr>
-			<td>ÀüÈ­¹øÈ£</td>
-			<td><input type="text" id="user_phone" name="user_phone"
-				value="${member.getUser_phone() }"></td>
-		</tr>
-		<tr>
-			<td>µµ½Ã</td>
-			<td><input type="text" id="user_city" name="user_city"
-				value="¼­¿ïÆ¯º°½Ã" readonly="readonly"></td>
-		</tr>
-		<tr>
-			<td>±¸</td>
-			<td><select id="user_state" name="user_state">
-					<option value="°­³²±¸">°­³²±¸</option>
-					<option value="°­µ¿±¸">°­µ¿±¸</option>
-					<option value="°­ºÏ±¸">°­ºÏ±¸</option>
-					<option value="°­¼­±¸">°­¼­±¸</option>
-					<option value="°ü¾Ç±¸">°ü¾Ç±¸</option>
-					<option value="°ü¾Ç±¸">°ü¾Ç±¸</option>
-					<option value="±¸·Î±¸">±¸·Î±¸</option>
-					<option value="±İÃµ±¸">±İÃµ±¸</option>
-					<option value="³ë¿ø±¸">³ë¿ø±¸</option>
-					<option value="µµºÀ±¸">µµºÀ±¸</option>
-					<option value="µ¿´ë¹®±¸">µ¿´ë¹®±¸</option>
-					<option value="µ¿ÀÛ±¸">µ¿ÀÛ±¸</option>
-					<option value="¸¶Æ÷±¸">¸¶Æ÷±¸</option>
-					<option value="¼­´ë¹®±¸">¼­´ë¹®±¸</option>
-					<option value="¼­ÃÊ±¸">¼­ÃÊ±¸</option>
-					<option value="¼ºµ¿±¸">¼ºµ¿±¸</option>
-					<option value="¼ººÏ±¸">¼ººÏ±¸</option>
-					<option value="¼ÛÆÄ±¸">¼ÛÆÄ±¸</option>
-					<option value="¾çÃµ±¸">¾çÃµ±¸</option>
-					<option value="¿µµîÆ÷±¸">¿µµîÆ÷±¸</option>
-					<option value="¿ë»ê±¸">¿ë»ê±¸</option>
-					<option value="ÀºÆò±¸">ÀºÆò±¸</option>
-					<option value="Á¾·Î±¸">Á¾·Î±¸</option>
-					<option value="Áß±¸">Áß±¸</option>
-					<option value="Áß¶û±¸">Áß¶û±¸</option>
-			</select></td>
-		</tr>
-		<tr>
-			<td>°ü½É Á¾¸ñ</td>
-			<td><input type="checkbox" name="user_interest" id="³ó±¸" value="³ó±¸">³ó±¸
-				<input type="checkbox" name="user_interest" value="¹è±¸">¹è±¸ <input
-				type="checkbox" name="user_interest" value="¹èµå¹ÎÅÏ">¹èµå¹ÎÅÏ <input
-				type="checkbox" name="user_interest" value="¾ß±¸">¾ß±¸ <br>
-				<input type="checkbox" name="user_interest" value="Á·±¸">Á·±¸ <input
-				type="checkbox" name="user_interest" value="Ãà±¸">Ãà±¸ <input
-				type="checkbox" name="user_interest" value="Å¹±¸">Å¹±¸ <input
-				type="checkbox" name="user_interest" value="Å×´Ï½º">Å×´Ï½º <input
-				type="checkbox" name="user_interest" value="Ç²»ì">Ç²»ì</td>
-			<td>${member.getUser_interest() }</td>
-		</tr>
-	</table>
+
+
+
+	<div id="main" style="margin-top: 10px;">
+		<div id="left_main"
+			style="height: 300px; width: 100px; margin-right: 10px; float: left;">
+
+			<ul>
+				<li><a class="home" href="#">ë§ˆì´í˜ì´ì§€</a></li>
+				<li><a href="#">ê²½ê¸°ì¥ì˜ˆì•½</a></li>
+				<li><a href="#">ë§¤ì¹­</a></li>
+				<li><a href="#">ë¦¬ë·°</a></li>
+			</ul>
+		</div>
+
+		<div id="right_main" style="height: 300px; width: 490px; float: left;">
+
+	<h2> ë§ˆì´í˜ì´ì§€ </h2>
+
+			<table border="1">
+				<tr>
+					<td>ì•„ì´ë””</td>
+					<td>${member.user_id}</td>
+				</tr>
+				<tr>
+					<td>ì´ë¦„</td>
+					<td>${member.getUser_name() }</td>
+				</tr>
+				<tr>
+					<td>ìƒë…„ì›”ì¼</td>
+					<td>${member.getUser_birth() }</td>
+				</tr>
+				<tr>
+					<td>ì´ë©”ì¼</td>
+					<td>${member.getUser_email() }</td>
+				</tr>
+				<tr>
+					<td>ì „í™”ë²ˆí˜¸</td>
+					<td>${member.getUser_phone() }</td>
+				</tr>
+				<tr>
+					<td>ë„ì‹œ</td>
+					<td>${member.user_city }</td>
+				</tr>
+				<tr>
+					<td>êµ¬</td>
+					<td>${member.user_state }</td>
+				</tr>
+				<tr>
+					<td>ê´€ì‹¬ ì¢…ëª©</td>
+					<td>${member.getUser_interest() }</td>
+				</tr>
+			</table>
+
+			<br> <a href="mypageUpdate.jsp">ìˆ˜ì •í•˜ê¸°</a> <a>íƒˆí‡´í•˜ê¸°</a>
+
+		</div>
+	</div>
 </body>
 </html>

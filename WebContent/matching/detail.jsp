@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -80,7 +81,7 @@
 			<td class="td_title">인원 수</td>
 			<td>${createJoin.nowjoin_people}/${createJoin.mat_people}</td>
 			<td class="td_title">1인당 예상가격</td>
-			<td>약 ${createJoin.stadium_price/createJoin.mat_people}원</td>
+			<td>약 <fmt:parseNumber value="${createJoin.stadium_price/createJoin.mat_people}" integerOnly="true"/>원</td>
 		</tr>
 		<tr>
 			<td colspan="6" style="text-align:left;">${createJoin.mat_content}</td>

@@ -1,6 +1,8 @@
 package matching.model;
 
+import java.sql.CallableStatement;
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -144,6 +146,60 @@ public class MatCreateDAO {
 			DBConnection.dbClose(conn, st, rs);
 		}
 		return createJoinList;
+	}
+	
+	// 매칭 방을 만든다 
+	public int insertCreateAndRes(MatCreateVO create, ReservationVO reservation) {
+		Connection conn = null;
+		CallableStatement st = null;
+		
+		int result = 0;
+		
+ /*	    I_STADIUM_ID in date,
+	    I_USER_ID in varchar2,
+	    I_PLAY_DATE in date,
+	    I_PLAY_START in date,
+	    I_PLAY_END in date,
+	    I_STADIUM_PRICE in number,
+	    I_MAT_PEOPLE in number,
+	    I_MAT_TITLE in varchar2,
+	    I_MAT_CONTENT in varchar2  */
+		
+		
+		try {
+			conn = DBConnection.dbConnect(path);
+			st = conn.prepareCall("{call matching_create_proc(?,?,?,?,?,?,?,?,?)}");
+			st.setString(1, reservation.getStadium_id());
+			st.setString(2, reservation.getUser_id());
+			st.setDate(3, new Date(System.currentTimeMillis()));
+			st.setDate(4, new Date(System.currentTimeMillis()));
+			st.setDate(5, new Date(System.currentTimeMillis()));
+			st.setInt(6, reservation.getStadium_price());
+			st.setInt(7, create.getMat_people());
+			st.setString(8, create.getMat_title());
+			st.setString(9, create.getMat_content());
+			
+			result = st.executeUpdate();
+			
+			return result;
+			
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			DBConnection.dbClose(conn, st, null);
+		}
+		
+		try {
+			conn.rollback();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return result;
+		
+		
 	}
 	
 	

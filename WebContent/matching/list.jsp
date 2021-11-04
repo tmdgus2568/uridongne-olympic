@@ -17,6 +17,7 @@
 		
 		.search_style{
 			margin-left:8px;
+			padding-left:8px;
 			width:300px;
 			height:28px;
 			border-radius:10px;
@@ -82,7 +83,7 @@ $(function(){
 </head>
 <body>
 <%@ include file="../header.jsp" %>
-<div class="content" text-align="center">
+<div class="content">
 	<h2>매칭 참여</h2>
 	<form method="get" id="search" align="right">
 		<div>

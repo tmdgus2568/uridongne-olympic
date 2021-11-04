@@ -25,7 +25,7 @@ public class StadiumDetailServlet extends HttpServlet {
 		StadiumListService stadiumlistService = new StadiumListService(path);
 		String stadiumid = request.getParameter("id");
 		StadiumListVO stadiumDetail = stadiumlistService.selectDetail(stadiumid);
-		
+		System.out.println(stadiumid);
 		request.setAttribute("stadium", stadiumDetail);  //db데이터를 저장
 		RequestDispatcher rd = request.getRequestDispatcher("stadiumDetail.jsp");  //jsp가 stadiumList에 담긴 정보를 가져와서 사용
 		rd.forward(request, response);

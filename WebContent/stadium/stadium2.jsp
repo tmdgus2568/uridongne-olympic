@@ -1,5 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
-	pageEncoding="EUC-KR"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 <!DOCTYPE html>
@@ -10,15 +10,16 @@
 </head>
 <body>
 	<div>
-			<h3>°æ±âÀå ¸ñ·Ï</h3>
-		<table class="table">
+			<h3>ê²½ê¸°ìž¥ ëª©ë¡</h3>
+	<!-- 	<table class="table"> -->
+	<table border="1" class="table_style" align="center">
 			<thead>
-				<th scope="col">°æ±âÀå¹øÈ£</th>
-				<th scope="col">°æ±âÀå¸í</th>
-				<th scope="col">ÀÌ¿ë¿ä±Ý</th>
-				<th scope="col">¼ö¿ë°¡´ÉÀÎ¿ø</th>
-				<th scope="col">°æ±âÀåÁ¾·ù</th>
-				<th scope="col">Áö¿ª</th>
+				<th scope="col">ê²½ê¸°ìž¥ë²ˆí˜¸</th>
+				<th scope="col">ê²½ê¸°ìž¥ëª…</th>
+				<th scope="col">ì´ìš©ìš”ê¸ˆ</th>
+				<th scope="col">ìˆ˜ìš©ê°€ëŠ¥ì¸ì›</th>
+				<th scope="col">ê²½ê¸°ìž¥ì¢…ë¥˜</th>
+				<th scope="col">ì§€ì—­</th>
 				</tr>
 			<tbody>
 				<c:forEach var="stadium" items="${stadiumList}">
