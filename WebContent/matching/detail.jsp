@@ -8,7 +8,20 @@
 <title>매칭 상세정보</title>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <link href="../css/contentStyle.css" rel="stylesheet" type="text/css">
+<script type="text/javascript">
+$(function(){
+	 $("#apply").submit(function() {
+		 
+		 if(!confirm("정말 매칭에 참여하시겠습니까?")){
+			 return false;
+		 }
+		 
+	 }); 
 
+	
+});
+
+</script>
 <style>
 	
 	/* 테이블 전체 */
@@ -34,6 +47,20 @@
 		width:
 	} */
 	
+	input[type=number]{
+
+		color:black;
+		float:right;
+		width:200px;
+		height:45px;
+		border-radius:10px;
+		font-size:15px;
+
+		margin-right:20px;
+		padding-left:10px;
+		
+	}
+	
 	button{
 		background:black;
 		color:white;
@@ -58,6 +85,7 @@
 	#join_btn{
 		clear:both; /* float 속성 해제 */
 		margin-bottom:150px;
+	
 	}
 	
 	.map_title{
@@ -66,6 +94,14 @@
 	
 
 	}
+	
+	.stadium_deatil_info_title{
+		font-size:40px;
+	}
+	.stadium_detail_info_sub2{
+		font-size:20px;
+	}
+	
 	
 
 </style>
@@ -109,9 +145,9 @@
 	</p>
 	<div id="stadium_map"></div>
 	<div id="stadium_deatil_info">
-		<h1>${createJoin.stadium_name}</h1>
+		<h1 class="stadium_deatil_info_title">${createJoin.stadium_name}</h1>
 		<%-- ${createJoin.stadium_address} --%>
-		<div id="stadium_detail_info_addr"></div>
+		<div id="stadium_detail_info_sub"></div>
 		
 		
 	</div>
@@ -155,11 +191,14 @@
 			  searchDetailAddrFromCoords(markerPosition, function(result, status) {  //stadium 에 저장된 좌표 넣어서 주소로 
 				  if (status === kakao.maps.services.Status.OK) {
 			            var detailAddr = !!result[0].road_address ? '도로명주소 : ' + result[0].road_address.address_name : '';
-			            detailAddr += '지번 주소 : ' + result[0].address.address_name;
+			            detailAddr += '지번주소 : ' + result[0].address.address_name;
 			            
 			         /*    var content =  '<div class="map_title" align="center">'+stadium_name+'</div>';
 			            console.log(detailAddr); */
-			            document.getElementById('stadium_detail_info_addr').innerHTML = '<div>'+detailAddr+'</div>';
+			            document.getElementById('stadium_detail_info_sub').innerHTML 
+			            	= '<div class="stadium_detail_info_sub2">'+detailAddr+'</div>'
+			            	+ '<div class="stadium_detail_info_sub2">전화번호 : ${createJoin.stadium_phone}</div>'
+			            	+ '<div class="stadium_detail_info_sub2">운영시간 : ${createJoin.stadium_start} ~ ${createJoin.stadium_end}</div>'
 			            
 		        // 인포윈도우로 경기장 주소 표시
 		        var infowindow = new kakao.maps.InfoWindow({   
@@ -185,13 +224,16 @@
 
 
 <div class="content" id="join_btn">
-	<button onClick="apply(${createJoin.mat_id})">참가하기</button>
+	<form method="post" id="apply" action="apply">
+		<input type="text" name="mat_id" value="${createJoin.mat_id}" hidden="true">
+		<button type="submit">참가하기</button>
+		<input type="number" name="together" min="1" placeholder="참여 인원 수를 입력해 주세요" required autofocus>
+	</form>
+	
 </div>
 <%@ include file="../footer.jsp" %>
 <script>
-function apply(mat_id){
-	location.href = "apply?mat_id="+mat_id;
-};
+
 </script>
 
 </body>
