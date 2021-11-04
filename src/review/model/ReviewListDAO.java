@@ -59,12 +59,12 @@ public class ReviewListDAO {// 리뷰 대상자 거르기, 리뷰 목록 보여�
 	// 리뷰 쓰기 가능한 대상자:리뷰가 null이면서 경기 종료 시간은 지난 예약
 	public List<ReviewInfoVO> selectPossibleReview() {
 		List<ReviewInfoVO> reviewPoss = new ArrayList<>();
-		String sql = "select stadium_name, sports_name, res_date, play_date"
+		String sql = "select stadium_name, sports_name, res_date, play_date, stadium_reservation.res_number"
 				+ " from review"
 				+ " right outer join stadium_reservation on(stadium_reservation.res_number=review.res_number)"
 				+ " join stadium on(stadium.stadium_id=stadium_reservation.stadium_id)" 
 				+ " where review_num is null"
-				+ " and paly_date<sysdate";
+				+ " and play_date<sysdate";
 		Connection conn = null;
 		PreparedStatement st = null;
 		ResultSet rs = null;
@@ -91,6 +91,8 @@ public class ReviewListDAO {// 리뷰 대상자 거르기, 리뷰 목록 보여�
 		reviewPoss.setSports_name(rs.getString("sports_name"));
 		reviewPoss.setRes_date(rs.getDate("res_date"));
 		reviewPoss.setPlay_date(rs.getDate("play_date"));
+		reviewPoss.setRes_number(rs.getInt("res_number"));//지금 추가
+		//System.out.println(reviewPoss);
 		return reviewPoss;
 	}
 }

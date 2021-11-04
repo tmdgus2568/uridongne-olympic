@@ -36,11 +36,10 @@ public class ReviewMultiInsertServlet extends HttpServlet {
 		ReviewService = new ReviewService(path);
 		// res_number 끌어오기
 
-		// 예약 정보
-		List<ReviewInfoVO> infoList = ReviewService.selectInfoReview();
-		for (ReviewInfoVO list : infoList) {
-			System.out.println(list);
-		}
+		/*
+		 * // 예약 정보 List<ReviewInfoVO> infoList = ReviewService.selectInfoReview(); for
+		 * (ReviewInfoVO list : infoList) { System.out.println(list); }
+		 */
 
 		// 입력폼 보여주기
 		RequestDispatcher rd = request.getRequestDispatcher("reviewForm.jsp");

@@ -7,6 +7,7 @@ public class ReviewInfoVO {
 	private String sports_name;
 	private Date res_date;
 	private Date play_date;
+	private int res_number;
 	
 	public ReviewInfoVO() {
 		
@@ -52,11 +53,16 @@ public class ReviewInfoVO {
 		this.play_date = play_date;
 	}
 
-	@Override
-	public String toString() {
-		return "ReviewConstVO [stadium_name=" + stadium_name + ", sports_name=" + sports_name + ", res_date=" + res_date
-				+ ", play_date=" + play_date + "]";
+	
+	public int getRes_number() {
+		return res_number;
 	}
+
+	public void setRes_number(int res_number) {
+		this.res_number = res_number;
+	}
+
 	
-	
+
+	 
 }

@@ -15,10 +15,10 @@ public class ReviewService {
 		return reviewDAO.reviewInsert(review);
 	} 
 	
-	//대여정보
-	public List<ReviewInfoVO> selectInfoReview(){
-		return reviewDAO.selectInfoReview();
-	}
+	/*
+	 * //대여정보 public List<ReviewInfoVO> selectInfoReview(){ return
+	 * reviewDAO.selectInfoReview(); }
+	 */
 	
 	
 }

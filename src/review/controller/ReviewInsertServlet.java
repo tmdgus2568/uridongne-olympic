@@ -38,12 +38,12 @@ public class ReviewInsertServlet extends HttpServlet {
 		// res_number 끌어오기
 
 		// 예약 정보
-		List<ReviewInfoVO> infoList = ReviewService.selectInfoReview();
-		
-		for (ReviewInfoVO list : infoList) {
-			System.out.println(list);
-		}
-		request.setAttribute("infoList", infoList);
+		/*
+		 * List<ReviewInfoVO> infoList = ReviewService.selectInfoReview();
+		 * 
+		 * for (ReviewInfoVO list : infoList) { System.out.println(list); }
+		 * request.setAttribute("infoList", infoList);
+		 */
 		
 		// 입력폼 보여주기
 		RequestDispatcher rd = request.getRequestDispatcher("reviewForm.jsp");
@@ -62,9 +62,9 @@ public class ReviewInsertServlet extends HttpServlet {
 	  ReviewService service = new ReviewService(path);
 	  int result = service.reviewInsert(review);
 	  
-	  request.setAttribute("message", result > 0? "입력성공" : "입력실패");
-	  RequestDispatcher rd = request.getRequestDispatcher("reviewList.jsp");
-	  rd.forward(request, response); 
+	  request.setAttribute("result", result);
+	  
+	  response.sendRedirect("list?message=insert success");
 			
 	}
 	  
@@ -72,14 +72,15 @@ public class ReviewInsertServlet extends HttpServlet {
 		  
 		//inset
 		int res_number = Integer.parseInt(request.getParameter("res_number"));
-		String[] review_star = request.getParameterValues("review_star");
+		String review_star = request.getParameter("review_star");
 		String review_content = request.getParameter("review_content");
 		//review.setReview_photo(request.getParameter("review_photo"));
 		
 		ReviewVO review = new ReviewVO();
 		review.setRes_number(res_number);
-		review.setReview_star(Arrays.toString(review_star));
+		review.setReview_star(review_star);
 		review.setReview_content(review_content);
+		System.out.println(review);
 		return review;
 	}
 	

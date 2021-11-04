@@ -1,52 +1,108 @@
-<%-- <%@page import="review.model.ReviewDAO"%> --%>
-<%@ page language="java" contentType="text/html; charset=EUC-KR" pageEncoding="EUC-KR"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html>
 <head>
+<link href="../css/tableStyle.css" rel="stylesheet" type="text/css">
+<link href="../css/contentStyle.css" rel="stylesheet" type="text/css">
+<link href="../css/modal.css" rel="stylesheet" type="text/css">
 <style>
-.cls1 {
-	text-align: center;
-	font-size: 30px;
-}
 </style>
 <meta charset="UTF-8">
-<title>¸®ºä¸ñ·Ï</title>
+<title>ë¦¬ë·°</title>
+<!-- sortê´€ë ¨ -->
+<!-- <script src="../jquery.min.js"></script>
+<script src="../jquery.tablesorter.min.js"></script> -->
+<script src="../WEB-INF/lib/jquery.tablesorter.min.js"></script>
+<!-- modalê´€ë ¨ -->
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 </head>
 <body>
-	<p align="center"><a href="">ÃÖ½Å¼ø</a>/<a href="">ÆòÁ¡¼ø</a></p>
-	<table align="center" border="1" width="80%">
-		<tr height="10" align="center">
-			<td>ÀÛ¼ºÀÚ</td>
-			<td>°æ±âÀå</td>
-			<td>°æ±âÀÏ</td>			
-			<td>ÈÄ±â</td>
-			<td>ÆòÁ¡</td>
-		</tr>
-		<c:choose>
-			<c:when test="${empty reviewList}">
-				<tr height="10">
-					<td colspan="5">
-						<p align="center">
-							<b><span style="font-size: 9pt;">ÈÄ±â¸¦ ±â´Ù¸®°í ÀÖ¾î¿ä.</span></b>
-						</p>
-					</td>
-				</tr>
-			</c:when>
-			<c:when test="${!empty reviewList}">
-				<c:forEach var="review" items="${reviewList }">
-					<tr align="center">
-						<td>${review.user_id}</td>
-						<td>${review.stadium_name}</td>
-						<td>${review.play_date }</td>						
-						<td>${review.review_content }</td>
-						<td>${review.review_star }</td>						 
+	<%@ include file="../header.jsp"%>
+	<div class="content" text-align="center">
+		<!-- <p align="center"><a href="">ìµœì‹ ìˆœ</a>/<a href="">í‰ì ìˆœ</a></p> -->
+		<!-- <table align="center" border="1" width="80%"> 
+		<tr height="10" align="center">-->
+		<table border="1" class="table_style" align="center" id="review_list">
+			<tr class="table_title">
+				<td>ì‘ì„±ì</td>
+				<td>ê²½ê¸°ì¥</td>
+				<td>ê²½ê¸°ì¼</td>
+				<td>í›„ê¸°</td>
+				<td>í‰ì </td>
+			</tr>
+			<c:choose>
+				<c:when test="${empty reviewList}">
+					<tr height="10">
+						<td colspan="5">
+							<p align="center">
+								<b><span style="font-style: italic; font-size:15pt;">í›„ê¸°ë¥¼ ê¸°ë‹¤ë¦¬ê³  ìˆì–´ìš”.</span></b>
+							</p>
+						</td>
 					</tr>
-				</c:forEach>
-			</c:when>
-		</c:choose>
-	</table>
-	<a href="reviewForm.jsp"><p class="cls1">ÈÄ±â ³²±â±â</p></a>
+				</c:when>
+				<c:when test="${!empty reviewList}">
+					<c:forEach var="review" items="${reviewList }">
+						<tr align="center" class="table_content">
+							<td>${review.user_id}</td>
+							<td>${review.stadium_name}</td>
+							<td>${review.play_date }</td>
+							<td>${review.review_content }</td>
+							<td>${review.review_star }</td>
+						</tr>
+					</c:forEach>
+				</c:when>
+			</c:choose>
+		</table>
+
+		<!-- Trigger the modal with a button -->
+		<button type="button" class="btn btn-info btn-lg" data-toggle="modal"
+			data-target="#myModal"  style="float: right;">ë¦¬ë·° ë‚¨ê¸°ê¸°</button>
+
+		<!-- Modal -->
+		<div class="modal fade" id="myModal" role="dialog" aria-labelledby="myFullsizeModalLabel">
+			<div class="modal-dialog modal-fullsize">
+
+				<!-- Modal content-->
+				<div class="modal-content modal-fullsize">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal">&times;</button>
+						<h4 class="modal-title">ì˜ˆì•½ ì„ íƒ</h4>
+					</div>
+					<div class="modal-body">
+					<p>ì•„ì§ í›„ê¸°ë¥¼ ì‘ì„±í•˜ì§€ ì•Šì€ ì˜ˆì•½ ë‚´ì—­ì…ë‹ˆë‹¤.</p>
+						<c:forEach items="${reviewPosslist}" var="poss">
+							<form action="reviewinsert">
+								<label><input name="stadium_name" type="text" value="${poss.stadium_name }"></label> 
+								<label><input name="sports_name" type="text" value="${poss.sports_name }"></label>
+								<label><input name="res_date" type="text" value="${poss.res_date }"></label> 
+								<label><input name="play_date" type="text" value="${poss.play_date }"></label>
+								<label><input name="res_number" type="text" value="${poss.res_number }"></label>
+								<input type="submit" class="btn btn-default" value="ì„ íƒ"> <br>
+							</form>
+						</c:forEach>
+					</div>
+					<div class="modal-footer">
+
+						<button type="button" class="btn btn-default" data-dismiss="modal">ë‹«ê¸°</button>
+					</div>
+				</div>
+
+			</div>
+		</div>
+		<!-- <script>
+		$(function() {//teble sort
+			  $("#review_list").tablesorter();
+		});
+		</script> -->
+	</div>
+<%@ include file="../footer.jsp"%>
 </body>
 </html>
 

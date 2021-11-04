@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import review.model.ReviewInfoVO;
 import review.model.ReviewListService;
 import review.model.ReviewListVO;
 
@@ -35,8 +36,13 @@ public class ReviewListServlet extends HttpServlet {
 		for(ReviewListVO list : reviewList) {
 			System.out.println(list);
 		}
-		request.setAttribute("reviewList", reviewList);//"사용할변수", 조회된 내용 전부 저장
+		List<ReviewInfoVO> reviewlistposs = reviewlistService.selectPossibleReview();
 		
+		for(ReviewInfoVO list : reviewlistposs) {
+			System.out.println(list);
+		}
+		request.setAttribute("reviewList", reviewList);//"사용할변수", 조회된 내용 전부 저장
+		request.setAttribute("reviewPosslist", reviewlistposs);
 		RequestDispatcher rd = request.getRequestDispatcher("reviewList.jsp");//보여줄페이지
 		rd.forward(request, response);
 	}
