@@ -167,7 +167,7 @@ function kakaoLogout() {
 				
 				</li>
 				<li><a href="/uridongne-olympic/matching/list">매칭참여</a></li>
-				<li><a href="#">리뷰</a></li>
+				<li><a href="/uridongne-olympic/review/list">리뷰</a></li>
 			</ul>
 		</nav>
 	

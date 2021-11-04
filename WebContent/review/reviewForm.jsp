@@ -1,14 +1,18 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
-	pageEncoding="EUC-KR"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+
 <!DOCTYPE html>
 <html>
 <head>
+<link href="../css/tableStyle.css" rel="stylesheet" type="text/css">
+<link href="../css/contentStyle.css" rel="stylesheet" type="text/css">
 <meta charset="UTF-8">
-<title>ÈÄ±â¾²±â</title>
+<title>ë¦¬ë·°ì‘ì„±</title>
 <link href="../css/starRating.css" rel="stylesheet" type="text/css">
 <script src="http://code.jquery.com/jquery-latest.min.js"></script>
 <script>
-   function readURL(input) {
+   /* function readURL(input) {
       if (input.files && input.files[0]) {
 	      var reader = new FileReader();
 	      reader.onload = function (e) {
@@ -16,61 +20,61 @@
           }
          reader.readAsDataURL(input.files[0]);
       }
-  }  
+  }   */
   function backToList(obj){
-    obj.action="list";
+    obj.action="/review/list";
     obj.submit();
   }
 </script>
 </head>
 <body>
-	<h1 style="text-align: center">${review.user_id}´Ô ÈÄ±â¸¦ ³²°ÜÁÖ¼¼¿ä!</h1>
-	<h3 style="text-align: center">${review.stadium_name}ÀÇ ½Ã¼³ ÀÌ¿ë¿¡ ¾ó¸¶³ª ¸¸Á·ÇÏ¼Ì³ª¿ä?</h3>
-	<form name="reviewForm" method="post"  action="list"
-		action="${contextPath}/upload.do" 
-		enctype="multipart/form-data">
+<%@ include file="../header.jsp"%>
+	<h1 style="text-align: center">${review.user_id}ë‹˜ í›„ê¸°ë¥¼ ë‚¨ê²¨ì£¼ì„¸ìš”!</h1>
+	<h3 style="text-align: center">${param.stadium_name}ì‹œì„¤ ì´ìš©ì— ì–¼ë§ˆë‚˜ ë§Œì¡±í•˜ì…¨ë‚˜ìš”?</h3>
+	<form action="reviewinsert" name="reviewForm" method="post">
+	<div hidden="true"><input type="text" name="res_number" value="${param.res_number }"></div>
 		<table border=0 align="center">
 		<tr>
-				<!-- ÆòÁ¡ ¼±ÅÃÃ¢ -->
+				<!-- í‰ì  ì„ íƒì°½ -->
     			<f:label path="rating">
-	    			<td align="right">Æò°¡:</td>
-	    			<td align="right">
+	    			<td align="right">í‰ê°€:</td>
+	    			<td align="left">
 		    			<div class="star-rating space-x-4 mx-auto">
-							<input type="radio" id="5-stars" name="rating" value="5" v-model="ratings"/>
-							<label for="5-stars" class="star pr-4">¡Ú</label>
-							<input type="radio" id="4-stars" name="rating" value="4" v-model="ratings"/>
-							<label for="4-stars" class="star">¡Ú</label>
-							<input type="radio" id="3-stars" name="rating" value="3" v-model="ratings"/>
-							<label for="3-stars" class="star">¡Ú</label>
-							<input type="radio" id="2-stars" name="rating" value="2" v-model="ratings"/>
-							<label for="2-stars" class="star">¡Ú</label>
-							<input type="radio" id="1-star" name="rating" value="1" v-model="ratings" />
-							<label for="1-star" class="star">¡Ú</label>
+		    			
+							<input type="radio" id="5-stars" name="review_star" value="5"/>
+							<label for="5-stars" class="star pr-4">â˜…</label>
+							<input type="radio" id="4-stars" name="review_star" value="4"/>
+							<label for="4-stars" class="star">â˜…</label>
+							<input type="radio" id="3-stars" name="review_star" value="3"/>
+							<label for="3-stars" class="star">â˜…</label>
+							<input type="radio" id="2-stars" name="review_star" value="2"/>
+							<label for="2-stars" class="star">â˜…</label>
+							<input type="radio" id="1-star" name="review_star" value="1"/>
+							<label for="1-star" class="star">â˜…</label>
 						</div>
 					</td>
 				</f:label>				
 			</tr>
 			<tr>
-				<td align="right" valign="top"><br>ÈÄ±â:</td>
+				<td align="right" valign="top"><br>í›„ê¸°:</td>
 				<td colspan=2><textarea name="review_content" rows="10" cols="65"
 						maxlength="4000"></textarea></td>
 			</tr>
-						
-			
-			<tr>
-				<td align="right">ÀÌ¹ÌÁö Ã·ºÎ:</td>
-				<td><input type="file" name="review_photo"
-					onchange="readURL(this);" /></td>
+									
+			<!-- <tr>
+				<td align="right">ì´ë¯¸ì§€ ì²¨ë¶€:</td>
+				<td><input type="file" name="review_photo" /></td>
 				<td><img id="preview" src="#" width=200 height=200 /></td>
-			</tr>
+			</tr> -->
 
 			<tr>
 				<td align="right"></td>
 				<td colspan="2" align="center">
-				<input type="submit" value="µî·ÏÇÏ±â" /> 
-				<input type=button value="¸ñ·Ïº¸±â" onClick="backToList(this.form)" /></td>
+				<input type="submit" value="ë“±ë¡í•˜ê¸°" /> 
+				<input type=button value="ëª©ë¡ë³´ê¸°" onClick="backToList(this.form)" /></td>
 			</tr>
 		</table>
 	</form>
+<%@ include file="../footer.jsp"%>
 </body>
 </html>
