@@ -71,7 +71,7 @@ public class MatCreateServlet extends HttpServlet {
 		MatCreateVO create = new MatCreateVO();
 		create.setMat_people(Integer.parseInt(request.getParameter("people")));
 		create.setMat_title(request.getParameter("title"));
-		create.setMat_content(request.getParameter("content"));
+		create.setMat_content(request.getParameter("content").replaceAll("\n", "<br>"));
 		
 		int result = createService.insertCreateAndRes(create, reservation);
 		RequestDispatcher rd;
