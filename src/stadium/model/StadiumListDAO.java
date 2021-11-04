@@ -18,18 +18,28 @@ public class StadiumListDAO {
 			+ " from stadium "
 			+ " order by 1";
 	
+	
 	static final String SQL_SELECT_sports = "select stadium_id, stadium_name, payment_method, "
 			+ " stadium_number, sports_name, location "
 			+ " from stadium where sports_name = ? and location like ? "
 			+ " order by 1";
 	
+	
 	static final String SQL_SELECT_Address = "select address_x, address_y, stadium_address "
 			+ " from stadium ";
 	
-	static final String SQL_SELECT_Detail = "select * "
-			+ " from stadium "
-			+ " where stadium_id = ? "
-			+ " order by 1";
+	
+	static final String SQL_SELECT_Detail =	"select s.*, v.review_star"
+			+ " from stadium s inner join stadium_reservation r on s.stadium_id=r.stadium_id"
+			+ " inner join review v on r.res_number=v.res_number"
+			+ " where s.stadium_id = ? "
+			+ "	order by 1";
+			
+	
+	static final String SQL_SELECT_review = "select v.*, r.user_id, s.stadium_name"
+			+ " from stadium s inner join stadium_reservation r on s.stadium_id=r.stadium_id"
+			+ " inner join review v on r.res_number=v.res_number"
+			+ " where s.stadium_id = ?";
 	
  
 	public StadiumListDAO(String path) {
@@ -95,7 +105,7 @@ public class StadiumListDAO {
 	}
 	private StadiumListVO make2(ResultSet rs) throws SQLException {
 		StadiumListVO stadium=new StadiumListVO();
-		stadium.setStadium_name(rs.getString("stadium_id"));
+		stadium.setStadium_id(rs.getString("stadium_id"));
 		stadium.setStadium_name(rs.getString("stadium_name"));
 		stadium.setPayment_method(rs.getString("payment_method"));
 		stadium.setStadium_number(rs.getInt("stadium_number"));
@@ -136,7 +146,7 @@ public class StadiumListDAO {
 			return stadium;
 		}
 		
-		//디테일
+		//경기장 정보 상세화면
 		public StadiumListVO selectDetail(String stadium_id) {
 			StadiumListVO stadiumdetail = null;
 			Connection conn = null;
@@ -162,7 +172,6 @@ public class StadiumListDAO {
 			stadium.setStadium_id(rs.getString("stadium_id"));
 			stadium.setStadium_name(rs.getString("stadium_name"));
 			stadium.setSports_name(rs.getString("sports_name"));
-			stadium.setLocation(rs.getString("location"));
 			stadium.setPayment_method(rs.getString("payment_method"));
 			stadium.setStadium_address(rs.getString("stadium_address"));
 			stadium.setAddress_x(rs.getString("address_x"));
@@ -176,9 +185,39 @@ public class StadiumListDAO {
 			stadium.setStadium_parking(rs.getInt("stadium_parking"));
 			stadium.setStadium_shower(rs.getInt("stadium_shower"));
 			stadium.setStadium_char(rs.getString("stadium_char"));
+			stadium.setLocation(rs.getString("location"));
+			stadium.setReview_star(rs.getString("review_star"));
 			return stadium;
 		}
 
+		//SQL_SELECT_review 리뷰상세보기로 넘어감  
+				public StadiumListVO selectReview(String stadium_id) {
+					StadiumListVO stadiumdetail = null;
+					Connection conn = null;
+					PreparedStatement st = null;
+					ResultSet rs = null;
+					try {
+						conn=DBConnection.dbConnect(path);
+						st = conn.prepareStatement(SQL_SELECT_review);
+						st.setString(1, stadium_id);
+						rs = st.executeQuery();
+						while (rs.next()) {
+							stadiumdetail = make5(rs);
+						}
+					} catch (SQLException e) {
+						e.printStackTrace();
+					} finally {
+						DBConnection.dbClose(conn, st, rs);
+					}
+					return stadiumdetail;
+				}
+				private StadiumListVO make5(ResultSet rs) throws SQLException {
+					StadiumListVO stadium=new StadiumListVO();
+					stadium.setStadium_id(rs.getString("stadium_id"));
+					stadium.setStadium_name(rs.getString("stadium_name"));
+					stadium.setSports_name(rs.getString("sports_name"));
+					return stadium;
+				}
 
 		
 }

@@ -1,10 +1,10 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
-	pageEncoding="EUC-KR"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="utf-8">
-<title>°æ±âÀå »ó¼¼Á¤º¸</title>
+<title>ê²½ê¸°ì¥ ìƒì„¸ì •ë³´</title>
 <style>
 .imagearea {
 	width: 50%
@@ -13,7 +13,10 @@
 .Detailarea {
 	width: 50%
 }
-.flex-row{display:flex;}
+
+.flex-row {
+	display: flex;
+}
 
 .map_wrap {
 	position: relative;
@@ -49,198 +52,157 @@
 	overflow: hidden;
 	white-space: nowrap;
 }
+
+
+.map_wrap {
+	position: relative;
+	width: 100%;
+	height: 350px;
+}
+
+.title {
+	font-weight: bold;
+	display: block;
+}
+
+.hAddr {
+	position: absolute;
+	left: 10px;
+	top: 10px;
+	border-radius: 2px;
+	background: #fff;
+	background: rgba(255, 255, 255, 0.8);
+	z-index: 1;
+	padding: 5px;
+}
+
+#centerAddr {
+	display: block;
+	margin-top: 2px;
+	font-weight: normal;
+}
+
+.bAddr {
+	padding: 5px;
+	text-overflow: ellipsis;
+	overflow: hidden;
+	white-space: nowrap;
+}
 </style>
 </head>
 <body>
 
-<h1>°æ±âÀå Á¤º¸</h1>
+	<h1>ê²½ê¸°ì¥ ì •ë³´</h1>
 
 	<section class="imagearea">
-		<p><img src="${stadium.stadium_photo}" width="500"><p>
+		<p>
+			<img src="${stadium.stadium_photo}" width="500">
+		<p>
 
-	<aside class="Detailarea">
+			<aside class="Detailarea">
 				<div>
 					<div>
-						<div>°æ±âÀå¸í: ${stadium.stadium_name}</div>
-						<div>ÀÌ¿ë¿ä±İ: ${stadium.payment_method}</div>
-						<div>¼ö¿ë°¡´ÉÀÎ¿ø: ${stadium.stadium_number}</div>
-						<div>¸ÅÄªÃÑÀÎ¿ø: ${stadium.mat_max}</div>
-						<div>°æ±âÀåÁ¾·ù: ${stadium.sports_name}</div>
-						<div>°æ±âÀå¿¬¶ôÃ³: ${stadium.stadium_phone}</div>
-						<div>°æ±âÀåÁÖ¼Ò: ${stadium.location}</div>
-						<div>ÀÌ¿ë½ÃÀÛÀÏ: ${stadium.stadium_start}</div>
-						<div>ÀÌ¿ëÁ¾·áÀÏ: ${stadium.stadium_end}</div>
-						<div>°æ±âÀåÁÖ¼Ò: ${stadium.stadium_address}</div>
-						<div>ÁÖÂ÷°¡´É¿©ºÎ: ${stadium.stadium_parking}</div>
-						<div>»ş¿ö½Ã¼³À¯¹«: ${stadium.stadium_shower}</div>
-						<div>»ó¼¼Á¤º¸: ${stadium.stadium_char}</div>
-						<div>xÁÂÇ¥: ${stadium.address_x}</div>
-						<div>yÁÂÇ¥: ${stadium.address_y}</div>
-						<%-- <div>»çÁø: ${stadium.stadium_photo}</div> --%>
+
+						<div>ê²½ê¸°ì¥ëª…: ${stadium.stadium_name}</div>
+						<div>í‰ì : ${stadium.review_star}</div>
+						<div>ì´ìš©ìš”ê¸ˆ: ${stadium.payment_method}</div>
+						<div>ìˆ˜ìš©ê°€ëŠ¥ì¸ì›: ${stadium.stadium_number}</div>
+						<div>ë§¤ì¹­ì´ì¸ì›: ${stadium.mat_max}</div>
+						<div>ê²½ê¸°ì¥ì¢…ë¥˜: ${stadium.sports_name}</div>
+						<div>ê²½ê¸°ì¥ì—°ë½ì²˜: ${stadium.stadium_phone}</div>
+						<div>ì´ìš©ì‹œì‘ì¼: ${stadium.stadium_start}</div>
+						<div>ì´ìš©ì¢…ë£Œì¼: ${stadium.stadium_end}</div>
+						<div>ê²½ê¸°ì¥ì£¼ì†Œ: ${stadium.stadium_address}</div>
+						<div>ì£¼ì°¨ê°€ëŠ¥ì—¬ë¶€: ${stadium.stadium_parking}</div>
+						<div>ìƒ¤ì›Œì‹œì„¤ìœ ë¬´: ${stadium.stadium_shower}</div>
+						<div>ìƒì„¸ì •ë³´: ${stadium.stadium_char}</div>
+						<div>xì¢Œí‘œ: ${stadium.address_x}</div>
+						<div>yì¢Œí‘œ: ${stadium.address_y}</div>
 					</div>
-					<button onClick="review(${review.review_id})">»ó¼¼¸®ºä º¸·¯°¡±â>>></button>
+					<button onClick="review(${review.review_id})">ìƒì„¸ë¦¬ë·° ë³´ëŸ¬ê°€ê¸°>>></button>
 					<br> <br>
 
 				</div>
-			</form>
-		</aside>
+		
+			</aside>
+			
+			
+			<!-- ì¹´ì¹´ì˜¤ë§µ  -->
+		<p style="margin-top: -12px">
+			<em class="link"> <a href="javascript:void(0);"
+				onclick="window.open('http://fiy.daum.net/fiy/map/CsGeneral.daum', '_blank', 'width=981, height=650')">
+			</a>
+			</em>
+		</p>
+		<div id="map" style="width: 100%; height: 350px;"></div>
 
-		<!-- Ä«Ä«¿À¸Ê  -->
-		<div class="map_wrap">
-			<div id="map"
-				style="width: 80%; height: 100%; position: relative; overflow: hidden;"></div>
-			<div class="hAddr">
-				<span class="title">ÁöµµÁß½É±âÁØ ÇàÁ¤µ¿ ÁÖ¼ÒÁ¤º¸</span> <span id="centerAddr"></span>
-			</div>
-		</div>
+
 
 		<script type="text/javascript"
 			src="//dapi.kakao.com/v2/maps/sdk.js?appkey=710efed9d2e1e3e45ce6777b45016c59&libraries=services"></script>
-		<script>
-		
-	<%--	let lat = ${stadium.address_x};
-		let lng = ${stadium.address_y};
-		getAddr(lat,lng);
-		function getAddr(lat,lng){
-		    let geocoder = new kakao.maps.services.Geocoder();
 
-		    let coord = new kakao.maps.LatLng(lat, lng);
-		    let callback = function(result, status) {
-		        if (status === kakao.maps.services.Status.OK) {
-		            console.log(result);
-		        }
-		    };
 
-		    geocoder.coord2Address(coord.getLng(), coord.getLat(), callback);
-		}
+
+		<script>   //ë¬¸ì œë°œìƒ: pushí•˜ê³  íŒ€ì›ë“¤êº¼ì—ì„œ ì˜ ëŒì•„ê°€ë©´ ok, ì•„ë‹ˆë©´ ëŒ€ì±… í•„ìš”...ì¸ì¦í‚¤ ì—ëŸ¬ ë° 146, 147ì½”ë“œê°€ ì•ˆ ë¨¹ìŒ
+		var x = ${stadium.address_x}; 
+		var y = ${stadium.address_y};
 	
-		
-		
-	   var lat = ${stadium.address_x};
-	   alert(lat);
-	
-	--%>
-		var mapContainer = document.getElementById('map'), // Áöµµ¸¦ Ç¥½ÃÇÒ div 
-		mapOption = {
-			center : new kakao.maps.LatLng(37.566826, 126.9786567), // ÁöµµÀÇ Áß½ÉÁÂÇ¥
-			level : 1
-		// ÁöµµÀÇ È®´ë ·¹º§
-		};
- 
-		// Áöµµ¸¦ »ı¼ºÇÕ´Ï´Ù    
-		var map = new kakao.maps.Map(mapContainer, mapOption);
-
-		// ÁÖ¼Ò-ÁÂÇ¥ º¯È¯ °´Ã¼¸¦ »ı¼ºÇÕ´Ï´Ù
-		var geocoder = new kakao.maps.services.Geocoder();
-
-		var marker = new kakao.maps.Marker(), // Å¬¸¯ÇÑ À§Ä¡¸¦ Ç¥½ÃÇÒ ¸¶Ä¿ÀÔ´Ï´Ù
-		infowindow = new kakao.maps.InfoWindow({
-			zindex : 1
-		}); // Å¬¸¯ÇÑ À§Ä¡¿¡ ´ëÇÑ ÁÖ¼Ò¸¦ Ç¥½ÃÇÒ ÀÎÆ÷À©µµ¿ìÀÔ´Ï´Ù
-
-		// ÇöÀç Áöµµ Áß½ÉÁÂÇ¥·Î ÁÖ¼Ò¸¦ °Ë»öÇØ¼­ Áöµµ ÁÂÃø »ó´Ü¿¡ Ç¥½ÃÇÕ´Ï´Ù
-		searchAddrFromCoords(map.getCenter(), displayCenterInfo);
-
-		// Áöµµ¸¦ Å¬¸¯ÇßÀ» ¶§ Å¬¸¯ À§Ä¡ ÁÂÇ¥¿¡ ´ëÇÑ ÁÖ¼ÒÁ¤º¸¸¦ Ç¥½ÃÇÏµµ·Ï ÀÌº¥Æ®¸¦ µî·ÏÇÕ´Ï´Ù
-		kakao.maps.event.addListener(map, 'click', function(mouseEvent) {
-			searchDetailAddrFromCoords(mouseEvent.latLng, function(result,    //À§µµ °æµµ¸¦ ¿©±â ³Ö¾î¶ó. ÁÂÇ¥ °³¼ö¸¸Å­ forloopµ¹°Ô
-					status) {
-				if (status === kakao.maps.services.Status.OK) {
-					var detailAddr = !!result[0].road_address ? '<div>µµ·Î¸íÁÖ¼Ò : '
-							+ result[0].road_address.address_name + '</div>'
-							: '';
-					detailAddr += '<div>Áö¹ø ÁÖ¼Ò : '
-							+ result[0].address.address_name + '</div>';
-
-					var content = '<div class="bAddr">'
-							+ '<span class="title">¹ıÁ¤µ¿ ÁÖ¼ÒÁ¤º¸</span>'
-							+ detailAddr + '</div>';
-
-					// ¸¶Ä¿¸¦ Å¬¸¯ÇÑ À§Ä¡¿¡ Ç¥½ÃÇÕ´Ï´Ù 
-					marker.setPosition(mouseEvent.latLng);
-					marker.setMap(map);
-
-					// ÀÎÆ÷À©µµ¿ì¿¡ Å¬¸¯ÇÑ À§Ä¡¿¡ ´ëÇÑ ¹ıÁ¤µ¿ »ó¼¼ ÁÖ¼ÒÁ¤º¸¸¦ Ç¥½ÃÇÕ´Ï´Ù
-					infowindow.setContent(content);
-					infowindow.open(map, marker);
-				}
+		var mapContainer = document.getElementById('map'), // ì§€ë„ë¥¼ í‘œì‹œí•  div 
+	    mapOption = {	
+				
+	        center: new kakao.maps.LatLng(y, x), // ì§€ë„ì˜ ì¤‘ì‹¬ì¢Œí‘œ
+	        level: 3 // ì§€ë„ì˜ í™•ëŒ€ ë ˆë²¨
+	    };  
+			
+			// ì§€ë„ ìƒì„±   
+			var map = new kakao.maps.Map(mapContainer, mapOption);
+			
+			// ì£¼ì†Œ-ì¢Œí‘œ ë³€í™˜ ê°ì²´ ìƒì„±
+			var geocoder = new kakao.maps.services.Geocoder();
+			
+			// ë§ˆì»¤ê°€ í‘œì‹œë  ìœ„ì¹˜
+			let markerPosition = new kakao.maps.LatLng(y, x); //yì¢Œí‘œ, xì¢Œí‘œ 
+			
+			//ë§ˆì»¤ ìƒì„±
+			let marker = new kakao.maps.Marker({
+			    position: markerPosition
 			});
-		});
+			
+			// ë§ˆì»¤ë¥¼ í•´ë‹¹ ìœ„ì¹˜ì— ì„¤ì •
+			marker.setMap(map);
+			
+			infowindow = new kakao.maps.InfoWindow({zindex:1}); // ê²½ê¸°ì¥ ì£¼ì†Œ í‘œì‹œì°½ 
+				  searchDetailAddrFromCoords(markerPosition, function(result, status) {  //stadium ì— ì €ì¥ëœ ì¢Œí‘œ ë„£ì–´ì„œ ì£¼ì†Œë¡œ 
+					  if (status === kakao.maps.services.Status.OK) {
+				            var detailAddr = !!result[0].road_address ? '<div>ë„ë¡œëª…ì£¼ì†Œ : ' + result[0].road_address.address_name + '</div>' : '';
+				            detailAddr += '<div>ì§€ë²ˆ ì£¼ì†Œ : ' + result[0].address.address_name + '</div>';
+				            
+				            var content = '<div class="bAddr">' +
+				                            '<span class="title">ê²½ê¸°ì¥ ì£¼ì†Œì •ë³´</span>' + 
+				                            detailAddr + 
+				                        '</div>';
 
-		// Áß½É ÁÂÇ¥³ª È®´ë ¼öÁØÀÌ º¯°æµÆÀ» ¶§ Áöµµ Áß½É ÁÂÇ¥¿¡ ´ëÇÑ ÁÖ¼Ò Á¤º¸¸¦ Ç¥½ÃÇÏµµ·Ï ÀÌº¥Æ®¸¦ µî·ÏÇÕ´Ï´Ù
-		kakao.maps.event.addListener(map, 'idle', function() {
-			searchAddrFromCoords(map.getCenter(), displayCenterInfo);
-		});
-
-		function searchAddrFromCoords(coords, callback) {
-			// ÁÂÇ¥·Î ÇàÁ¤µ¿ ÁÖ¼Ò Á¤º¸¸¦ ¿äÃ»ÇÕ´Ï´Ù
-			geocoder.coord2RegionCode(coords.getLng(), coords.getLat(),
-					callback);
-		}
-
-		function searchDetailAddrFromCoords(coords, callback) {
-			// ÁÂÇ¥·Î ¹ıÁ¤µ¿ »ó¼¼ ÁÖ¼Ò Á¤º¸¸¦ ¿äÃ»ÇÕ´Ï´Ù
-			geocoder.coord2Address(coords.getLng(), coords.getLat(), callback);
-		}
-
-		// Áöµµ ÁÂÃø»ó´Ü¿¡ Áöµµ Áß½ÉÁÂÇ¥¿¡ ´ëÇÑ ÁÖ¼ÒÁ¤º¸¸¦ Ç¥ÃâÇÏ´Â ÇÔ¼öÀÔ´Ï´Ù
-		function displayCenterInfo(result, status) {
-			if (status === kakao.maps.services.Status.OK) {
-				var infoDiv = document.getElementById('centerAddr');
-
-				for (var i = 0; i < result.length; i++) {
-					// ÇàÁ¤µ¿ÀÇ region_type °ªÀº 'H' ÀÌ¹Ç·Î
-					if (result[i].region_type === 'H') {
-						infoDiv.innerHTML = result[i].address_name;
-						break;
-					}
-				}
+			        // ì¸í¬ìœˆë„ìš°ë¡œ ê²½ê¸°ì¥ ì£¼ì†Œ í‘œì‹œ
+			        var infowindow = new kakao.maps.InfoWindow({   
+			            content: content
+			        });
+			        
+			        infowindow.setContent(content);
+			        infowindow.open(map, marker);
+			
+			        // ì§€ë„ì˜ ì¤‘ì‹¬ì„ ê²°ê³¼ê°’ìœ¼ë¡œ ë°›ì€ ìœ„ì¹˜ë¡œ ì´ë™
+			        map.setCenter(coords);
+				  }
+			});    
+			
+			function searchDetailAddrFromCoords(coords, callback) {
+			    // ì¢Œí‘œë¡œ ê²½ê¸°ì¥ ì£¼ì†Œ ì •ë³´ ìš”ì²­
+			    geocoder.coord2Address(coords.getLng(), coords.getLat(), callback);
 			}
-		}
-	</script>
+			</script>
+
+
+	</section>
 </body>
 </html>
 
-<!--¿øº»  <html>
-    <head>
-        <meta charset="utf-8">
-        <title>Stadium À§Ä¡</title>
-        <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=710efed9d2e1e3e45ce6777b45016c59"></script>
-        
-    </head>
--->
-<%--     
-<body>
-        <!-- Áöµµ¸¦ Ç¥½ÃÇÒ div -->
-        <div id="map" style="width:40%;height:600px;"></div>
-    </body>
-</html>
-
-<script>
-    // Áöµµ¸¦ Ç¥½ÃÇÒ div 
-    let mapContainer = document.getElementById('map'),
-        mapOption = { 
-            // ÁöµµÀÇ Áß½ÉÁÂÇ¥
-            //center: new kakao.maps.LatLng(33.450701, 126.570667), 
-            center: new kakao.maps.LatLng(37.5031, 127.07889), //y, x 
-            // ÁöµµÀÇ È®´ë ·¹º§(1~14) °ªÀÌ Å¬ ¼ö·Ï Áöµµ°¡ Ãà¼Ò µÇ¾î º¸ÀÓ.
-            level: 5
-        };
-
-    // Áöµµ¸¦ Ç¥½ÃÇÒ div¿Í Áöµµ ¿É¼ÇÀ¸·Î Áöµµ¸¦ »ı¼º.
-    let map = new kakao.maps.Map(mapContainer, mapOption); 
-
-
-    // ¸¶Ä¿°¡ Ç¥½ÃµÉ À§Ä¡.
-    //let markerPosition  = new kakao.maps.LatLng(33.450701, 126.570667); 
-    let markerPosition  = new kakao.maps.LatLng(37.5031, 127.07889); //test
-
-    // ¸¶Ä¿¸¦ »ı¼º.
-    let marker = new kakao.maps.Marker({
-        position: markerPosition
-    });
-
-    // ¸¶Ä¿¸¦ ÇØ´ç À§Ä¡¿¡ ¼³Á¤
-    marker.setMap(map);
-</script>
---%>
