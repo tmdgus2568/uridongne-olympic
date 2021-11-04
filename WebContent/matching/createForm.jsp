@@ -125,7 +125,7 @@ $(function(){
 	$('input[name=people]').change(function(){
 		console.log("here");
 		
-		$('.money').text("약 "+Math.ceil(10000/$(this).val()) + " 원");
+		$('.money').text("약 "+Math.ceil(100000/$(this).val()) + " 원");
 		
 	});	
 	
