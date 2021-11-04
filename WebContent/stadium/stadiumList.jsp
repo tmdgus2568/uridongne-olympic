@@ -46,6 +46,8 @@
 </head>
 
 <body>
+<%@ include file="../header.jsp" %>
+<div class="content" text-align="center">
 	<h3>경기장 정보검색</h3>
 	<br>
 	<!-- <label for="sports" style="float: center">경기장 종목선택</label> -->
@@ -95,7 +97,8 @@
 	<br>
 	<div id="here">
 		<h3>경기장 목록</h3>
-		<table class="table">
+	<!-- 	<table class="table"> -->
+	<table border="1" class="table_style" align="center">
 			<thead>
 				<th scope="col">경기장번호</th>
 				<th scope="col">경기장명</th>
@@ -120,6 +123,7 @@
 			</thead>
 		</table>
 	</div>
-
+	</div>
+<%@ include file="../footer.jsp" %>
 </body>
 </html>

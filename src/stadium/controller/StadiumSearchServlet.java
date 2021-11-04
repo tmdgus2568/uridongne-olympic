@@ -25,7 +25,7 @@ public class StadiumSearchServlet extends HttpServlet {
 		StadiumListService stadiumlistService = new StadiumListService(path);
 		String sports_name = request.getParameter("sports");
 		String location = request.getParameter("loc");  //name
-		//System.out.println(sports_name + loc);
+		//System.out.println(sports_name + location);
 		List<StadiumListVO> stadiumList = stadiumlistService.selectSports(sports_name, location);
 		//System.out.println(stadiumList.size());
 		
