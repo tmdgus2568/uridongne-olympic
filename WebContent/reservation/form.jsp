@@ -2,7 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -14,10 +14,22 @@
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <style>
-	.reserveChoice{width:70%}
-	.reserveDetails{width: 30%}
-	.flex-row{display:flex;}
-	.refer{font-size: 12px}
+.reserveChoice {
+	width: 70%;
+}
+
+.reserveDetails {
+	width: 30%;
+}
+
+.flex-row {
+	display: flex;
+}
+
+.refer {
+	font-size: 12px;
+	text-align: left;
+}
 </style>
 <script>
 	//종목선택 > 지역옵션 표시
@@ -29,18 +41,9 @@
 					"sports_name" : $("#sports_name").val()
 				},
 				success : function(responseData) {
-					$("#location").html(responseData);
+					$("#region").html(responseData);
 				}
 			});
-		});
-	});
-	
-	//지역선택 > datepicker 표시
-	$(function() {
-		$("#location").change(function() {
-			if($("#hide").css("display") == "none"){
-				$("#hide").show();
-			}
 		});
 	});
 	
@@ -77,12 +80,12 @@
 </head>
 <body>
 	<section class="contents flex-row">
-		<section class="reserveChoice" >
+		<section class="reserveChoice">
 			<h2>경기장 예약 페이지</h2>
 			<!-- <span>종목선택</span> -->
 			<select id="sports_name" name="sports_name">
 				<!-- 종목 9개 고정 -->
-				<option selected>종목(9)</option>
+				<option selected>종목선택(9)</option>
 				<option value="농구장">농구</option>
 				<option value="배구장">배구</option>
 				<option value="배드민턴장">배드민턴</option>
@@ -92,16 +95,83 @@
 				<option value="탁구장">탁구</option>
 				<option value="테니스장">테니스</option>
 				<option value="풋살장">풋살</option>
+			</select> <select id="region">
+				<option>지역선택(0)</option>
 			</select>
+			<!-- style="display: none;" -->
+			<span><input type="text" id="datepicker" name="datepicker"
+				value="📅 경기일 선택"> </span>
 
-			<span id="location"> </span>
-
-			<span id="hide" style="display: none;"><input type="text" id="datepicker" name="datepicker" value="📅 경기일 선택"> </span>
-			
-			<p id="availStaduim"> </p>
+			<p id="availStaduim"></p>
 
 
 		</section>
+		<script>
+		  //dateStr 형식 = 2021/11/21
+ 		  function toDate(dateStr)
+		  {
+			  //문자를 날짜로
+		      var yyyyMMdd = String(dateStr);
+		      var sYear = yyyyMMdd.substring(0,4);
+		      var sMonth = yyyyMMdd.substring(5,7);
+		      var sDate = yyyyMMdd.substring(8,10);
+
+		      var date = new Date(Number(sYear), Number(sMonth)-1, Number(sDate));
+		      
+		      return date;
+		  }
+		  
+		  function canceledDate(dateStr){
+			  
+			  var date = toDate(dateStr); //Wed Nov 10 2021 00:00:00 GMT+0900 (한국 표준시)
+			  
+		      var five = new Date(date.getTime() - 60*60*24*1000*5); //-5일
+		      
+		      //날짜를 문자로
+		      var year = five.getFullYear();
+		      var month = ('0' + (five.getMonth() + 1)).slice(-2);
+		      var day = ('0' + five.getDate()).slice(-2);
+
+		      var dateString = year + '/' + month  + '/' + day;
+		      
+		      return dateString + " 11:59:59 까지";
+		  } 
+		  
+		  function calPrice(dateStr){
+			  var date = new Date(dateStr).getDay();
+			  var price = 0;
+			  var week = 40000;
+			  var weekend = 60000;
+			  if(date == 0 || date == 6){ //주말일때
+				  price = weekend * 2;
+			  } else {
+				  price = week * 2;
+			  }
+			  
+			  price = price.toLocaleString('ko-KR');
+			  
+			  return price + " 원";
+		  }
+		  
+		  $("#datepicker").change(function(){
+			  var dateStr = $("#datepicker").val();
+			  
+			  $("#seletedDate").html(dateStr);
+			  $("#canceledDate").html(canceledDate(dateStr));
+			  $("#price").html(calPrice(dateStr));
+		  });
+		  
+		  $("#availStaduim").change(function(){ 
+ 				$("input[name='avail']:checked").each(function (index, element) {
+					$("#seletedTime").html($(element).val());
+					$('#seletedStadium').html($('#stadiumName').val());
+				});
+		  }); 
+		  
+		  
+		  
+		  
+		</script>
 		
 		<!-- 나의예약정보 -->
 		<aside class="reserveDetails">
@@ -119,11 +189,11 @@
 					</tr>
 					<tr>
 						<td>🌈 경기시간</td>
-						<td></td>
+						<td id="seletedTime"></td>
 					</tr>
 					<tr>
 						<td>🌈 취소기간</td>
-						<td></td>
+						<td id="canceledDate"></td>
 					</tr>
 					<tr>
 						<td></td>
@@ -131,7 +201,7 @@
 					</tr>
 					<tr>
 						<td>🌈 결제금액</td>
-						<td></td>
+						<td id="price"></td>
 					</tr>
 					<tr>
 						<td></td>

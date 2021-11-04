@@ -3,6 +3,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<!-- 1시간씩 체크박스 여러개 선택시 로직은 나중에,,^^,, -->
 <!DOCTYPE html>
 <html>
 <head>
@@ -23,32 +24,40 @@
 	padding: 3px 5px;
 }
 
-div.times{
-  	overflow: auto;
-  	white-space: nowrap;
+.timeSection {
+	width: 50px;
+	height: 30px;
+	margin-right: 5px;
+	display: inline-block;
+	text-align: center;
+	border-radius: 5px;
 }
 
-div.time{
-	width: 180px;
-	height: auto;
-	margin-right: 10px;
-	padding:10px;
-	display: inline-block;
-	justify-content: center;
-	align-items:center;
-	border-radius: 5px;
-/* 	overflow:hidden;
-	word-wrap:break-word; */
-}
 .reservedTime {
+	width: 100px;
+	height: 30px;
+	margin-right: 10px;
+	display: inline-block;
+	text-align: justify;
+	border-radius: 5px;
 	background-color: gray;
 	text-decoration: line-through;
 }
 
+
 .availableTime {
+	width: 100px;
+	height: 30px;
+	margin-right: 10px;
+	display: inline-block;
+	text-align: justify;
+	border-radius: 5px;
 	background-color: buttonhighlight;
 }
 </style>
+<script>
+	
+</script>
 </head>
 <body>
 	<p>검색결과: ${"총 "}${fn:length(availStaduimList)}${"건"}</p>
@@ -56,27 +65,27 @@ div.time{
 	<c:forEach items="${availStaduimList}" var="stadium" varStatus="status">
 
 		<div id="stadiumList">
+			${status.index}
+			${status.count}
 			<!-- 종목명/상세정보 -->
 			<br>
-			<h3>${stadium.stadium_name}</h3>
-			<input type="hidden" id="stadiumName" name="stadiumName" value="${stadium.stadium_name}">
+			<h3 id="stadium_name">${stadium.stadium_name}</h3>
 			<div class="flex-row">
 				<div class="details">최대인원${" "}${stadium.stadium_number}${"명"}</div>
 				<div class="details">${stadium.payment_method}</div>
-				<button class="details" onclick="window.open('http://localhost:9090/uridongne-olympic/stadium/stadiumDetail?id=${stadium.stadium_id}')">상세보기</button>
+				<button class="details" onclick="window.open('address')">상세보기</button>
 			</div>
 
 			<fmt:parseNumber value="${fn:substring(stadium.stadium_start,0,2)}"
 				var="starttime" />
 			<fmt:parseNumber value="${fn:substring(stadium.stadium_end,0,2)}"
-			
 				var="endtime" />
 			<!-- test출력 **삭제** -->
 			${stadium.reservedList}
 			<!-- 예약가능시간대 -->
 			<br>
-			<div class="times flex-row">
-				<c:forEach begin="${starttime}" end="${endtime}" var="time" step="2">
+			<div class="flex-row">
+				<c:forEach begin="${starttime}" end="${endtime}" var="time">
 					<c:set var="cnt2" value="0" />
 					<c:forEach items="${stadium.reservedList}" var="reserved">
 						<c:set var="cnt" value="0" />
@@ -91,19 +100,20 @@ div.time{
 					</c:forEach>
 					<!-- 가능/불가 -->
 					<c:if test="${cnt2 > 0}">
-						<div class="time reservedTime">
-							<label><input id="rdo" type="radio" name="disavail"
-								value="${time}:00" disabled checked>${time}:00 ~ ${time + 2}:00</label>
-						</div>
+						<span class="reservedTime">
+							<label><input type="checkbox" name="disavail"
+								value="${time}:00" disabled checked>${time}:00</label>
+						</span>
 					</c:if>
 					<c:if test="${cnt2 == 0}">
-						<div class="time availableTime">
-							<label><input id="rdo" type="radio" name="avail"
-								value="${time}:00~${time + 2}:00 (2시간)">${time}:00 ~ ${time + 2}:00</label>
-						</div>
+						<span class="availableTime">
+							<label><input type="checkbox" name="avail"
+								value="${time}:00">${time}:00</label>
+						</span>
 					</c:if>
 				</c:forEach>
 			</div>
+
 			<br>
 		</div>
 		<hr>
