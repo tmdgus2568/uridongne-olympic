@@ -23,6 +23,7 @@ public class MemberDAO {
 		try {
 			con = DBConnection.dbConnect(path);
 			st = con.prepareStatement(sql);
+			
 			st.setString(1, mem.getUser_id());
 			st.setString(2, mem.getUser_pw());
 			st.setString(3, mem.getUser_name());
@@ -99,6 +100,37 @@ public class MemberDAO {
 		return member;
 	}
 	
+	public int updateMember(MemberVO mem) {
+		int result = 0; // update 건수
+		
+		String sql = "update member" + " set user_name = ?" + ", user_birth = ?"
+				+ ", user_email = ?" + ", user_phone = ?" + ", user_state = ?" + ", user_interest = ?"
+				+ " where user_id = ?";
+
+		PreparedStatement st = null; // ?를 활용하면 PreparedStatement!
+		Connection con = null;
+
+		try {
+			con = DBConnection.dbConnect(path);
+			st = con.prepareStatement(sql); // sql문을 준비한다.
+			
+			st.setString(1, mem.getUser_name());
+			st.setDate(2, mem.getUser_birth());
+			st.setString(3, mem.getUser_email());
+			st.setInt(4, mem.getUser_phone());
+			st.setString(5, mem.getUser_state());
+			st.setString(6, mem.getUser_interest());
+			st.setString(7, mem.getUser_id());
+			
+			result = st.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			DBConnection.dbClose(con, st, null);
+		}
+		return result;
+	}
+	
 	private MemberVO makeMem(ResultSet rs) throws SQLException {
 		MemberVO emp = new MemberVO();
 
@@ -115,5 +147,6 @@ public class MemberDAO {
 		emp.setLogin_platform(rs.getString("login_platform"));
 		return emp;
 	}
+
 
 }

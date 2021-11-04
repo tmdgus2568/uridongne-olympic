@@ -2,9 +2,10 @@ package matching.model;
 
 import java.util.List;
 
+import reservation.model.ReservationVO;
+
 public class MatCreateService {
 	MatCreateDAO matCreateDAO;
-	
 	
 	public MatCreateService(String path) {
 
@@ -27,6 +28,10 @@ public class MatCreateService {
 	
 	public List<MatCreateJoinVO> selectByFilter(String sports, String option, String filter){
 		return matCreateDAO.selectByFilter(sports, option, filter);
+	}
+	
+	public int insertCreateAndRes(MatCreateVO create, ReservationVO reservation) {
+		return matCreateDAO.insertCreateAndRes(create, reservation);
 	}
 
 }

@@ -16,28 +16,31 @@ import member.model.MemberVO;
 import uridongne.util.DateUtil;
 
 /**
- * Servlet implementation class MemberInsertServlet
+ * Servlet implementation class MemberInfoUpdate
  */
-@WebServlet("/member/memberjoin")
-public class MemberInsertServlet extends HttpServlet {
+@WebServlet("/member/memberupdate")
+public class MemberInfoUpdate extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+       
+   
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
 		request.setCharacterEncoding("utf-8");
-		
-		MemberVO mem = makeMem(request);
+		MemberVO mem = updateMem(request);
 		String path = getServletContext().getRealPath(".");
 		MemberService service = new MemberService(path);
-		service.memberInsert(mem);
+		service.updateMember(mem);
 		
-		RequestDispatcher rd = request.getRequestDispatcher("login.jsp");
+		System.out.println(mem);
+		
+		RequestDispatcher rd = request.getRequestDispatcher("mypage.jsp");
 		rd.forward(request, response);
 	}
+
 	
-	private MemberVO makeMem(HttpServletRequest request) {
+	private MemberVO updateMem(HttpServletRequest request) {
 		
 		String user_id = request.getParameter("user_id");
-		String user_pw = request.getParameter("user_pw");
 		String user_name = request.getParameter("user_name");
 		Date user_birth = DateUtil.convertToDate((request.getParameter("user_birth")).replace('-', '/'));
 		String user_email = request.getParameter("user_email");
@@ -51,7 +54,6 @@ public class MemberInsertServlet extends HttpServlet {
 		MemberVO mem = new MemberVO();
 		
 		mem.setUser_id(user_id);
-		mem.setUser_pw(user_pw);
 		mem.setUser_name(user_name);
 		mem.setUser_birth(user_birth);
 		mem.setUser_email(user_email);

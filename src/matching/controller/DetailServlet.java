@@ -49,7 +49,7 @@ public class DetailServlet extends HttpServlet {
 		
 		// 임시로 세션에 아이디와 비밀번호 저장 
         HttpSession session = request.getSession();
-        session.setAttribute("test_id", "bb");
+        session.setAttribute("test_id", "33");
 		
 		RequestDispatcher rd = request.getRequestDispatcher("detail.jsp");
         rd.forward(request,response);

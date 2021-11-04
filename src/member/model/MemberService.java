@@ -25,4 +25,9 @@ public class MemberService {
 		return dao.generalLoginCheck(user_id, user_pw);
 	}
 
+	public int updateMember(MemberVO mem) {
+		return dao.updateMember(mem);
+		
+	}
+
 }
