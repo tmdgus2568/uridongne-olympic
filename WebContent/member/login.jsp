@@ -7,11 +7,12 @@
 <html>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-
+<link href="../css/contentStyle.css" rel="stylesheet" type="text/css">
 <style type="text/css">
-h5 { color: red; }
+h5 {
+	color: red;
+}
 </style>
-
 <!-- 카카오 로그인 스크립트 -->
 <script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
 <script
@@ -37,7 +38,7 @@ h5 { color: red; }
 						$("#kakao_user_id").val(kakao_user_id);
 						$("#kakao_user_email").val(kakao_user_email);
 						$("#kakaoFrmLogin").submit();
-s			
+
 					},
 					fail : function(error) {
 						console.log(error)
@@ -50,40 +51,10 @@ s
 		})
 	}
 
- 	//카카오 로그아웃 
-	function kakaoLogout() {
-		if (Kakao.Auth.getAccessToken()) {
-			Kakao.API.request({
-				url : '/v1/user/unlink',
-				success : function(response) {
-					console.log(response)
-				},
-				fail : function(error) {
-					console.log(error)
-				},
-			})
-			Kakao.Auth.setAccessToken(undefined)
-		}
-	}
 </script>
 
 </head>
 <body>
-	<h3>LOGIN</h3>
-	<h5>${message }</h5>
-	<form name="frmLogin" action="generallogincheck" method="post">
-		<table>
-			<tr>
-				<td>아이디</td>
-				<td><input type="text" id="user_id" name="user_id">
-			</tr>
-			<tr>
-				<td>비밀번호</td>
-				<td><input type="password" id="user_pw" name="user_pw"></td>
-			</tr>
-		</table>
-		<input type="submit" value="로그인">
-	</form>
 
 
 	<%
@@ -97,25 +68,46 @@ s
 	apiURL += "&state=" + state;
 	session.setAttribute("state", state);
 	%>
-	
-	<br>
-	
-	<a href="joinForm.jsp"><img height="40" src="../image/join.png" /></a><br>
-	
-	<a onclick="kakaoLogin();" href="javascript:void(0)"><img height="40" src="../image/kakaologin.png" /></a><br>
-	<a href="<%=apiURL%>"><img height="40" src="../image/naverlogin.png" /></a>
 
 
-	<form name="kakaoFrmLogin" id="kakaoFrmLogin" action="kakaologincheck"
-		method="post">
-		<input type="hidden" id="kakao_user_id" name="kakao_user_id">
-		<input type="hidden" id="kakao_user_email" name="kakao_user_email">
-	</form>
-	
-	
-      <a onclick="kakaoLogout();" href="javascript:void(0)">
-          <span>카카오 로그아웃</span>
-      </a>
+	<%@ include file="../header.jsp"%>
+	<div class="content">
+		<div class="loginform" align="center">
+			<h3>LOGIN</h3>
+			<h5>${message }</h5>
+			<form name="frmLogin" action="generallogincheck" method="post">
+				<table>
+					<tr>
+						<td>아이디</td>
+						<td><input type="text" id="user_id" name="user_id">
+					</tr>
+					<tr>
+						<td>비밀번호</td>
+						<td><input type="password" id="user_pw" name="user_pw"></td>
+					</tr>
+				</table>
+				<input type="submit" value="로그인">
+			</form>
 
+			<br> <a href="joinForm.jsp"><img height="40"
+				src="../image/join.png" /></a><br> <a onclick="kakaoLogin();"
+				href="javascript:void(0)"><img height="40"
+				src="../image/kakaologin.png" /></a><br> <a href="<%=apiURL%>"><img
+				height="40" src="../image/naverlogin.png" /></a>
+
+
+			<form name="kakaoFrmLogin" id="kakaoFrmLogin"
+				action="kakaologincheck" method="post">
+				<input type="hidden" id="kakao_user_id" name="kakao_user_id">
+				<input type="hidden" id="kakao_user_email" name="kakao_user_email">
+			</form>
+
+
+			<a onclick="kakaoLogout();" href="javascript:void(0)"> <span>카카오
+					로그아웃</span>
+			</a>
+		</div>
+	</div>
+	<%@ include file="../footer.jsp"%>
 </body>
 </html>
