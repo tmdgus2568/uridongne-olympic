@@ -2,17 +2,18 @@ package review.model;
 
 import java.sql.Date;
 
-public class ReviewPossVO {
+public class ReviewInfoVO {
 	private String stadium_name; 
 	private String sports_name;
 	private Date res_date;
 	private Date play_date;
+	private int res_number;
 	
-	public ReviewPossVO() {
+	public ReviewInfoVO() {
 		
 	}
 	
-	public ReviewPossVO(String stadium_name, String sports_name, Date res_date, Date play_date) {
+	public ReviewInfoVO(String stadium_name, String sports_name, Date res_date, Date play_date) {
 		super();
 		this.stadium_name = stadium_name;
 		this.sports_name = sports_name;
@@ -52,11 +53,16 @@ public class ReviewPossVO {
 		this.play_date = play_date;
 	}
 
-	@Override
-	public String toString() {
-		return "ReviewConstVO [stadium_name=" + stadium_name + ", sports_name=" + sports_name + ", res_date=" + res_date
-				+ ", play_date=" + play_date + "]";
+	
+	public int getRes_number() {
+		return res_number;
 	}
+
+	public void setRes_number(int res_number) {
+		this.res_number = res_number;
+	}
+
 	
-	
+
+	 
 }
