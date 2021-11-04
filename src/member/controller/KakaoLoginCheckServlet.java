@@ -38,7 +38,7 @@ public class KakaoLoginCheckServlet extends HttpServlet {
 		} else {
 			HttpSession session = request.getSession();
 			session.setAttribute("member", member);
-			response.sendRedirect("test.jsp");
+			response.sendRedirect("/uridongne-olympic/header.jsp");
 		}
 	}
 

@@ -1,3 +1,4 @@
+<%@page import="member.model.MemberVO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -111,13 +112,46 @@
 </style>
 </head>
 
+<script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
+<script>
+Kakao.init('52f4562963d0af029fb4dd18b6358be9'); //발급받은 키 중 javascript키를 사용해준다.
+
+//카카오 로그아웃 
+function kakaoLogout() {
+	if (Kakao.Auth.getAccessToken()) {
+		Kakao.API.request({
+			url : '/v1/user/unlink',
+			success : function(response) {
+				console.log(response)
+				location.href = "member/logout";
+			},
+			fail : function(error) {
+				console.log(error)
+			},
+		})
+		Kakao.Auth.setAccessToken(undefined)
+	}
+}
+</script>
+
+
 <body>
 	<div id="wrapper">
 		<header>
 			<h1 class="header-text">우리동네올림픽</h1>
+			
+			<% session = request.getSession();
+			MemberVO member = (MemberVO)session.getAttribute("member");
+			if(member == null){
+			%>
 			<div id="member_info" align="right">
-				<a href="#">회원가입</a>
-				<a href="#">로그인</a>
+				<a href="/uridongne-olympic/member/login.jsp">로그인 | 회원가입</a>
+			<% } else if (member != null) { if(member.getLogin_platform().equals("카카오")){ %>
+			<a onclick="kakaoLogout();" href="javascript:void(0)">카카오 로그아웃</a>
+			<a href="/uridongne-olympic/member/mypage.jsp">마이페이지</a>
+			<% } else{ %>
+			<a href="member/logout">로그아웃</a>
+			<a href="/uridongne-olympic/member/mypage.jsp">마이페이지</a> <%} } %>
 			</div>
 	
 		</header>
