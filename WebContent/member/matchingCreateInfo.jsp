@@ -7,6 +7,9 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<link href="../css/tableStyle.css" rel="stylesheet" type="text/css">
+<link href="../css/contentStyle.css" rel="stylesheet" type="text/css">
+
 <style type="text/css">
 #left_main ul {
 	list-style-type: none;
@@ -98,35 +101,51 @@
 				<li><a href="reviewinfo">리뷰</a></li>
 			</ul>
 		</div>
-		<h2>매칭 개설 정보</h2>
-		<table border="1" class="table_style" align="center"
-			id="matching_list">
-			<tr class="table_title">
-				<td hidden=true>id</td>
-				<td>순서</td>
-				<td>방이름</td>
-				<td>인원</td>
-				<td>종목</td>
-				<td>지역명</td>
-				<td>경기날짜</td>
-				<td>경기현황</td>
-				<td>취소하기</td>
-			</tr>
-			<c:forEach var="item" items="${matList}" varStatus="list">
-				<tr align="center" class="table_content">
-					<td hidden=true>${item.mat_id}</td>
-					<td>${list.count}</td>
-					<td>${item.mat_title}</td>
-					<td>${item.nowjoin_people}/${item.mat_people}</td>
-					<td>${item.sports_name}</td>
-					<td>${item.location}</td>
-					<td>${item.play_date}</td>
-					<td>${item.mat_status}</td>
-					<td><button>매칭취소</button></td>
+		<div id="right_main" style="height: 300px; width: 490px; float: left;">
+			<h2>매칭 개설 정보</h2>
+			<table border="1" class="table_style" align="center"
+				id="matching_list">
+				<tr class="table_title">
+					<td hidden=true>id</td>
+					<td>순서</td>
+					<td>방이름</td>
+					<td>인원</td>
+					<td>종목</td>
+					<td>지역명</td>
+					<td>경기날짜</td>
+					<td>경기현황</td>
+					<td>취소하기</td>
 				</tr>
-			</c:forEach>
+				<c:choose>
+					<c:when test="${empty matList}">
+						<tr height="10">
+							<td colspan="5">
+								<p align="center">
+									<b><span style="font-style: italic; font-size: 12pt;">생성한
+											매칭이 없습니다.</span></b>
+								</p>
+							</td>
+						</tr>
+					</c:when>
+					<c:when test="${!empty matList}">
+						<c:forEach var="item" items="${matList}" varStatus="list">
+							<tr align="center" class="table_content">
+								<td hidden=true>${item.mat_id}</td>
+								<td>${list.count}</td>
+								<td>${item.mat_title}</td>
+								<td>${item.nowjoin_people}/${item.mat_people}</td>
+								<td>${item.sports_name}</td>
+								<td>${item.location}</td>
+								<td>${item.play_date}</td>
+								<td>${item.mat_status}</td>
+								<td><button>매칭취소</button></td>
+							</tr>
+						</c:forEach>
+					</c:when>
 
-		</table>
+				</c:choose>
+			</table>
+		</div>
 	</div>
 	<%@ include file="../footer.jsp"%>
 </body>
