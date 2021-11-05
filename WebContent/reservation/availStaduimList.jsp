@@ -53,17 +53,18 @@ div.time{
 <body>
 	<p>검색결과: ${"총 "}${fn:length(availStaduimList)}${"건"}</p>
 	<hr>
+	<c:set var="path" value="${pageContext.request.contextPath}"/>)
 	<c:forEach items="${availStaduimList}" var="stadium" varStatus="status">
 
 		<div id="stadiumList">
 			<!-- 종목명/상세정보 -->
 			<br>
 			<h3>${stadium.stadium_name}</h3>
-			<input type="hidden" id="stadiumName" name="stadiumName" value="${stadium.stadium_name}">
+			<input type="hidden" id="stadium_id" name="stadium_id" value="${stadium.stadium_id}">
 			<div class="flex-row">
 				<div class="details">최대인원${" "}${stadium.stadium_number}${"명"}</div>
 				<div class="details">${stadium.payment_method}</div>
-				<button class="details" onclick="window.open('http://localhost:9090/uridongne-olympic/stadium/stadiumDetail?id=${stadium.stadium_id}')">상세보기</button>
+				<button class="details" onclick="window.open('${path}/stadium/stadiumDetail?id=${stadium.stadium_id}')">상세보기</button>
 			</div>
 
 			<fmt:parseNumber value="${fn:substring(stadium.stadium_start,0,2)}"
@@ -92,13 +93,13 @@ div.time{
 					<!-- 가능/불가 -->
 					<c:if test="${cnt2 > 0}">
 						<div class="time reservedTime">
-							<label><input id="rdo" type="radio" name="disavail"
+							<label><input type="radio" name="disavail"
 								value="${time}:00" disabled checked>${time}:00 ~ ${time + 2}:00</label>
 						</div>
 					</c:if>
 					<c:if test="${cnt2 == 0}">
 						<div class="time availableTime">
-							<label><input id="rdo" type="radio" name="avail"
+							<label><input type="radio" name="avail" onchange="call(this)"
 								value="${time}:00~${time + 2}:00 (2시간)">${time}:00 ~ ${time + 2}:00</label>
 						</div>
 					</c:if>
