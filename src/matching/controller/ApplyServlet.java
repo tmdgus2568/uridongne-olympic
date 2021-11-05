@@ -25,28 +25,6 @@ public class ApplyServlet extends HttpServlet {
 
     private MatApplyService applyService;
     private MatCreateService createService;
-    
-    
-
-	@Override
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		
-		String dbPath = getServletContext().getRealPath(".");
-		createService = new MatCreateService(dbPath);
-		
-		MatCreateJoinVO createJoin = new MatCreateJoinVO();
-		createJoin = createService.selectById(Integer.parseInt(request.getParameter("mat_id")));
-		System.out.println(createJoin);
-		
-		request.setAttribute("createJoin", createJoin);
-		
-		RequestDispatcher rd = request.getRequestDispatcher("applyForm.jsp");
-		
-        rd.forward(request,response);
-	}
-
-
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)

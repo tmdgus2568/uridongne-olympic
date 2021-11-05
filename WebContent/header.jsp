@@ -200,7 +200,7 @@ header { /* 헤더 */
 					<ul>
 						<li><a href="#">경기장예약</a></li>
 						<li><a
-							href="/uridongne-olympic/matching/create?stadium_id=S210116212456501607">매칭예약</a></li>
+							href="/uridongne-olympic/matching/stadium">매칭예약</a></li>
 					</ul></li>
 				<li><a href="/uridongne-olympic/matching/list">매칭참여</a></li>
 				<li><a href="/uridongne-olympic/review/list">리뷰</a></li>

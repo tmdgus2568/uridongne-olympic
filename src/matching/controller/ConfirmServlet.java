@@ -14,22 +14,19 @@ import matching.model.MatCreateService;
 import matching.model.MatCreateVO;
 import member.model.MemberVO;
 import reservation.model.ReservationVO;
-import stadium.model.StadiumListService;
-import stadium.model.StadiumListVO;
 
 /**
- * Servlet implementation class MatCreateServlet
+ * Servlet implementation class ConfirmServlet
  */
-@WebServlet("/matching/create")
-public class MatCreateServlet extends HttpServlet {
+@WebServlet("/matching/confirm")
+public class ConfirmServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	StadiumListService stadiumService;
 	MatCreateService createService;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public MatCreateServlet() {
+    public ConfirmServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -39,46 +36,38 @@ public class MatCreateServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		
-		
-		String dbPath = getServletContext().getRealPath(".");
-		stadiumService = new StadiumListService(dbPath);
-		StadiumListVO stadium = stadiumService.selectDetail(request.getParameter("stadium_id"));
-	
-			
-		
-		request.setAttribute("stadium", stadium);
-		
-		System.out.println(stadium.getStadium_id() +  " " +  stadium.getMat_max());
-		
-		RequestDispatcher rd = request.getRequestDispatcher("createForm.jsp");
-        rd.forward(request,response);
+		response.getWriter().append("Served at: ").append(request.getContextPath());
 	}
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		
-		// 다음으로 누르면 MatCreateServlet로 이동 -> 객체를 보내므로 post로 보냄 
 		request.setCharacterEncoding("utf-8");
+		
+		String dbPath = getServletContext().getRealPath(".");
+		createService = new MatCreateService(dbPath);
+		
 		
 		ReservationVO reservation = makeReserv(request);
 		
-		String dbPath = getServletContext().getRealPath(".");
-		stadiumService = new StadiumListService(dbPath);
-		StadiumListVO stadium = stadiumService.selectDetail(request.getParameter("stadium_id"));
-	
+		MatCreateVO create = new MatCreateVO();
+		create.setMat_people(Integer.parseInt(request.getParameter("people")));
+		create.setMat_title(request.getParameter("title"));
+		create.setMat_content(request.getParameter("content").replaceAll("\n", "<br>"));
+		
+		int result = createService.insertCreateAndRes(create, reservation);
+		RequestDispatcher rd;
+		if(result > 0) {
 			
-		request.setAttribute("reservation", reservation);
-		request.setAttribute("stadium", stadium);
+			
+			rd = request.getRequestDispatcher("confirm.jsp?page=create&message=success");
+		}
+		else rd = request.getRequestDispatcher("confirm.jsp?page=create&message=failed");
+
 		
-		RequestDispatcher rd = request.getRequestDispatcher("createForm.jsp");
 		rd.forward(request, response);
-		
 	}
-	
 	
 	private ReservationVO makeReserv(HttpServletRequest request) {
 		
@@ -96,9 +85,8 @@ public class MatCreateServlet extends HttpServlet {
 		String playDate = request.getParameter("play_date");
 		playDate = playDate.replace("/", "-");
 		java.sql.Date date = java.sql.Date.valueOf(playDate);
-		String playTime = request.getParameter("play_time");
-		String startTime = playTime.substring(0, 5);
-		String endTime = playTime.substring(6, 11);
+		String startTime = request.getParameter("play_start");
+		String endTime = request.getParameter("play_end");
 		int price = Integer.parseInt(request.getParameter("stadium_price"));
 		
 		ReservationVO rvo = new ReservationVO();
@@ -111,10 +99,8 @@ public class MatCreateServlet extends HttpServlet {
 	    rvo.setStadium_id(stadiumId);
 	    rvo.setStadium_price(price);
 	    rvo.setUser_id("555");
-	    
-	    System.out.println("matcreate: " + rvo);
-	    
 		
+	    System.out.println("confirm : " + rvo);
 		return rvo;
 	}
 

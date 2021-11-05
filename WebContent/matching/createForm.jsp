@@ -121,11 +121,23 @@
 <script>
 
 $(function(){
+	// 총 인원수가 최대 n명 의 n을 넘지 못하게 처리 
+	
 	// change event 처리 -> 가격 올림처리 
 	$('input[name=people]').change(function(){
-		console.log("here");
+		var max = ${stadium.mat_max};
+		if($(this).val() > max){
+			alert("최대 수용 가능 인원을 넘었습니다");
+			$(this).val(max);
+			
+		}
+	
+		var prev_price = ${reservation.stadium_price};
+		var price = Math.ceil(Number(prev_price)/$(this).val());
 		
-		$('.money').text("약 "+Math.ceil(100000/$(this).val()) + " 원");
+		$('#price').text(price);
+		
+		
 		
 	});	
 	
@@ -134,8 +146,7 @@ $(function(){
 			 return false;
 		 }
 		 else{
-			 if($('input[name=people]').val())
-			 
+			 if($('input[name=people]').val());		 
 		 }
 		
 	});
@@ -152,7 +163,7 @@ $(function(){
 <div class="content">
 	<h2>매칭 생성</h2>
 	<br>
-	<form method="post" id="create">
+	<form method="post" id="create" action="confirm">
 		<table align="center" class="table_style">
 			<tr>
 				<td class="td_title">제목</td>
@@ -167,7 +178,7 @@ $(function(){
 			<tr>
 				<td colspan="2" class="people_count">
 					총 인원 수
-					<input type="number" name="people" min="1" required >
+					<input type="number" name="people" min="1" value="1" required >
 					<div>최대 ${stadium.mat_max}명까지 수용 가능</div>
 				</td>
 				
@@ -176,12 +187,33 @@ $(function(){
 		</table>
 		<div align="right">
 			<div>인당 예상 가격</div>
-			<div class="money">약 0 원</div>
+			<div class="money">약 <span id="price">${reservation.stadium_price}</span> 원</div>
 		
 		</div>
 		<div align="center" class="buttons">
 			<input type="button" value="취소하기" id="cancel_btn">
 			<input type="submit" value="생성하기">
+		</div>
+		
+<!-- 		
+	private int res_number;
+	private String stadium_id; // 경기장아이디
+	private String user_id;
+	private Date res_date; // 예약신청일자
+	private Date play_date; // 경기예약일자
+	private String play_start;
+	private String play_end;
+	private int stadium_price; // 평일 40,000원 주말: 60,000원 (1시간 당)
+	private String res_status;
+	private int matching; // 매칭여부 no: 0, yes: 1 -->
+		<div hidden="true">
+			<input type="text" name="stadium_id" value="${reservation.stadium_id}">
+			<input type="text" name="res_date" value="${reservation.res_date}">
+			<input type="text" name="play_date" value="${reservation.play_date}">
+			<input type="text" name="play_start" value="${reservation.play_start}">
+			<input type="text" name="play_end" value="${reservation.play_end}">
+			<input type="text" name="stadium_price" value="${reservation.stadium_price}">
+	
 		</div>
 	</form>
 </div>
