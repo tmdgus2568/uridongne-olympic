@@ -8,18 +8,20 @@
 <head>
 <meta charset="UTF-8">
 <title>경기장 예약</title>
-<link rel="stylesheet"
-	href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 <link rel="stylesheet" href="/resources/demos/style.css">
+<link href="../css/contentStyle.css" rel="stylesheet" type="text/css">
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <style>
 .reserveChoice {
 	width: 70%;
+
 }
 
 .reserveDetails {
 	width: 30%;
+	padding: 30px;
 }
 
 .flex-row {
@@ -34,9 +36,11 @@
 
 </head>
 <body>
-	<section class="contents flex-row">
-		<section class="reserveChoice">
-			<h2>경기장 예약 페이지</h2>
+	<%@ include file="../header.jsp"%>
+	<div class="content"><h2>경기장 예약</h2></div>
+	<section class="content flex-row">
+		<section class="reserveChoice" style="background-color: yellow">
+			<!-- 아이디${user_id } -->
 			<!-- <span>종목선택</span> -->
 			<select id="sports_name" name="sports_name">
 				<!-- 종목 9개 고정 -->
@@ -67,7 +71,7 @@
 
 		<!-- 나의예약정보 -->
 		<aside class="reserveDetails">
-			<form name="reserveInfo" method="post" action="stadiumConfirmed">
+			<form name="reserveInfo" method="post" action="stadiumConfirmed" onsubmit='return btnActive("${user_id}")'>
 				<h3>나의 예약 정보</h3>
 				<hr>
 				<table>
@@ -76,7 +80,7 @@
 						<td>
 							<span id='stadium_name'></span> 
 							<!-- stadium_id2 form으로 서버에 전송 --> 
-							<input type='text' id='stadium_id2' name='stadium_id' value=''>
+							<input type='hidden' id='stadium_id2' name='stadium_id' value=''>
 						</td>
 					</tr>
 					<tr>
@@ -84,14 +88,14 @@
 						<!-- form으로 서버에 전송 -->
 						<td>
 							<span id='date'></span>
-							<input type='text' id='play_date' name='play_date' value=''>
+							<input type='hidden' id='play_date' name='play_date' value=''>
 						</td>
 					</tr>
 					<tr>
 						<td>🌈 경기시간</td>
 						<td>
 							<span id='time'></span>
-							<input type='text' id='play_time' name='play_time' value=''>
+							<input type='hidden' id='play_time' name='play_time' value=''>
 						</td>
 					</tr>
 					<tr>
@@ -108,7 +112,7 @@
 						<td>🌈 결제금액</td>
 						<td>
 							<span id="price"></span>
-							<input type='text' id="stadium_price" name='stadium_price' value=''>
+							<input type='hidden' id="stadium_price" name='stadium_price' value=''>
 						</td>
 					</tr>
 					<tr>
@@ -116,10 +120,11 @@
 						<td class="refer">평일(40,000원/시간), 주말(60,000원/시간)</td>
 					</tr>
 				</table>
-				<br> <input type="submit" value="예약하기">
+				<br> <input type="submit" id="reserveBtn" value="예약하기" />
 			</form>
 		</aside>
 	</section>
+	<%@ include file="../footer.jsp"%>
 	<script>
 		//종목선택 > 지역옵션 표시
 		$(function() {
@@ -243,6 +248,14 @@
 			$("#stadium_name").html(stadium);
 			$("#stadium_id2").val(stadium_id);
 		 }
+ 		 
+ 		 //로그인되지 않았을 시 예약불가, 알람창 띄움
+		 function btnActive(user_id){
+ 			if( user_id == '' || user_id == null) {
+ 				alert("로그인이 필요합니다.");
+ 				return false;
+ 			} 
+ 		 }
 	</script>
 </body>
 </html>
