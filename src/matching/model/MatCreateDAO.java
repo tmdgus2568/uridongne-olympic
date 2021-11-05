@@ -158,8 +158,8 @@ public class MatCreateDAO {
  /*	    I_STADIUM_ID in date,
 	    I_USER_ID in varchar2,
 	    I_PLAY_DATE in date,
-	    I_PLAY_START in date,
-	    I_PLAY_END in date,
+	    I_PLAY_START in varchar2,
+	    I_PLAY_END in varchar2,
 	    I_STADIUM_PRICE in number,
 	    I_MAT_PEOPLE in number,
 	    I_MAT_TITLE in varchar2,
@@ -180,9 +180,9 @@ public class MatCreateDAO {
 			
 			st.setString(1, reservation.getStadium_id());
 			st.setString(2, reservation.getUser_id());
-			st.setDate(3, new Date(System.currentTimeMillis()));
-			st.setDate(4, new Date(System.currentTimeMillis()));
-			st.setDate(5, new Date(System.currentTimeMillis()));
+			st.setDate(3, reservation.getPlay_date());
+			st.setString(4, reservation.getPlay_start());
+			st.setString(5, reservation.getPlay_end());
 			st.setInt(6, reservation.getStadium_price());
 			st.setInt(7, create.getMat_people());
 			st.setString(8, create.getMat_title());
