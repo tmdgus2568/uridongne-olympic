@@ -28,7 +28,7 @@ public class GetStadiumServlet extends HttpServlet {
 		
 		String dbPath = getServletContext().getRealPath(".");
 		ReservationService service = new ReservationService(dbPath);
-		request.setAttribute("availStaduimList", service.getStadiumByDate(sports_name, region, datepicker)); // 3가지 조건에 맞는 걸 조회해야 하니, 파라미터 3개짜리 만들자
+		request.setAttribute("availStaduimList", service.getStadiumByDate(sports_name, region, datepicker));
 		RequestDispatcher rd = request.getRequestDispatcher("availStaduimList.jsp");
 		rd.forward(request, response);
 	}
