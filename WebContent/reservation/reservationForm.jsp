@@ -8,11 +8,12 @@
 <head>
 <meta charset="UTF-8">
 <title>경기장 예약</title>
-<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-<link rel="stylesheet" href="/resources/demos/style.css">
+<!-- <link rel="stylesheet"
+	href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+
 <link href="../css/contentStyle.css" rel="stylesheet" type="text/css">
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script> -->
 <style>
 .reserveChoice {
 	width: 70%;
@@ -36,10 +37,11 @@
 
 </head>
 <body>
-	<%@ include file="../header.jsp"%>
+	<%-- <%@ include file="../header.jsp"%> --%>
+	<jsp:include page="../header.jsp"></jsp:include> 
 	<div class="content"><h2>경기장 예약</h2></div>
 	<section class="content flex-row">
-		<section class="reserveChoice" style="background-color: yellow">
+		<section class="reserveChoice">
 			<!-- 아이디${user_id } -->
 			<!-- <span>종목선택</span> -->
 			<select id="sports_name" name="sports_name">
