@@ -41,7 +41,11 @@ public class MemberService {
 	}
 
 	public List<ReviewListVO> reviewInfo(String user_id) {
-		return dao.reviewList(user_id);
+		return dao.reviewInfo(user_id);
+	}
+
+	public List<ResInfoVO> resInfo(String user_id) {
+		return dao.resInfo(user_id);
 	}
 
 }

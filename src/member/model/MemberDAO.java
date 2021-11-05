@@ -23,7 +23,7 @@ public class MemberDAO {
 
 	public int memberInsert(MemberVO mem) {
 		int result = 0; // insert 건수
-		String sql = "insert into member values (?,?,?,?,?,?,?,?,?,sysdate,?)";
+		String sql = "insert into member values (?,?,?,?,?,?,?,?,?,LOCALTIMESTAMP,?)";
 		Connection con = null;
 		PreparedStatement st = null;
 		try {
@@ -159,8 +159,8 @@ public class MemberDAO {
 		PreparedStatement st = null;
 		ResultSet rs = null;
 
-		String sql = "select c.*, d.*, s.user_id, s.play_date from matching_create c join stadium_reservation s on (c.res_number = s.res_number)" 
-					+ " join stadium d on (s.stadium_id = d.stadium_id) where s.user_id = ?";
+		String sql = "select c.*, d.*, s.user_id, s.play_date from matching_create c join stadium_reservation s on (c.res_number = s.res_number)"
+				+ " join stadium d on (s.stadium_id = d.stadium_id) where s.user_id = ?";
 
 		try {
 			conn = DBConnection.dbConnect(path);
@@ -198,11 +198,11 @@ public class MemberDAO {
 		return matCreate;
 	}
 
-	public List<ReviewListVO> reviewList(String user_id) {
+	public List<ReviewListVO> reviewInfo(String user_id) {
 		List<ReviewListVO> reviewList = new ArrayList<>();
 		String sql = "select stadium_name, play_date, review_star, review_content, res_number"
-				+" from review join stadium_reservation using (res_number) join member using (user_id)"
-				+" join stadium using (stadium_id) where user_id = ? order by play_date desc";
+				+ " from review join stadium_reservation using (res_number) join member using (user_id)"
+				+ " join stadium using (stadium_id) where user_id = ? order by play_date desc";
 		Connection conn = null;
 		PreparedStatement st = null;
 		ResultSet rs = null;
@@ -223,7 +223,7 @@ public class MemberDAO {
 
 		return reviewList;
 	}
-	
+
 	private ReviewListVO makeReview(ResultSet rs) throws SQLException {
 		ReviewListVO review = new ReviewListVO();
 		review.setStadium_name(rs.getString("stadium_name"));
@@ -232,6 +232,53 @@ public class MemberDAO {
 		review.setReview_content(rs.getString("review_content"));
 		review.setRes_number(rs.getInt("res_number"));
 		return review;
+	}
+
+	public List<ResInfoVO> resInfo(String user_id) {
+		List<ResInfoVO> resList = new ArrayList<>();
+		String sql = "select * from stadium_reservation r join stadium s " + "on (r.stadium_id = s.stadium_id) "
+				+ "where user_id = ? and matching = 0";
+		Connection conn = null;
+		PreparedStatement st = null;
+		ResultSet rs = null;
+
+		try {
+			conn = DBConnection.dbConnect(path);
+			st = conn.prepareStatement(sql); // prepareStatement통해서 보냄
+			st.setString(1, user_id);
+			rs = st.executeQuery();
+			while (rs.next()) {
+				resList.add(makeRes(rs));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			DBConnection.dbClose(conn, st, rs);
+		}
+
+		return resList;
+	}
+
+	private ResInfoVO makeRes(ResultSet rs) throws SQLException {
+		ResInfoVO res = new ResInfoVO();
+		
+		res.setRes_number(rs.getInt("res_number"));
+		res.setStadium_id(rs.getString("stadium_id"));
+		res.setRes_date(rs.getDate("res_date"));
+		res.setPlay_date(rs.getDate("play_date"));
+		res.setPlay_start(rs.getString("play_start"));
+		res.setPlay_end(rs.getString("play_end"));
+		res.setStadium_price(rs.getInt("stadium_price"));
+		res.setRes_status(rs.getString("res_status"));
+		res.setMatching(rs.getInt("matching"));
+
+		res.setStadium_name(rs.getString("stadium_name"));
+		res.setSports_name(rs.getString("sports_name"));
+		res.setAddress_x(rs.getString("address_x"));
+		res.setAddress_y(rs.getString("address_y"));
+		res.setStadium_phone(rs.getString("stadium_phone"));
+		
+		return res;
 	}
 
 }

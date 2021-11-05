@@ -4,6 +4,8 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
+<link href="../css/tableStyle.css" rel="stylesheet" type="text/css">
+<link href="../css/contentStyle.css" rel="stylesheet" type="text/css">
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
@@ -116,8 +118,7 @@
 							<tr height="10">
 								<td colspan="5">
 									<p align="center">
-										<b><span style="font-style: italic; font-size: 15pt;">후기를
-												기다리고 있어요.</span></b>
+										<b><span style="font-style: italic; font-size: 12pt;">작성한 후기가 없습니다.</span></b>
 									</p>
 								</td>
 							</tr>
