@@ -24,7 +24,9 @@ public class ReservationDAO {
 	// 종목에 따른 경기장지역 조회
 	public Set<String> selectBySports(String sports) {
 		Set<String> regionList = new HashSet<String>();
+		
 		String sql = "select location from stadium where sports_name = ? and location is not null";
+		
 		Connection conn = null;
 		PreparedStatement st = null;
 		ResultSet rs = null;
@@ -45,16 +47,16 @@ public class ReservationDAO {
 
 		return regionList;
 	}
-
+	 
 	// 종목&지역&날짜에 따른 경기장 및 예약시간 조회
 	public List<AvailStadiumVO> getStadiumByDate(String sports_name, String region, String datepicker) {
 
 		// 선택한 경기장&날짜에 예약된 리스트 가져오기
-		String reservedListSql = "select to_char(PLAY_START,'hh24') stime, to_char(PLAY_END,'hh24') etime "
-				+ "from stadium_reservation " + "where PLAY_DATE = to_date(?,'yyyy/mm/dd') " + "and stadium_id = ?";
+		String reservedListSql = "select substr(play_start,1,2) stime, substr(play_end,1,2) etime "
+				+ "from stadium_reservation " + "where play_date = to_date(?,'yyyy/mm/dd') " + "and stadium_id = ?";
 		// 선택한 지역에 있는 경기장 정보 가져오기
-		String stadiumListSql = "select stadium_name, SPORTS_NAME, STADIUM_ID, STADIUM_number, "
-				+ "stadium_start, stadium_end, payment_method " + "from STADIUM "
+		String stadiumListSql = "select stadium_name, sports_name, stadium_id, stadium_number, "
+				+ "stadium_start, stadium_end, payment_method " + "from stadium "
 				+ "where sports_name = ? and location = ? order by stadium_name";
 
 		List<AvailStadiumVO> stadiumList = new ArrayList<>();
@@ -101,7 +103,43 @@ public class ReservationDAO {
 
 		return stadiumList;
 	}
+	
+	//가져온 예약정보 DB에 insert하기
+	public int insertReserveInfo(ReservationVO reservation) {
+		
+		int result = 0; // insert 건수
+		
+		String sql = "insert into stadium_reservation "
+				+ "values(stadium_reservation_seq.nextval, ?, ?, sysdate, "
+				+ "?, ?, ?, ?, ?, ?)"; // 첫번째: 경기날짜 to_date(?, 'yyyy/mm/dd')
+		
+		Connection conn = null;
+		PreparedStatement st = null;
 
+		try {
+			conn = DBConnection.dbConnect(path);
+			st = conn.prepareStatement(sql);
+			
+			st.setString(1, reservation.getStadium_id());
+			st.setString(2, reservation.getUser_id());
+			st.setDate(3, reservation.getPlay_date());
+			st.setString(4, reservation.getPlay_start());
+			st.setString(5, reservation.getPlay_end());
+			st.setInt(6, reservation.getStadium_price());
+			st.setString(7, reservation.getRes_status());
+			st.setInt(8, reservation.getMatching());
+			
+			result = st.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			DBConnection.dbClose(conn, st, null);
+		}
+		
+		return result;
+	}
+
+	
 	private AvailStadiumVO makeAvailStadium(ResultSet rs) throws SQLException {
 
 		AvailStadiumVO stadium = new AvailStadiumVO();
@@ -117,61 +155,4 @@ public class ReservationDAO {
 		return stadium;
 	}
 
-//	public List<AvailStadiumVO> getAvailTime(String sports_name, String region, String datepicker) {
-//		// 해당 날짜/지역/종목에 따른 시간리스트
-//		List<AvailStadiumVO> timeList = new ArrayList<>();
-//		
-//		String sql = "select   to_char(PLAY_START,'hh24') stime, to_char(PLAY_END,'hh24') etime "
-//				+ "from stadium_reservation "
-//				+ "where PLAY_DATE = to_date(?,'yyyy/mm/dd') "
-//				+ "and stadium_id = ?";
-//				
-//		Connection conn = null;
-//		PreparedStatement st = null;
-//		ResultSet rs = null;
-//		
-//		try {
-//			conn = DBConnection.dbConnect(path);
-//			st = conn.prepareStatement(sql);
-//			//수정필요
-//			st.setString(1, sports_name);
-//			st.setString(2, region);
-////			st.setString(3, datepicker);
-//			rs = st.executeQuery();
-//			while(rs.next()) {
-//				timeList.add(makeAvailStadium(rs));
-//			}
-//		} catch (SQLException e) {
-//			e.printStackTrace();
-//		} finally {
-//			DBConnection.dbClose(conn, st, rs);
-//		}
-//		
-//		return timeList;
-//	}
-
-//	to_number(substr(stadium_start, 0, 2))
-
-//	private ReservationVO makeCreate(ResultSet rs) throws SQLException {
-//		
-//		ReservationVO region = new ReservationVO();
-//		
-//		r
-//		region.setMatching(rs.getInt("matching"));
-//		region.setPlay_date(rs.getDate("play_date"));
-//		region.setPlay_end(rs.getString("play_end"));
-//		regionList.setPlay_start(rs.getString("play_start"));
-//		regionList.setRes_date(rs.getDate("res_date"));
-//		regionList.setRes_number(rs.getInt("res_number"));
-//		regionList.setRes_status(rs.getString("res_status"));
-//		regionList.setStadium_id(rs.getString("stadium_id"));
-//		regionList.setStadium_price(rs.getInt("stadium_price"));
-//		regionList.setUser_id(rs.getString("user_id"));
-//		
-//		return regionList;
-//	}
-//	// 예약정보 DB에 저장
-//	public int reservationInsert(ReservationVO) {
-//		
-//	}
 }
