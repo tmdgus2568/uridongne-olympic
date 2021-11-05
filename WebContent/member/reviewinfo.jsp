@@ -87,7 +87,7 @@
 				style="height: 300px; width: 100px; margin-right: 10px; float: left;">
 
 				<ul>
-					<li><a class="home" href="mypage">마이페이지</a></li>
+					<li><a href="mypage">마이페이지</a></li>
 					<li><a href="reserveinfo">경기장예약</a></li>
 					<li class="dropdown">
 						<div class="dropdown-menu">
@@ -96,56 +96,45 @@
 						<div class="dropdown-content">
 							<a href="matchingcreateinfo">매칭생성</a> <a href="matchingapplyinfo">매칭참여</a>
 						</div>
-					<li><a href="reviewinfo">리뷰</a></li>
+					<li><a class="home" href="reviewinfo">리뷰</a></li>
 				</ul>
 			</div>
 
 			<div id="right_main"
 				style="height: 300px; width: 490px; float: left;">
-
-				<h2>마이페이지</h2>
-
-				<table border="1">
+				<h2>리뷰 정보</h2>
+				<table border="1" class="table_style" align="center"
+					id="review_list">
+					<tr class="table_title">
+						<td>경기장</td>
+						<td>경기일</td>
+						<td>후기</td>
+						<td>평점</td>
+					</tr>
 					<c:choose>
-						<c:when test="${member.login_platform == '일반'}">
-							<tr>
-								<td>아이디</td>
-								<td>${member.user_id}</td>
+						<c:when test="${empty reviewList}">
+							<tr height="10">
+								<td colspan="5">
+									<p align="center">
+										<b><span style="font-style: italic; font-size: 15pt;">후기를
+												기다리고 있어요.</span></b>
+									</p>
+								</td>
 							</tr>
-
+						</c:when>
+						<c:when test="${!empty reviewList}">
+							<c:forEach var="review" items="${reviewList }">
+								<tr align="center" class="table_content">
+									<td>${review.stadium_name}</td>
+									<td>${review.play_date }</td>
+									<td>${review.review_content }</td>
+									<td>${review.review_star }</td>
+								</tr>
+							</c:forEach>
 						</c:when>
 					</c:choose>
-					<tr>
-						<td>이름</td>
-						<td>${member.getUser_name() }</td>
-					</tr>
-					<tr>
-						<td>생년월일</td>
-						<td>${member.getUser_birth() }</td>
-					</tr>
-					<tr>
-						<td>이메일</td>
-						<td>${member.getUser_email() }</td>
-					</tr>
-					<tr>
-						<td>전화번호</td>
-						<td>${member.getUser_phone() }</td>
-					</tr>
-					<tr>
-						<td>도시</td>
-						<td>${member.user_city }</td>
-					</tr>
-					<tr>
-						<td>구</td>
-						<td>${member.user_state }</td>
-					</tr>
-					<tr>
-						<td>관심 종목</td>
-						<td>${member.getUser_interest() }</td>
-					</tr>
 				</table>
 
-				<br> <a href="mypageUpdate.jsp">수정하기</a> <a>탈퇴하기</a>
 			</div>
 		</div>
 	</div>

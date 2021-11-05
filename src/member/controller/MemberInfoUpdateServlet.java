@@ -10,6 +10,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import member.model.MemberService;
 import member.model.MemberVO;
@@ -19,22 +20,21 @@ import uridongne.util.DateUtil;
  * Servlet implementation class MemberInfoUpdate
  */
 @WebServlet("/member/memberupdate")
-public class MemberInfoUpdate extends HttpServlet {
+public class MemberInfoUpdateServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
    
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
 		request.setCharacterEncoding("utf-8");
-		MemberVO mem = updateMem(request);
+		MemberVO member = updateMem(request);
 		String path = getServletContext().getRealPath(".");
 		MemberService service = new MemberService(path);
-		service.updateMember(mem);
+		service.updateMember(member);
 		
-		System.out.println(mem);
-		
-		RequestDispatcher rd = request.getRequestDispatcher("mypage.jsp");
-		rd.forward(request, response);
+		HttpSession session = request.getSession();
+		session.setAttribute("member", member);
+		response.sendRedirect("mypage.jsp");
 	}
 
 	

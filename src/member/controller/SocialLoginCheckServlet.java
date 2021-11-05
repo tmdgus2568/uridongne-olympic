@@ -16,24 +16,26 @@ import member.model.MemberVO;
 /**
  * Servlet implementation class MemberLoginServlet
  */
-@WebServlet("/member/kakaologincheck")
-public class KakaoLoginCheckServlet extends HttpServlet {
+@WebServlet("/member/sociallogincheck")
+public class SocialLoginCheckServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
  
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("utf-8");
 		
-		String user_id = request.getParameter("kakao_user_id");
-		String user_email = request.getParameter("kakao_user_email");
+		String user_id = request.getParameter("social_user_id");
+		String user_email = request.getParameter("social_user_email");
+		String login_platform =  request.getParameter("login_platform");
 		
 		String path = getServletContext().getRealPath(".");
 		MemberService service = new MemberService(path);
 		MemberVO member = service.kakaoLoginCheck(user_id);
 		
 		if(member == null) {
-			request.setAttribute("kakao_user_id", user_id);
-			request.setAttribute("kakao_user_email", user_email);
-			RequestDispatcher rd = request.getRequestDispatcher("joinFormKakao.jsp");
+			request.setAttribute("social_user_id", user_id);
+			request.setAttribute("social_user_email", user_email);
+			request.setAttribute("login_platform", login_platform);
+			RequestDispatcher rd = request.getRequestDispatcher("joinFormSocial.jsp");
 			rd.forward(request, response);
 		} else {
 			HttpSession session = request.getSession();

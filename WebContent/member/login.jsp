@@ -13,6 +13,12 @@ h5 {
 	color: red;
 }
 </style>
+
+<!-- 네이버 로그인 스크립트 -->
+<script type="text/javascript"
+	src="https://static.nid.naver.com/js/naverLogin_implicit-1.0.3.js"
+	charset="utf-8"></script>
+
 <!-- 카카오 로그인 스크립트 -->
 <script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
 <script
@@ -32,12 +38,14 @@ h5 {
 						console.log("id값: " + response.id);
 						console.log("이메일: " + response.kakao_account.email);
 
-						var kakao_user_id = response.id;
-						var kakao_user_email = response.kakao_account.email;
+						var social_user_id = response.id;
+						var social_user_email = response.kakao_account.email;
+						var login_platform = "카카오";
 
-						$("#kakao_user_id").val(kakao_user_id);
-						$("#kakao_user_email").val(kakao_user_email);
-						$("#kakaoFrmLogin").submit();
+						$("#social_user_id").val(social_user_id);
+						$("#social_user_email").val(social_user_email);
+						$("#login_platform").val(login_platform);
+						$("#socialFrmLogin").submit();
 
 					},
 					fail : function(error) {
@@ -50,25 +58,10 @@ h5 {
 			},
 		})
 	}
-
 </script>
 
 </head>
 <body>
-
-
-	<%
-	String clientId = "LesoS08CKTFNELCZN_Ia";//아이디값";
-	String redirectURI = URLEncoder.encode("http://localhost:9090/uridongne-olympic/member/naverlogin", "UTF-8");
-	SecureRandom random = new SecureRandom();
-	String state = new BigInteger(130, random).toString();
-	String apiURL = "https://nid.naver.com/oauth2.0/authorize?response_type=code";
-	apiURL += "&client_id=" + clientId;
-	apiURL += "&redirect_uri=" + redirectURI;
-	apiURL += "&state=" + state;
-	session.setAttribute("state", state);
-	%>
-
 
 	<%@ include file="../header.jsp"%>
 	<div class="content">
@@ -90,24 +83,38 @@ h5 {
 			</form>
 
 			<br> <a href="joinForm.jsp"><img height="40"
-				src="../image/join.png" /></a><br> <a onclick="kakaoLogin();"
-				href="javascript:void(0)"><img height="40"
-				src="../image/kakaologin.png" /></a><br> <a href="<%=apiURL%>"><img
-				height="40" src="../image/naverlogin.png" /></a>
+				src="../image/generaljoin.png" /></a>
+				<br> <a onclick="kakaoLogin();"
+				href="javascript:void(0)"> <img height="40"
+				src="../image/kakaologin.png" /></a><br>
 
 
-			<form name="kakaoFrmLogin" id="kakaoFrmLogin"
-				action="kakaologincheck" method="post">
-				<input type="hidden" id="kakao_user_id" name="kakao_user_id">
-				<input type="hidden" id="kakao_user_email" name="kakao_user_email">
+			<div id="naver_id_login"></div>
+
+			<form name="socialFrmLogin" id="socialFrmLogin"
+				action="sociallogincheck" method="post">
+				<input type="hidden" id="social_user_id" name="social_user_id">
+				<input type="hidden" id="social_user_email" name="social_user_email">
+				<input type="hidden" id="login_platform" name="login_platform">
 			</form>
-
-
-			<a onclick="kakaoLogout();" href="javascript:void(0)"> <span>카카오
-					로그아웃</span>
-			</a>
 		</div>
 	</div>
+
+
+	<!-- //네이버 로그인 버튼 노출 영역 -->
+	<script type="text/javascript">
+		var naver_id_login = new naver_id_login("LesoS08CKTFNELCZN_Ia",
+				"http://localhost:9090/uridongne-olympic/member/callback.jsp");
+		var state = naver_id_login.getUniqState();
+		naver_id_login.setButton("green", 3, 43);
+		naver_id_login
+				.setDomain("http://localhost:9090/uridongne-olympic/member/login.jsp");
+		naver_id_login.setState(state);
+		naver_id_login.setPopup();
+		naver_id_login.init_naver_id_login();
+	</script>
+
+
 	<%@ include file="../footer.jsp"%>
 </body>
 </html>

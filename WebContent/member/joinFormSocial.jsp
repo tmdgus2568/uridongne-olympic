@@ -6,17 +6,19 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<h3>카카오 추가정보 입력하기</h3>
+	<%@ include file="../header.jsp"%>
+	<h3>소셜 로그인 추가정보 입력하기</h3>
 
 	<%
-	String user_id = request.getParameter("kakao_user_id");
-	String user_email = request.getParameter("kakao_user_email");
+	String user_id = request.getParameter("social_user_id");
+	String user_email = request.getParameter("social_user_email");
+	String login_platform = request.getParameter("login_platform");
 	%>
 
 	<form action="memberjoin" method="post">
 	<input type="hidden" id="user_id" name="user_id" value=<%=user_id%>>
 	<input type="hidden" id="user_email" name="user_email" value=<%=user_email%>>
-	<input type="hidden" id="login_platform" name="login_platform" value="카카오">
+	<input type="hidden" id="login_platform" name="login_platform" value=<%=login_platform%>>
 	
 		<table>
 			<tr>
@@ -82,6 +84,6 @@
 		<input type="submit" value="회원가입"> <input type="reset"
 			value="재입력">
 	</form>
-
+	<%@ include file="../footer.jsp"%>
 </body>
 </html>
