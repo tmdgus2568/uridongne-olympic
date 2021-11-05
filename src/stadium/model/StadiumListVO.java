@@ -26,6 +26,7 @@ public class StadiumListVO {
 	Date review_date;
 	String review_content;
 	String review_photo;
+	String user_id;
 	
 	
 	
@@ -38,7 +39,7 @@ public class StadiumListVO {
 			String stadium_address, String address_x, String address_y, String stadium_phone, String stadium_start,
 			String stadium_end, String stadium_photo, int stadium_number, int mat_max, int stadium_parking,
 			int stadium_shower, String stadium_char, String location, int review_num, int res_number,
-			String review_star, Date review_date, String review_content, String review_photo) {
+			String review_star, Date review_date, String review_content, String review_photo, String user_id) {
 		super();
 		this.stadium_id = stadium_id;
 		this.stadium_name = stadium_name;
@@ -63,9 +64,12 @@ public class StadiumListVO {
 		this.review_date = review_date;
 		this.review_content = review_content;
 		this.review_photo = review_photo;
+		this.user_id = user_id;
 	}
 
 
+	
+	
 
 	public String getStadium_id() {
 		return stadium_id;
@@ -343,6 +347,19 @@ public class StadiumListVO {
 
 
 
+	public String getUser_id() {
+		return user_id;
+	}
+
+
+
+	public void setUser_id(String user_id) {
+		this.user_id = user_id;
+	}
+
+
+
+	
 	@Override
 	public String toString() {
 		return "StadiumListVO [stadium_id=" + stadium_id + ", stadium_name=" + stadium_name + ", sports_name="
@@ -353,11 +370,9 @@ public class StadiumListVO {
 				+ stadium_parking + ", stadium_shower=" + stadium_shower + ", stadium_char=" + stadium_char
 				+ ", location=" + location + ", review_num=" + review_num + ", res_number=" + res_number
 				+ ", review_star=" + review_star + ", review_date=" + review_date + ", review_content=" + review_content
-				+ ", review_photo=" + review_photo + "]";
+				+ ", review_photo=" + review_photo + ", user_id=" + user_id + "]";
 	}
 
-	
-	
-	
+
 	
 }

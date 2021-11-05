@@ -158,7 +158,7 @@ function kakaoLogout() {
 	
 		<nav>
 			<ul id="nav">
-				<li><a href="#">경기장정보</a></li>
+				<li><a href="/uridongne-olympic/stadium/stadiumList">경기장정보</a></li>
 				<li><a href="#">예약하기</a>
 					<ul>
 						<li><a href="#">경기장예약</a></li>
