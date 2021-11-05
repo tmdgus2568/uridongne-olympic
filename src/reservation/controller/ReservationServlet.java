@@ -20,8 +20,8 @@ public class ReservationServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 	
-//		HttpSession session = request.getSession();
-//		MemberVO member = (MemberVO)session.getAttribute("member"); 
+		HttpSession session = request.getSession();
+		MemberVO member = (MemberVO)session.getAttribute("member"); 
 //		if(member == null) {
 //			member = new MemberVO();
 //			member.setUser_id("000");
@@ -29,10 +29,10 @@ public class ReservationServlet extends HttpServlet {
 //		if(session.getAttribute("member") == null) {
 //			
 //		}
-		String user_id = "000";
-		String user_name = "홍길동";
-		request.setAttribute("user_id", user_id);//"사용할변수", 조회된 내용 전부 저장	
-		request.setAttribute("user_name", user_name);
+//		String user_id = "000";
+//		String user_name = "홍길동";
+		request.setAttribute("user_id", member.getUser_id());//"사용할변수", 조회된 내용 전부 저장	
+		request.setAttribute("user_name", member.getUser_name());
 		RequestDispatcher rd = request.getRequestDispatcher("reservationForm.jsp");
 		rd.forward(request, response);
 	
