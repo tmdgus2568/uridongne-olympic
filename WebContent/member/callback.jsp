@@ -1,59 +1,47 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
-    pageEncoding="EUC-KR"%>
-    <%@ page import="java.net.URLEncoder" %>
-<%@ page import="java.net.URL" %>
-<%@ page import="java.net.HttpURLConnection" %>
-<%@ page import="java.io.BufferedReader" %>
-<%@ page import="java.io.InputStreamReader" %>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="EUC-KR">
+<meta charset="UTF-8">
 <title>Insert title here</title>
+
+<script type="text/javascript" src="https://static.nid.naver.com/js/naverLogin_implicit-1.0.3.js" charset="utf-8"></script>
+<script type="text/javascript" src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
 </head>
 <body>
+<script type="text/javascript">
+  var naver_id_login = new naver_id_login("LesoS08CKTFNELCZN_Ia", "http://localhost:9090/uridongne-olympic/member/callback.jsp");
+  // ì ‘ê·¼ í† í° ê°’ ì¶œë ¥
+  //console.log(naver_id_login.oauthParams.access_token);
+  console.log(naver_id_login.oauthParams.access_token);
+  // ë„¤ì´ë²„ ì‚¬ìš©ì í”„ë¡œí•„ ì¡°íšŒ
+  naver_id_login.get_naver_userprofile("naverSignInCallback()");
+  // ë„¤ì´ë²„ ì‚¬ìš©ì í”„ë¡œí•„ ì¡°íšŒ ì´í›„ í”„ë¡œí•„ ì •ë³´ë¥¼ ì²˜ë¦¬í•  callback function
+  function naverSignInCallback() {
+    
+    var social_user_id = naver_id_login.getProfileData('id');
+	var social_user_email = naver_id_login.getProfileData('email');
+	var login_platform = "ë„¤ì´ë²„";
+	
+	var accessToken = naver_id_login.oauthParams.access_token;
 
- <%
-    String clientId = "LesoS08CKTFNELCZN_Ia";//¾ÖÇÃ¸®ÄÉÀÌ¼Ç Å¬¶óÀÌ¾ğÆ® ¾ÆÀÌµğ°ª";
-    String clientSecret = "NwyLonfy0C";//¾ÖÇÃ¸®ÄÉÀÌ¼Ç Å¬¶óÀÌ¾ğÆ® ½ÃÅ©¸´°ª";
-    String code = request.getParameter("code");
-    String state = request.getParameter("state");
-    String redirectURI = URLEncoder.encode("http://localhost:9090/uridongne-olympic/member/callback", "UTF-8");
-    String apiURL;
-    apiURL = "https://nid.naver.com/oauth2.0/token?grant_type=authorization_code&";
-    apiURL += "client_id=" + clientId;
-    apiURL += "&client_secret=" + clientSecret;
-    apiURL += "&redirect_uri=" + redirectURI;
-    apiURL += "&code=" + code;
-    apiURL += "&state=" + state;
-    String access_token = "";
-    String refresh_token = "";
-    System.out.println("apiURL="+apiURL);
-    try {
-      URL url = new URL(apiURL);
-      HttpURLConnection con = (HttpURLConnection)url.openConnection();
-      con.setRequestMethod("GET");
-      int responseCode = con.getResponseCode();
-      BufferedReader br;
-      System.out.print("responseCode="+responseCode);
-      if(responseCode==200) { // Á¤»ó È£Ãâ
-        br = new BufferedReader(new InputStreamReader(con.getInputStream()));
-      } else {  // ¿¡·¯ ¹ß»ı
-        br = new BufferedReader(new InputStreamReader(con.getErrorStream()));
-      }
-      String inputLine;
-      StringBuffer res = new StringBuffer();
-      while ((inputLine = br.readLine()) != null) {
-        res.append(inputLine);
-      }
-      br.close();
-      if(responseCode==200) {
-        out.println(res.toString());
-      }
-    } catch (Exception e) {
-      System.out.println(e);
-    }
-  %>
+	//console.log(naver_id_login.getProfileData('email'));
 
+	$("#social_user_id").val(social_user_id);
+	$("#social_user_email").val(social_user_email);
+	$("#login_platform").val(login_platform);
+	$("#accessToken").val(accessToken);
+	$("#socialFrmLogin").submit();
+
+  }
+</script>
+
+			<form name="socialFrmLogin" id="socialFrmLogin"
+				action="sociallogincheck" method="post">
+				<input type="hidden" id="social_user_id" name="social_user_id">
+				<input type="hidden" id="social_user_email" name="social_user_email">
+				<input type="hidden" id="login_platform" name="login_platform">
+				<input type="hidden" id="accessToken" name="accessToken">
+			</form>
 </body>
 </html>

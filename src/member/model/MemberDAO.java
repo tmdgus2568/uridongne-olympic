@@ -4,7 +4,13 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
+import matching.model.MatCreateJoinVO;
+import matching.model.MatCreateVO;
+import review.model.ReviewInfoVO;
+import review.model.ReviewListVO;
 import uridongne.util.DBConnection;
 
 public class MemberDAO {
@@ -23,7 +29,7 @@ public class MemberDAO {
 		try {
 			con = DBConnection.dbConnect(path);
 			st = con.prepareStatement(sql);
-			
+
 			st.setString(1, mem.getUser_id());
 			st.setString(2, mem.getUser_pw());
 			st.setString(3, mem.getUser_name());
@@ -71,7 +77,7 @@ public class MemberDAO {
 
 		return member;
 	}
-	
+
 	public MemberVO generalLoginCheck(String user_id, String user_pw) {
 		MemberVO member = null; // member가 있는지
 		// 지역변수는 초기화 하지 않으면 사용할 수 없다.
@@ -99,13 +105,12 @@ public class MemberDAO {
 
 		return member;
 	}
-	
+
 	public int updateMember(MemberVO mem) {
 		int result = 0; // update 건수
-		
-		String sql = "update member" + " set user_name = ?" + ", user_birth = ?"
-				+ ", user_email = ?" + ", user_phone = ?" + ", user_state = ?" + ", user_interest = ?"
-				+ " where user_id = ?";
+
+		String sql = "update member" + " set user_name = ?" + ", user_birth = ?" + ", user_email = ?"
+				+ ", user_phone = ?" + ", user_state = ?" + ", user_interest = ?" + " where user_id = ?";
 
 		PreparedStatement st = null; // ?를 활용하면 PreparedStatement!
 		Connection con = null;
@@ -113,7 +118,7 @@ public class MemberDAO {
 		try {
 			con = DBConnection.dbConnect(path);
 			st = con.prepareStatement(sql); // sql문을 준비한다.
-			
+
 			st.setString(1, mem.getUser_name());
 			st.setDate(2, mem.getUser_birth());
 			st.setString(3, mem.getUser_email());
@@ -121,7 +126,7 @@ public class MemberDAO {
 			st.setString(5, mem.getUser_state());
 			st.setString(6, mem.getUser_interest());
 			st.setString(7, mem.getUser_id());
-			
+
 			result = st.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -130,7 +135,7 @@ public class MemberDAO {
 		}
 		return result;
 	}
-	
+
 	private MemberVO makeMem(ResultSet rs) throws SQLException {
 		MemberVO emp = new MemberVO();
 
@@ -148,5 +153,85 @@ public class MemberDAO {
 		return emp;
 	}
 
+	public List<MatCreateJoinVO> matchingCreateInfo(String user_id) {
+		List<MatCreateJoinVO> matList = new ArrayList<>();
+		Connection conn = null;
+		PreparedStatement st = null;
+		ResultSet rs = null;
+
+		String sql = "select c.*, d.*, s.user_id, s.play_date from matching_create c join stadium_reservation s on (c.res_number = s.res_number)" 
+					+ " join stadium d on (s.stadium_id = d.stadium_id) where s.user_id = ?";
+
+		try {
+			conn = DBConnection.dbConnect(path);
+			st = conn.prepareStatement(sql);
+			st.setString(1, user_id);
+			rs = st.executeQuery();
+			while (rs.next()) {
+				matList.add(makeCreateInfo(rs));
+			}
+
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			DBConnection.dbClose(conn, st, rs);
+		}
+
+		return matList;
+	}
+
+	public MatCreateJoinVO makeCreateInfo(ResultSet rs) throws SQLException {
+
+		MatCreateJoinVO matCreate = new MatCreateJoinVO();
+		matCreate.setMat_id(rs.getInt("mat_id"));
+		matCreate.setMat_content(rs.getString("mat_content"));
+		matCreate.setMat_people(rs.getInt("mat_people"));
+		matCreate.setNowjoin_people(rs.getInt("nowjoin_people"));
+		matCreate.setMat_status(rs.getString("mat_status"));
+		matCreate.setSports_name(rs.getString("sports_name"));
+		matCreate.setLocation(rs.getString("location"));
+		matCreate.setMat_title(rs.getString("mat_title"));
+		matCreate.setPlay_date(rs.getDate("play_date"));
+		matCreate.setRes_number(rs.getInt("res_number"));
+
+		return matCreate;
+	}
+
+	public List<ReviewListVO> reviewList(String user_id) {
+		List<ReviewListVO> reviewList = new ArrayList<>();
+		String sql = "select stadium_name, play_date, review_star, review_content, res_number"
+				+" from review join stadium_reservation using (res_number) join member using (user_id)"
+				+" join stadium using (stadium_id) where user_id = ? order by play_date desc";
+		Connection conn = null;
+		PreparedStatement st = null;
+		ResultSet rs = null;
+
+		try {
+			conn = DBConnection.dbConnect(path);
+			st = conn.prepareStatement(sql); // prepareStatement통해서 보냄
+			st.setString(1, user_id);
+			rs = st.executeQuery();
+			while (rs.next()) {
+				reviewList.add(makeReview(rs));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			DBConnection.dbClose(conn, st, rs);
+		}
+
+		return reviewList;
+	}
+	
+	private ReviewListVO makeReview(ResultSet rs) throws SQLException {
+		ReviewListVO review = new ReviewListVO();
+		review.setStadium_name(rs.getString("stadium_name"));
+		review.setPlay_date(rs.getDate("play_date"));
+		review.setReview_star(rs.getString("review_star"));
+		review.setReview_content(rs.getString("review_content"));
+		review.setRes_number(rs.getInt("res_number"));
+		return review;
+	}
 
 }

@@ -9,23 +9,16 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 /**
- * Servlet implementation class LogoutServlet
+ * Servlet implementation class MemberInfoPrint
  */
-@WebServlet("/member/logout")
-public class LogoutServlet extends HttpServlet {
+@WebServlet("/member/mypage")
+public class MemberInfoPrintServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-
-		HttpSession session = request.getSession();
-		if (session.getAttribute("member") != null) {
-			session.removeAttribute("member");
-			session.invalidate();	//네이버를 위해
-		}
-		System.out.println("로그아웃 성공");
-		response.sendRedirect("/uridongne-olympic/header.jsp");
-
+		response.sendRedirect("mypage.jsp");
+		
 	}
 
 }
