@@ -29,99 +29,22 @@ header { /* 헤더 */
 	line-height: 120px;
 }
 
-#nav {
-	list-style: none;
-	height: 40px;
-	padding: 5px 1px;
-	margin: 0;
-	background: #ffffff;
-}
-
-#nav li {
-	float: left; /* 메뉴를 왼쪽부터 표시한다 */
-	position: relative; /* 순서대로 표시한다 */
-	margin: 5px 30px;
-	padding: 0;
-}
-
-#nav li a {
-	display: block; /* 메뉴칸을 블록 레벨로 만든다  */
-	font-weight: bold;
-	font-size: 18px;
-	padding: 7px 8px;
-	margin: 0;
-	color: #000000;
-	text-decoration: none; /* 글자의 밑줄 없애기 */
-}
-
-#nav li:hover ul {
-	opacity: 1;
-}
-
-#nav li:hover ul li {
-	height: 35px;
-	overflow: visible; /* 영역을 넘어가는 내용이 있다면 표시 */
-	padding: 0;
-}
-
-#nav li:hover>a { /* 메인메뉴 링크에 마우스 포인터를 올렸을 때  */
-	background: #000000;
-	color: white;
-	margin: 0;
-	border-radius: 15px;
-	/* 	padding:5px; */
-}
-
-#nav ul {
-	list-style: none;
-	margin: 0;
-	padding: 0;
-	position: absolute; /* 고정 위치에 표시 */
-	left: 0;
-	top: 40px;
-	width: 105px;
-	background: #000000;
-	text-align: center;
-	opacity: 0; /* 투명하게 표시되도록 해서 평소에 안보이도록 설정  */
-}
-
-#nav ul li {
-	float: none;
-	margin: 0;
-	padding: 0;
-	font-size: 5px;
-}
-
-#nav ul a {
-	font-weight: normal;
-	color: white;
-}
-
-#nav ul li:hover a {
-	background: white;
-	font-weight: bold;
-	color: black;
-	border: 1px solid grey;
-	border-radius: 0px;
-}
-
-#member_info a {
-	text-decoration: none;
-	color: black;
-	padding: 10px;
-}
 </style>
 </head>
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.2/dist/js/bootstrap.bundle.min.js"></script>
 <link rel="stylesheet"
 	href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 
 <link href="../css/contentStyle.css" rel="stylesheet" type="text/css">
-<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<link href="../css/bootstrap.min.css" rel="stylesheet" type="text/css">
+
 
 <script>
+	
 	Kakao.init('52f4562963d0af029fb4dd18b6358be9'); //발급받은 키 중 javascript키를 사용해준다.
 
 	//카카오 로그아웃 
@@ -174,7 +97,7 @@ header { /* 헤더 */
 	</script>
 
 	<div id="wrapper">
-		<header>
+		<div>
 			<h1 class="header-text">우리동네올림픽</h1>
 
 			<%
@@ -212,9 +135,10 @@ header { /* 헤더 */
 				%>
 			</div>
 
-		</header>
+		</div>
+		
 
-		<nav>
+<!-- 		<nav>
 			<ul id="nav">
 				<li><a href="/uridongne-olympic/stadium/stadiumList">경기장정보</a></li>
 				<li><a href="#">예약하기</a>
@@ -226,9 +150,43 @@ header { /* 헤더 */
 				<li><a href="/uridongne-olympic/matching/list">매칭참여</a></li>
 				<li><a href="/uridongne-olympic/review/list">리뷰</a></li>
 			</ul>
-		</nav>
+		</nav> -->
 
 	</div>
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="#">Navbar</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
 
+    <div class="collapse navbar-collapse" id="navbarColor01">
+      <ul class="navbar-nav me-auto">
+        <li class="nav-item">
+          <a class="nav-link active" href="#">Home
+            <span class="visually-hidden">(current)</span>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/uridongne-olympic/stadium/stadiumList">경기장정보</a>
+        </li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">예약</a>
+          <div class="dropdown-menu">
+            <a class="dropdown-item" href="/uridongne-olympic/reservation/stadium">경기장 예약</a>
+            <a class="dropdown-item" href="/uridongne-olympic/matching/stadium">매칭 예약</a>
+           </div>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/uridongne-olympic/matching/list">매칭참여</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/uridongne-olympic/review/list">리뷰</a>
+        </li>
+      </ul>
+
+    </div>
+  </div>
+</nav>
 </body>
 </html>
