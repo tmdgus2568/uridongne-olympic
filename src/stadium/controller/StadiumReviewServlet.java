@@ -27,8 +27,8 @@ public class StadiumReviewServlet extends HttpServlet {
 		String stadiumid = request.getParameter("id");
 		List<StadiumListVO> stadiumreview = stadiumlistService.selectReview(stadiumid);
 		
-	    System.out.println(stadiumid);
-		request.setAttribute("stadium", stadiumreview);  //db데이터를 저장
+	    //System.out.println(stadiumid);
+		request.setAttribute("stadium", stadiumreview);  
 		RequestDispatcher rd = request.getRequestDispatcher("stadiumReview.jsp");  //jsp가 stadium에 담긴 정보를 가져와서 사용
 		System.out.println(stadiumreview);
 		rd.forward(request, response);
