@@ -140,7 +140,7 @@
 
 
 		<script>
-			//
+			//안될때 $표시 지웠다가 다시 써보기
 			var x = ${stadium.address_x};
 			var y = ${stadium.address_y};
 
