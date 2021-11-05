@@ -28,18 +28,25 @@ public class StadiumListDAO {
 	static final String SQL_SELECT_Address = "select address_x, address_y, stadium_address "
 			+ " from stadium ";
 	
-	
-	static final String SQL_SELECT_Detail =	"select s.*, v.review_star"
-			+ " from stadium s inner join stadium_reservation r on s.stadium_id=r.stadium_id"
-			+ " inner join review v on r.res_number=v.res_number"
-			+ " where s.stadium_id = ? "
-			+ "	order by 1";
+	/*
+	 * static final String SQL_SELECT_Detail = "select s.*, v.review_star" +
+	 * " from stadium s inner join stadium_reservation r on s.stadium_id=r.stadium_id"
+	 * + " inner join review v on r.res_number=v.res_number" +
+	 * " where s.stadium_id = ? " + "	order by 1";
+	 */
+			
+	static final String SQL_SELECT_Detail =	"select * from stadium s join (select s.stadium_id, avg(v.review_star) as review_star"
+			+ " from stadium s left join stadium_reservation r on s.stadium_id=r.stadium_id"
+			+ " left join review v on r.res_number=v.res_number"
+			+ " group by s.stadium_id) v on (s.stadium_id = v.stadium_id)"
+			+ " where s.stadium_id = ?";
 			
 	
-	static final String SQL_SELECT_review = "select v.*, r.user_id, s.stadium_name"
-			+ " from stadium s inner join stadium_reservation r on s.stadium_id=r.stadium_id"
-			+ " inner join review v on r.res_number=v.res_number"
-			+ " where s.stadium_id = ?";
+	static final String SQL_SELECT_review = "select s.stadium_id, s.stadium_name, v.*, r.user_id"
+			+ " from stadium s inner join stadium_reservation r on s.stadium_id=r.stadium_id "
+			+ " inner join review v on r.res_number=v.res_number "
+			+ " where s.stadium_id  = ? ";
+	
 	
  
 	public StadiumListDAO(String path) {
@@ -146,7 +153,7 @@ public class StadiumListDAO {
 			return stadium;
 		}
 		
-		//경기장 정보 상세화면
+		//경기장 정보 detail페이지
 		public StadiumListVO selectDetail(String stadium_id) {
 			StadiumListVO stadiumdetail = null;
 			Connection conn = null;
@@ -191,8 +198,8 @@ public class StadiumListDAO {
 		}
 
 		//SQL_SELECT_review 리뷰상세보기로 넘어감  
-				public StadiumListVO selectReview(String stadium_id) {
-					StadiumListVO stadiumdetail = null;
+				public List<StadiumListVO> selectReview(String stadium_id) {
+					List<StadiumListVO> stadiumreview = new ArrayList<>();
 					Connection conn = null;
 					PreparedStatement st = null;
 					ResultSet rs = null;
@@ -202,20 +209,30 @@ public class StadiumListDAO {
 						st.setString(1, stadium_id);
 						rs = st.executeQuery();
 						while (rs.next()) {
-							stadiumdetail = make5(rs);
+							stadiumreview.add( make5(rs));
+							//System.out.println(rs.getString("stadium_name"));
 						}
 					} catch (SQLException e) {
 						e.printStackTrace();
 					} finally {
 						DBConnection.dbClose(conn, st, rs);
 					}
-					return stadiumdetail;
+					return stadiumreview;
 				}
+				
+				
 				private StadiumListVO make5(ResultSet rs) throws SQLException {
 					StadiumListVO stadium=new StadiumListVO();
 					stadium.setStadium_id(rs.getString("stadium_id"));
 					stadium.setStadium_name(rs.getString("stadium_name"));
-					stadium.setSports_name(rs.getString("sports_name"));
+					stadium.setReview_num(rs.getInt("review_num"));
+					stadium.setRes_number(rs.getInt("res_number"));
+					stadium.setReview_date(rs.getDate("review_date"));
+					stadium.setReview_star(rs.getString("review_star"));
+					stadium.setReview_content(rs.getString("review_content"));
+					stadium.setUser_id(rs.getString("user_id"));
+					
+					
 					return stadium;
 				}
 
