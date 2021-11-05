@@ -125,9 +125,20 @@ $(function(){
 	$('input[name=people]').change(function(){
 		console.log("here");
 		
-		$('.money').text("약 "+Math.ceil(10000/$(this).val()) + " 원");
+		$('.money').text("약 "+Math.ceil(100000/$(this).val()) + " 원");
 		
 	});	
+	
+	$('#create').submit(function(){
+		 if(!confirm("정말 매칭을 생성하시겠습니까?")){
+			 return false;
+		 }
+		 else{
+			 if($('input[name=people]').val())
+			 
+		 }
+		
+	});
 	
 	
 });
@@ -141,7 +152,7 @@ $(function(){
 <div class="content">
 	<h2>매칭 생성</h2>
 	<br>
-	<form method="post">
+	<form method="post" id="create">
 		<table align="center" class="table_style">
 			<tr>
 				<td class="td_title">제목</td>
