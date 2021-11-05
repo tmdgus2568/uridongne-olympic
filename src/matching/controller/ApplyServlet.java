@@ -66,10 +66,10 @@ public class ApplyServlet extends HttpServlet {
 		request.setCharacterEncoding("utf-8");
 		
 		// 방 id로 방 가져와서 저장 
-		MatCreateJoinVO createJoin = new MatCreateJoinVO();
-		
-		System.out.println("param: "+request.getParameter("mat_id"));
-		createJoin = createService.selectById(Integer.parseInt(request.getParameter("mat_id")));
+//		MatCreateJoinVO createJoin = new MatCreateJoinVO();
+//		
+//		System.out.println("param: "+request.getParameter("mat_id"));
+//		createJoin = createService.selectById(Integer.parseInt(request.getParameter("mat_id")));
 		
 		// apply 테이블에 저장 
 		apply.setUser_id(session.getAttribute("test_id").toString());
@@ -77,12 +77,17 @@ public class ApplyServlet extends HttpServlet {
 		apply.setTogether(Integer.parseInt(request.getParameter("together")));
 		
 		int result = applyService.insertApply(apply);
+//		System.out.println("result : " + result);
 		
+		RequestDispatcher rd;
 		if(result > 0) {
 			
-			response.sendRedirect("list?message=success");
+			
+			rd = request.getRequestDispatcher("confirm.jsp?page=apply&message=success");
 		}
-		else response.sendRedirect("list?message=failed");
+		else rd = request.getRequestDispatcher("confirm.jsp?page=apply&message=failed");
+		
+		rd.forward(request, response);
 		
 	}
 

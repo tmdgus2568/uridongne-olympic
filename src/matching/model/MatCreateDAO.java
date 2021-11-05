@@ -169,6 +169,15 @@ public class MatCreateDAO {
 		try {
 			conn = DBConnection.dbConnect(path);
 			st = conn.prepareCall("{call matching_create_proc(?,?,?,?,?,?,?,?,?)}");
+			
+			System.out.println(reservation.getStadium_id());
+			System.out.println(reservation.getUser_id());
+			System.out.println(reservation.getStadium_price());
+			System.out.println(create.getMat_people());
+			System.out.println(create.getMat_title());
+			System.out.println(create.getMat_content());
+			
+			
 			st.setString(1, reservation.getStadium_id());
 			st.setString(2, reservation.getUser_id());
 			st.setDate(3, new Date(System.currentTimeMillis()));
@@ -178,6 +187,8 @@ public class MatCreateDAO {
 			st.setInt(7, create.getMat_people());
 			st.setString(8, create.getMat_title());
 			st.setString(9, create.getMat_content());
+		
+		
 			
 			result = st.executeUpdate();
 			
@@ -247,6 +258,8 @@ public class MatCreateDAO {
 		mcrs.setStadium_end(rs.getString("stadium_end"));
 		mcrs.setStadium_photo(rs.getString("stadium_photo"));
 		mcrs.setMat_max(rs.getInt("mat_max"));
+		mcrs.setAddress_x(rs.getString("address_x"));
+		mcrs.setAddress_y(rs.getString("address_y"));
 		mcrs.setLocation(rs.getString("location"));
 		
 		return mcrs;
