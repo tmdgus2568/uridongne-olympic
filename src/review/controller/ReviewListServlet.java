@@ -51,20 +51,18 @@ public class ReviewListServlet extends HttpServlet {
 		
 		else reviewList = reviewlistService.selectAllReview();
 		
-		for(ReviewListVO list : reviewList) {
-			System.out.println(list);
-		}
-		
-		HttpSession session = request.getSession();
-	    MemberVO member =(MemberVO) session.getAttribute("member");
 		/*
-		 * if(member == null) { member = new MemberVO(); member.setUser_id("555"); }
+		 * for(ReviewListVO list : reviewList) { System.out.println(list); }
 		 */
-		List<ReviewInfoVO> reviewlistposs = reviewlistService.selectPossibleReview(member.getUser_id());
-		
-		for(ReviewInfoVO list : reviewlistposs) {
-			System.out.println(list);
-		}
+		HttpSession session = request.getSession();
+	    Object obj = session.getAttribute("member");
+	    List<ReviewInfoVO> reviewlistposs = null;
+		 if(obj != null) {
+					 
+			 MemberVO member = (MemberVO)obj;
+			 reviewlistposs = reviewlistService.selectPossibleReview(member.getUser_id());
+		 }
+ 
 		request.setAttribute("reviewList", reviewList);//"사용할변수", 조회된 내용 전부 저장
 		request.setAttribute("reviewPosslist", reviewlistposs);
 		RequestDispatcher rd = request.getRequestDispatcher("reviewList.jsp");//보여줄페이지
