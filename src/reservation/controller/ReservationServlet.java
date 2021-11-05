@@ -30,7 +30,9 @@ public class ReservationServlet extends HttpServlet {
 //			
 //		}
 		String user_id = "000";
-		request.setAttribute("user_id", user_id);//"사용할변수", 조회된 내용 전부 저장		
+		String user_name = "홍길동";
+		request.setAttribute("user_id", user_id);//"사용할변수", 조회된 내용 전부 저장	
+		request.setAttribute("user_name", user_name);
 		RequestDispatcher rd = request.getRequestDispatcher("reservationForm.jsp");
 		rd.forward(request, response);
 	

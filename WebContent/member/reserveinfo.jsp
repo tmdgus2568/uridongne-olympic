@@ -5,6 +5,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <style type="text/css">
@@ -88,7 +89,7 @@
 
 				<ul>
 					<li><a href="mypage">마이페이지</a></li>
-					<li><a  class="home" href="reserveinfo">경기장예약</a></li>
+					<li><a href="reserveinfo">경기장예약</a></li>
 					<li class="dropdown">
 						<div class="dropdown-menu">
 							<a>매칭</a>
@@ -96,16 +97,56 @@
 						<div class="dropdown-content">
 							<a href="matchingcreateinfo">매칭생성</a> <a href="matchingapplyinfo">매칭참여</a>
 						</div>
-
-
-						<li><a href="reviewinfo">리뷰</a></li>
+					<li><a class="home" href="reviewinfo">리뷰</a></li>
 				</ul>
 			</div>
-		<div id="right_main"
-							style="height: 300px; width: 490px; float: left;">
-							${member.user_id}</div>
-	
-					</div>
+
+			<div id="right_main"
+				style="height: 300px; width: 490px; float: left;">
+				<h2>리뷰 정보</h2>
+				<table border="1" class="table_style" align="center"
+					id="review_list">
+					<tr class="table_title">
+						<td>예약번호</td>
+						<td>경기장 이름</td>
+						<td>경기장 종류</td>
+						<td>경기장 이용일</td>
+						<td>경기장 이용시간</td>
+						<td>경기장 이용 요금</td>
+						<td>예약현황</td>
+						<td>매칭여부</td>
+						<td>취소</td>
+					</tr>
+					<c:choose>
+						<c:when test="${empty resList}">
+							<tr height="10">
+								<td colspan="5">
+									<p align="center">
+										<b><span style="font-style: italic; font-size: 12pt;">예약
+												내역이 없습니다.</span></b>
+									</p>
+								</td>
+							</tr>
+						</c:when>
+						<c:when test="${!empty resList}">
+							<c:forEach var="res" items="${resList }">
+								<tr align="center" class="table_content">
+									<td>${res.res_number}</td>
+									<td>${res.stadium_name}</td>
+									<td>${res.sports_name}</td>
+									<td>${res.play_date}</td>
+									<td>${res.play_start}-${res.play_end}</td>
+									<td>${res.stadium_price }</td>
+									<td>${res.res_status }</td>
+									<td>${res.matching}</td>
+									<td><button>취소</button></td>
+								</tr>
+							</c:forEach>
+						</c:when>
+					</c:choose>
+				</table>
+			</div>
+		</div>
 	</div>
 	<%@ include file="../footer.jsp"%>
 </body>

@@ -110,9 +110,9 @@ public class ReservationDAO {
 		int result = 0; // insert 건수
 		
 		String sql = "insert into stadium_reservation "
-				+ "values(stadium_reservation_seq.nextval, ?, ?, sysdate, "
-				+ "?, ?, ?, ?, ?, ?)"; // 첫번째: 경기날짜 to_date(?, 'yyyy/mm/dd')
-		
+				+ "values(stadium_reservation_seq.nextval, ?, ?, localtimestamp, "
+				+ "?, ?, ?, ?, ?, ?)";
+
 		Connection conn = null;
 		PreparedStatement st = null;
 

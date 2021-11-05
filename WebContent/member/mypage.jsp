@@ -4,6 +4,8 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
+<link href="../css/tableStyle.css" rel="stylesheet" type="text/css">
+<link href="../css/contentStyle.css" rel="stylesheet" type="text/css">
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
@@ -103,9 +105,10 @@
 			<div id="right_main"
 				style="height: 300px; width: 490px; float: left;">
 
-				<h2>마이페이지</h2>
+				<h2>회원정보</h2>
 
-				<table border="1">
+				<table border="1" class="table_style" align="center"
+					id="review_list">
 					<c:choose>
 						<c:when test="${member.login_platform == '일반'}">
 							<tr>

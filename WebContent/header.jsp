@@ -113,6 +113,7 @@ header { /* 헤더 */
 </style>
 </head>
 
+<script src="https://code.jquery.com/jquery-3.4.1.js"></script>
 <script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
 <script>
 	Kakao.init('52f4562963d0af029fb4dd18b6358be9'); //발급받은 키 중 javascript키를 사용해준다.
@@ -151,6 +152,20 @@ header { /* 헤더 */
 	apiURL += "&service_provider=NAVER";
 	%>
 
+	<script>
+	function naverLogout(){
+		$.ajax({
+		url: "<%=apiURL%>",
+		dataType: "json",
+		type: "get",
+		success: function(data){
+			console.log(data);
+			location.href="/uridongne-olympic/member/logout";
+		}
+		})
+	}
+		
+	</script>
 
 	<div id="wrapper">
 		<header>
@@ -175,8 +190,8 @@ header { /* 헤더 */
 				} else if (member.getLogin_platform().equals("네이버")) {
 				%>
 				<div id="member_info" align="right">
-					<a href="/uridongne-olympic/member/logout">네이버 로그아웃</a> <a
-						href="/uridongne-olympic/member/mypage">마이페이지</a>
+					<a onclick="naverLogout();" href="javascript:void(0)">네이버 로그아웃</a>
+					<a href="/uridongne-olympic/member/mypage">마이페이지</a>
 				</div>
 				<%
 				} else {
@@ -200,7 +215,7 @@ header { /* 헤더 */
 					<ul>
 						<li><a href="#">경기장예약</a></li>
 						<li><a
-							href="/uridongne-olympic/matching/create?stadium_id=S210116212456501607">매칭예약</a></li>
+							href="/uridongne-olympic/matching/stadium">매칭예약</a></li>
 					</ul></li>
 				<li><a href="/uridongne-olympic/matching/list">매칭참여</a></li>
 				<li><a href="/uridongne-olympic/review/list">리뷰</a></li>

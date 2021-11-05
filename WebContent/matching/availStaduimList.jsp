@@ -51,9 +51,9 @@ div.time{
 </style>
 </head>
 <body>
-	<p style="background-color: red">검색결과: ${"총 "}${fn:length(availStaduimList)}${"건"}</p>
+	<p>검색결과: ${"총 "}${fn:length(availStaduimList)}${"건"}</p>
 	<hr>
-	<c:set var="path" value="${pageContext.request.contextPath}"/>
+	<c:set var="path" value="${pageContext.request.contextPath}"/>)
 	<c:forEach items="${availStaduimList}" var="stadium" varStatus="status">
 
 		<div id="stadiumList">
@@ -67,9 +67,13 @@ div.time{
 				<button class="details" onclick="window.open('${path}/stadium/stadiumDetail?id=${stadium.stadium_id}')">상세보기</button>
 			</div>
 
-			<fmt:parseNumber value="${fn:substring(stadium.stadium_start,0,2)}" var="starttime"/>
-			<fmt:parseNumber value="${fn:substring(stadium.stadium_end,0,2)}" var="endtime"/>
-
+			<fmt:parseNumber value="${fn:substring(stadium.stadium_start,0,2)}"
+				var="starttime" />
+			<fmt:parseNumber value="${fn:substring(stadium.stadium_end,0,2)}"
+			
+				var="endtime" />
+			<!-- test출력 **삭제** -->
+			${stadium.reservedList}
 			<!-- 예약가능시간대 -->
 			<br>
 			<div class="times flex-row">

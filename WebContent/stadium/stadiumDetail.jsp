@@ -140,15 +140,9 @@
 
 
 		<script>
-			//문제발생: push하고 팀원들꺼에서 잘 돌아가면 ok, 아니면 대책 필요...인증키 에러 및 146, 147코드가 안 먹음
-			var x = $
-			{
-				stadium.address_x
-			};
-			var y = $
-			{
-				stadium.address_y
-			};
+			//안될때 $표시 지웠다가 다시 써보기
+			var x = ${stadium.address_x};
+			var y = ${stadium.address_y};
 
 			var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
 			mapOption = {

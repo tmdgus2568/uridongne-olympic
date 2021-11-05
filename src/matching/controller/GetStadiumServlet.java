@@ -1,4 +1,4 @@
-package reservation.controller;
+package matching.controller;
 
 import java.io.IOException;
 
@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import reservation.model.ReservationService;
 
-@WebServlet("/reservation/getStadiumByDate")
+@WebServlet("/matching/getStadiumByDate")
 public class GetStadiumServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -28,7 +28,7 @@ public class GetStadiumServlet extends HttpServlet {
 		
 		String dbPath = getServletContext().getRealPath(".");
 		ReservationService service = new ReservationService(dbPath);
-		request.setAttribute("availStaduimList", service.getStadiumByDate(sports_name, region, datepicker));
+		request.setAttribute("availStaduimList", service.getStadiumByDate(sports_name, region, datepicker)); // 3가지 조건에 맞는 걸 조회해야 하니, 파라미터 3개짜리 만들자
 		RequestDispatcher rd = request.getRequestDispatcher("availStaduimList.jsp");
 		rd.forward(request, response);
 	}
