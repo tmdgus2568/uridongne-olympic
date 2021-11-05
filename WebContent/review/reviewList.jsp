@@ -59,7 +59,8 @@ display:inline;
 </head>
 
 <body>
-	<%@ include file="../header.jsp"%>
+	<%-- <%@ include file="../header.jsp"%> --%>
+	<jsp:include page="../header.jsp"></jsp:include> 
 	<div class="content">
 	<h2>후기</h2>
 		<form method="get" id="search" align="right">
@@ -114,8 +115,10 @@ display:inline;
 		</table>
 
 		<!-- Trigger the modal with a button -->
+		<c:if test="${reviewPosslist!=null}">
 		<button type="modalBtn" class="btn btn-info btn-lg" data-toggle="modal"
 			data-target="#myModal" style="float: right;">리뷰 남기기</button>
+		</c:if>
 
 		<!-- Modal -->
 		<div class="modal fade" id="myModal" role="dialog">
