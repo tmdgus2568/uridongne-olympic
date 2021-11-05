@@ -126,7 +126,7 @@ $(function(){
 					</c:otherwise>
 				</c:choose>
 			</select>
-			
+			<lable>경기장</lable>
 			<input type="text" name="filter" value="${param.filter}" class="search_style">
 			<button type="submit" id="search_btn">검색하기</button>
 		</div>

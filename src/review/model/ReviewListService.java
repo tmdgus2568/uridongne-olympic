@@ -9,6 +9,11 @@ public class ReviewListService {
 	public ReviewListService(String path) {
 		reviewlistDAO = new ReviewListDAO(path);
 	}
+	
+	//검색
+	public List<ReviewListVO> selectSearch(String option, String search){
+		return reviewlistDAO.selectSearch(option, search);
+	}
 
 	// 리뷰목록 전체 검색
 	public List<ReviewListVO> selectAllReview() {

@@ -30,12 +30,29 @@ public class ReviewListServlet extends HttpServlet {
 		
 		String path = getServletContext().getRealPath(".");
 		reviewlistService = new ReviewListService(path);
-		List<ReviewListVO> reviewList = reviewlistService.selectAllReview();
 		
+		
+		//검색 파라미터
+		String option_param = "none";
+		String search_param = "";
+		
+		if(request.getParameter("option")!=null) 
+			option_param = request.getParameter("option");
+		if(request.getParameter("search")!=null) 
+			search_param = request.getParameter("search");
+		
+		List<ReviewListVO> reviewList = null;
+		
+		//아무것도 선택하지 않았을 때
+		if(!search_param.equals("")) 
+			reviewList = reviewlistService.selectSearch(option_param, search_param);
+		
+		else reviewList = reviewlistService.selectAllReview();
 		
 		for(ReviewListVO list : reviewList) {
 			System.out.println(list);
 		}
+		
 		List<ReviewInfoVO> reviewlistposs = reviewlistService.selectPossibleReview();
 		
 		for(ReviewInfoVO list : reviewlistposs) {

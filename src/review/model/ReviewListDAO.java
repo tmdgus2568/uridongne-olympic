@@ -16,13 +16,50 @@ public class ReviewListDAO {// 리뷰 대상자 거르기, 리뷰 목록 보여�
 	public ReviewListDAO(String path) {
 		this.path = path;
 	}
+	
+	//검색 쿼리
+		public List<ReviewListVO> selectSearch(String option, String search) {
+			List<ReviewListVO> reviewList = new ArrayList<>();
+			Connection conn = null;
+			PreparedStatement st = null;
+			ResultSet rs = null;
 
+			String sql = "select user_id, stadium_name, play_date, review_star, review_content, res_number "
+					+ "from review join stadium_reservation using (res_number) join member using (user_id) "
+					+ "join stadium using (stadium_id) where ";
+			
+			if(option.equals("user_id")) {
+				sql += "user_id like '%"+search+"%'";
+			}else if(option.equals("stadium_name")) {
+				sql += "stadium_name like '%"+search+"%'";}
+			
+			System.out.println(sql);
+			
+			try {
+				conn = DBConnection.dbConnect(path);
+				st = conn.prepareStatement(sql); // prepareStatement통해서 보냄
+				rs = st.executeQuery();// rs:결과 받는
+				while (rs.next()) {
+					reviewList.add(makeReview(rs));
+				}
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} finally {
+				DBConnection.dbClose(conn, st, rs);
+			}
+
+			return reviewList;
+		}
+	
+	
 	// 리뷰 목록
 	public List<ReviewListVO> selectAllReview() {
 		List<ReviewListVO> reviewList = new ArrayList<>();
 		String sql = "select user_id, stadium_name, play_date, review_star, review_content, res_number"
 				+ " from review join stadium_reservation using (res_number) join member using (user_id)"
-				+ " join stadium using (stadium_id)" + " order by play_date desc";
+				+ " join stadium using (stadium_id)" 
+				+ " order by play_date desc";
 		Connection conn = null;
 		PreparedStatement st = null;
 		ResultSet rs = null;
@@ -64,7 +101,8 @@ public class ReviewListDAO {// 리뷰 대상자 거르기, 리뷰 목록 보여�
 				+ " right outer join stadium_reservation on(stadium_reservation.res_number=review.res_number)"
 				+ " join stadium on(stadium.stadium_id=stadium_reservation.stadium_id)" 
 				+ " where review_num is null"
-				+ " and play_date<sysdate";
+				+ " and play_date<sysdate"
+				+ " order by res_number";
 		Connection conn = null;
 		PreparedStatement st = null;
 		ResultSet rs = null;
