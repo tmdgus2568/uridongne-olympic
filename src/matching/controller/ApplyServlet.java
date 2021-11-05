@@ -15,6 +15,7 @@ import matching.model.MatApplyVO;
 import matching.model.MatCreateJoinVO;
 import matching.model.MatCreateService;
 import matching.model.MatCreateVO;
+import member.model.MemberVO;
 
 /**
  * Servlet implementation class ApplyServlet
@@ -50,7 +51,8 @@ public class ApplyServlet extends HttpServlet {
 //		createJoin = createService.selectById(Integer.parseInt(request.getParameter("mat_id")));
 		
 		// apply 테이블에 저장 
-		apply.setUser_id(session.getAttribute("test_id").toString());
+		MemberVO member = (MemberVO)session.getAttribute("member"); 
+		apply.setUser_id(member.getUser_id());
 		apply.setMat_id(Integer.parseInt(request.getParameter("mat_id")));
 		apply.setTogether(Integer.parseInt(request.getParameter("together")));
 		

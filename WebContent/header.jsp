@@ -113,8 +113,14 @@ header { /* 헤더 */
 </style>
 </head>
 
-<script src="https://code.jquery.com/jquery-3.4.1.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
+<link rel="stylesheet"
+	href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+
+<link href="../css/contentStyle.css" rel="stylesheet" type="text/css">
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
 <script>
 	Kakao.init('52f4562963d0af029fb4dd18b6358be9'); //발급받은 키 중 javascript키를 사용해준다.
 
@@ -213,7 +219,7 @@ header { /* 헤더 */
 				<li><a href="/uridongne-olympic/stadium/stadiumList">경기장정보</a></li>
 				<li><a href="#">예약하기</a>
 					<ul>
-						<li><a href="#">경기장예약</a></li>
+						<li><a href="/uridongne-olympic/reservation/stadium">경기장예약</a></li>
 						<li><a
 							href="/uridongne-olympic/matching/stadium">매칭예약</a></li>
 					</ul></li>

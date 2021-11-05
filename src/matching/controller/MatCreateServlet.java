@@ -86,11 +86,7 @@ public class MatCreateServlet extends HttpServlet {
 		
 		//바인딩한 객체 이름(member)으로 객체 돌려주기
 		MemberVO member = (MemberVO)session.getAttribute("member"); 
-		// 테스트용, session 확인 필요
-		if(member == null) {
-			member = new MemberVO();
-			member.setUser_id("000");
-		}
+
 		
 		String stadiumId = request.getParameter("stadium_id");
 		String playDate = request.getParameter("play_date");
@@ -110,7 +106,7 @@ public class MatCreateServlet extends HttpServlet {
 	    rvo.setRes_status("완료");
 	    rvo.setStadium_id(stadiumId);
 	    rvo.setStadium_price(price);
-	    rvo.setUser_id("555");
+	    rvo.setUser_id(member.getUser_id());
 	    
 	    System.out.println("matcreate: " + rvo);
 	    
