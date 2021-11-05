@@ -9,7 +9,9 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
+import member.model.MemberVO;
 import review.model.ReviewInfoVO;
 import review.model.ReviewListService;
 import review.model.ReviewListVO;
@@ -53,7 +55,12 @@ public class ReviewListServlet extends HttpServlet {
 			System.out.println(list);
 		}
 		
-		List<ReviewInfoVO> reviewlistposs = reviewlistService.selectPossibleReview();
+		HttpSession session = request.getSession();
+	    MemberVO member =(MemberVO) session.getAttribute("member");
+		/*
+		 * if(member == null) { member = new MemberVO(); member.setUser_id("555"); }
+		 */
+		List<ReviewInfoVO> reviewlistposs = reviewlistService.selectPossibleReview(member.getUser_id());
 		
 		for(ReviewInfoVO list : reviewlistposs) {
 			System.out.println(list);
