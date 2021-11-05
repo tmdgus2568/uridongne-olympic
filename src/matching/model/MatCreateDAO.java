@@ -131,8 +131,8 @@ public class MatCreateDAO {
 		
 //		System.out.println(sql);
 		
-		conn = DBConnection.dbConnect(path);
 		try {
+			conn = DBConnection.dbConnect(path);
 			st = conn.prepareStatement(sql);
 			rs = st.executeQuery();
 			while(rs.next()) {

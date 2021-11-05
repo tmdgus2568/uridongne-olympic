@@ -29,7 +29,9 @@
 </head>
 <body>
 <%@ include file="../header.jsp"%>
-	<h1 style="text-align: center">${review.user_id}님 후기를 남겨주세요!</h1>
+<div class="content">
+	<h2>후기 작성</h2>
+	<h1 style="text-align: center">${member.user_id}님 후기를 남겨주세요!</h1>
 	<h3 style="text-align: center">${param.stadium_name}시설 이용에 얼마나 만족하셨나요?</h3>
 	<form action="reviewinsert" name="reviewForm" method="post">
 	<div hidden="true"><input type="text" name="res_number" value="${param.res_number }"></div>
@@ -75,6 +77,7 @@
 			</tr>
 		</table>
 	</form>
+	</div>
 <%@ include file="../footer.jsp"%>
 </body>
 </html>
