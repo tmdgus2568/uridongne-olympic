@@ -1,5 +1,11 @@
 package member.model;
 
+import java.util.List;
+
+import matching.model.MatCreateJoinVO;
+import review.model.ReviewInfoVO;
+import review.model.ReviewListVO;
+
 public class MemberService {
 	
 	MemberDAO dao;
@@ -28,6 +34,14 @@ public class MemberService {
 	public int updateMember(MemberVO mem) {
 		return dao.updateMember(mem);
 		
+	}
+
+	public List<MatCreateJoinVO> matchingCreateInfo(String user_id) {
+		return dao.matchingCreateInfo(user_id);
+	}
+
+	public List<ReviewListVO> reviewInfo(String user_id) {
+		return dao.reviewList(user_id);
 	}
 
 }

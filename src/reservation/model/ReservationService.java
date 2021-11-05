@@ -21,4 +21,9 @@ public class ReservationService {
 		return dao.getStadiumByDate(sports_name, region, datepicker);
 	}
 
+	public int insertReserveInfo(ReservationVO reservation) {
+		return dao.insertReserveInfo(reservation);
+		
+	}
+
 }

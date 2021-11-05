@@ -24,5 +24,9 @@ public class StadiumListService {
 	public StadiumListVO selectDetail(String stadium_id) {
 		return stadiumListdao.selectDetail(stadium_id);
 	}
+	
+	public List<StadiumListVO> selectReview(String stadium_id) {
+		return stadiumListdao.selectReview(stadium_id);
+	}
 
 }

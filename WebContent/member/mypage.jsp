@@ -1,6 +1,6 @@
 <%@page import="member.model.MemberVO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
@@ -8,7 +8,7 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <style type="text/css">
-ul {
+#left_main ul {
 	list-style-type: none;
 	padding: 0px;
 	margin: 0px;
@@ -19,7 +19,7 @@ ul {
 	position: fixed;
 }
 
-li a {
+#left_main li a {
 	text-decoration: none;
 	padding: 10px;
 	display: block;
@@ -27,12 +27,12 @@ li a {
 	font-weight: bold;
 }
 
-li a:hover {
+#left_main li a:hover {
 	background: #333;
 	color: #fff;
 }
 
-li a.home {
+#left_main li a.home {
 	background: #333;
 	color: #fff;
 }
@@ -40,93 +40,115 @@ li a.home {
 .cd1 {
 	margin-left: 120px;
 }
+
+.dropdown {
+	position: relative;
+	display: inline-block;
+}
+
+.dropdown-content {
+	display: none;
+	position: absolute;
+	background-color: #f9f9f9;
+	min-width: 160px;
+	box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+	z-index: 1;
+}
+
+.dropdown-content a {
+	color: black;
+	padding: 12px 16px;
+	text-decoration: none;
+	display: block;
+}
+
+.dropdown-content a:hover {
+	background-color: #f1f1f1
+}
+
+.dropdown:hover .dropdown-content {
+	display: block;
+}
+
+.dropdown:hover .dropbtn {
+	background-color: #3e8e41;
+}
 </style>
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 
-<script>
-	$(function() {
-		$('#user_state').val("${member.getUser_state() }").prop("selected",
-				true);
-	});
-
-	$(function() {
-
-		var strData = "${member.getUser_interest() }";
-		var arrInterest = strData.split(", ");
-
-		console.log(arrInterest[0]);
-
-		$('.user_interest').prop('checked', false); // 일단 모두 uncheck
-
-		for ( var nArrCnt in arrInterest) {
-
-			$("input[name=user_interest][value=" + arrInterest[nArrCnt] + "]")
-					.prop("checked", true);
-
-		}
-
-	});
-</script>
 </head>
 <body>
 
+	<%@ include file="../header.jsp"%>
+	<div class="content">
+		<div id="main" style="margin-top: 10px;">
+			<div id="left_main"
+				style="height: 300px; width: 100px; margin-right: 10px; float: left;">
 
+				<ul>
+					<li><a class="home" href="mypage">마이페이지</a></li>
+					<li><a href="reserveinfo">경기장예약</a></li>
+					<li class="dropdown">
+						<div class="dropdown-menu">
+							<a>매칭</a>
+						</div>
+						<div class="dropdown-content">
+							<a href="matchingcreateinfo">매칭생성</a> <a href="matchingapplyinfo">매칭참여</a>
+						</div>
+					<li><a href="reviewinfo">리뷰</a></li>
+				</ul>
+			</div>
 
-	<div id="main" style="margin-top: 10px;">
-		<div id="left_main"
-			style="height: 300px; width: 100px; margin-right: 10px; float: left;">
+			<div id="right_main"
+				style="height: 300px; width: 490px; float: left;">
 
-			<ul>
-				<li><a class="home" href="#">마이페이지</a></li>
-				<li><a href="#">경기장예약</a></li>
-				<li><a href="#">매칭</a></li>
-				<li><a href="#">리뷰</a></li>
-			</ul>
-		</div>
+				<h2>마이페이지</h2>
 
-		<div id="right_main" style="height: 300px; width: 490px; float: left;">
+				<table border="1">
+					<c:choose>
+						<c:when test="${member.login_platform == '일반'}">
+							<tr>
+								<td>아이디</td>
+								<td>${member.user_id}</td>
+							</tr>
 
-	<h2> 마이페이지 </h2>
+						</c:when>
+					</c:choose>
+					<tr>
+						<td>이름</td>
+						<td>${member.getUser_name() }</td>
+					</tr>
+					<tr>
+						<td>생년월일</td>
+						<td>${member.getUser_birth() }</td>
+					</tr>
+					<tr>
+						<td>이메일</td>
+						<td>${member.getUser_email() }</td>
+					</tr>
+					<tr>
+						<td>전화번호</td>
+						<td>${member.getUser_phone() }</td>
+					</tr>
+					<tr>
+						<td>도시</td>
+						<td>${member.user_city }</td>
+					</tr>
+					<tr>
+						<td>구</td>
+						<td>${member.user_state }</td>
+					</tr>
+					<tr>
+						<td>관심 종목</td>
+						<td>${member.getUser_interest() }</td>
+					</tr>
+				</table>
 
-			<table border="1">
-				<tr>
-					<td>아이디</td>
-					<td>${member.user_id}</td>
-				</tr>
-				<tr>
-					<td>이름</td>
-					<td>${member.getUser_name() }</td>
-				</tr>
-				<tr>
-					<td>생년월일</td>
-					<td>${member.getUser_birth() }</td>
-				</tr>
-				<tr>
-					<td>이메일</td>
-					<td>${member.getUser_email() }</td>
-				</tr>
-				<tr>
-					<td>전화번호</td>
-					<td>${member.getUser_phone() }</td>
-				</tr>
-				<tr>
-					<td>도시</td>
-					<td>${member.user_city }</td>
-				</tr>
-				<tr>
-					<td>구</td>
-					<td>${member.user_state }</td>
-				</tr>
-				<tr>
-					<td>관심 종목</td>
-					<td>${member.getUser_interest() }</td>
-				</tr>
-			</table>
-
-			<br> <a href="mypageUpdate.jsp">수정하기</a> <a>탈퇴하기</a>
-
+				<br> <a href="mypageUpdate.jsp">수정하기</a> <a>탈퇴하기</a>
+			</div>
 		</div>
 	</div>
+	<%@ include file="../footer.jsp"%>
 </body>
 </html>

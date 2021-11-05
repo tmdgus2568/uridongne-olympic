@@ -6,6 +6,7 @@
 <title>Insert title here</title>
 </head>
 <body>
+	<%@ include file="../header.jsp"%>
 	<h3>JOIN</h3>
 
 	<form action="memberjoin" method="post">
@@ -89,6 +90,6 @@
 		<input type="submit" value="회원가입">
 		<input type="reset" value="재입력">
 	</form>
-
+	<%@ include file="../footer.jsp"%>
 </body>
 </html>

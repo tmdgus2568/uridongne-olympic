@@ -2,6 +2,7 @@ package matching.model;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import uridongne.util.DBConnection;
@@ -17,8 +18,10 @@ public class MatApplyDAO {
 		Connection conn = null;
 		PreparedStatement st = null;
 		String sql = "insert into matching_apply VALUES(?, ?, ?)";
-		String next_sql = "update matching_create set nowjoin_people=? where mat_id=?";
+		String next_sql = "update matching_create set nowjoin_people=nowjoin_people+? where mat_id=?";
+		String check_sql = "select * from matching_create where mat_id=?";
 		int result = 0;
+		ResultSet rs = null;
 		
 		try {
 			conn = DBConnection.dbConnect(path);
@@ -36,8 +39,29 @@ public class MatApplyDAO {
 				
 				result = st.executeUpdate();
 				
-				if(result != 0) conn.commit();
-				else conn.rollback();
+
+				// 다 성공했다면 
+				// 1. 총 인원수를 넘었는지 확인 -> 넘었으면 rollback 
+				// 2. 본인이 본인방에 신청넣으면 rollback 
+				if(result != 0) {
+					st = conn.prepareStatement(check_sql);
+					st.setInt(1, apply.getMat_id());
+					rs = st.executeQuery();
+					if(rs.next()) {
+						
+//						if(rs.getInt("nowjoin_people") <= rs.getInt("mat_people")
+//								|| !(rs.getString("user_id").equals(apply.getUser_id()))) {
+						if(rs.getInt("nowjoin_people") <= rs.getInt("mat_people")) {
+							
+							conn.commit();
+							return result;
+						}
+						
+					}
+					
+				}
+				result = 0;
+				conn.rollback();
 
 			}
 			
