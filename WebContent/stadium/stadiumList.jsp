@@ -44,9 +44,58 @@
 <body>
 	<%@ include file="../header.jsp"%>
 	<div class="content" text-align="center">
-		<h2>경기장 정보검색</h2>
-		<br>
-		<!-- <label for="sports" style="float: center">경기장 종목선택</label> -->
+	<!-- 					<div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
+					  <div class="carousel-inner">
+					    <div class="carousel-item active">
+					      <img src="../image/11.PNG" class="d-block w-100 h-80"" alt="../image/11.PNG">
+					    </div>
+					    <div class="carousel-item">
+					      <img src="../image/22.PNG" class="d-block w-100 h-80"" alt="../image/22.PNG">
+					    </div>
+					    <div class="carousel-item">
+					      <img src="../image/33.PNG" class="d-block w-100 h-80" alt="../image/33.PNG">
+					    </div>
+					  </div>
+					  <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
+					    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+					    <span class="visually-hidden">Previous</span>
+					  </button>
+					  <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="next">
+					    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+					    <span class="visually-hidden">Next</span>
+					  </button>
+					</div>
+					
+					 -->
+				<div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
+				  <div class="carousel-indicators">
+				    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+				    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
+				    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
+				  </div>
+				  <div class="carousel-inner">
+				    <div class="carousel-item active">
+				      <img src="../image/11.PNG" class="d-block w-100" alt="../image/11.PNG">
+				    </div>
+				    <div class="carousel-item">
+				      <img src="../image/22.PNG" class="d-block w-100" alt="../image/22.PNG">
+				    </div>
+				    <div class="carousel-item">
+				      <img src="../image/33.PNG" class="d-block w-100" alt="../image/33.PNG">
+				    </div>
+				  </div>
+				  <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+				    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+				    <span class="visually-hidden">Previous</span>
+				  </button>
+				  <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
+				    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+				    <span class="visually-hidden">Next</span>
+				  </button>
+				</div><br>
+							
+					<hr>
+		<!--<h2>경기장검색</h2>-->
 		<label for="sports" style="float: center"></label>
 		<!-- <select class="form-select" aria-label="Default select example" id="sports" id="sports" size="1">  -->
 		<select class="btn btn-secondary btn-lm dropdown-toggle"
@@ -62,6 +111,7 @@
 			<option value="테니스장">테니스</option>
 			<option value="풋살장">풋살</option>
 		</select>
+		
 		<!-- 	<label for="loc" style="float: left">지역선택</label> -->
 		<label for="loc" style="float: left"> </label>
 		<!--  	<select class="form-select" aria-label="Default select example" id="loc" id="loc" size="1">-->
@@ -85,34 +135,39 @@
 			<option value="광진구">광진구</option>
 		</select>
 		<button id="searchButton" type="button"
-			class="btn btn-secondary btn-lm">검색하기</button>
+			class="btn btn-secondary btn-lm" size="1">검색하기</button>
 </div>
 
 	<div class="content" text-align="center" id="here">
-		<h2>경기장 목록</h2>
-		<!-- 	<table class="table"> -->
-		<table border="1" class="table_style" align="center">
-			<tr align="center" class="table_title">
-				<td>경기장번호</td>
-				<td>경기장명</td>
-				<td>이용요금</td>
-				<td>수용가능인원</td>
-				<td>경기장종류</td>
-				<td>지역</td>
+		<div style="color: gray; font: bold 2.0em/1.0em Verdana;"">경기장 목록</div><br>
+		
+		<table border="1" class="table table-hover" align="center">
+		  <thead>
+			<tr align="center"  class="table-secondary">
+				<th scope="col">경기장번호</th>
+				<th scope="col">경기장명</th>
+				<th scope="col">이용요금</th>
+				<th scope="col">수용가능인원</th>
+				<th scope="col">경기장종류</th>
+				<th scope="col">지역</th>
 			</tr>
+			 </thead>
+  	<tbody>
 			<c:forEach var="stadium" items="${stadiumList}">
-				<tr align="center" class="table_content">
-					<td><a href="stadiumDetail?id=${stadium.stadium_id}">${stadium.stadium_id}</a></td>
-					<td>${stadium.stadium_name}</td>
+			<tr align="center" >
+					<td>${stadium.stadium_id}</td>
+					<td><a href="stadiumDetail?id=${stadium.stadium_id}">${stadium.stadium_name}</a></td>
 					<td>${stadium.payment_method}</td>
 					<td>${stadium.stadium_number}</td>
 					<td>${stadium.sports_name}</td>
-					<td>${stadium.location}</td>
+				 	<td>${stadium.location}</td>
 				</tr>
 			</c:forEach>
 
 			</thead>
 		</table>
+		<button type="button" class="btn btn-secondary" data-bs-toggle="tooltip" data-bs-placement="top" title="Tooltip on top">Top</button>
+		
 	</div>
 	<%@ include file="../footer.jsp"%>
 </body>
