@@ -1,10 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <!DOCTYPE html>
 <html>
 <head>
-	<link href="../css/tableStyle.css" rel="stylesheet" type="text/css">
+	
 	<link href="../css/contentStyle.css" rel="stylesheet" type="text/css">
 	<style>
 		.select_style{
@@ -15,31 +16,14 @@
 			text-align:center;
 		}
 		
-		.search_style{
-			margin-left:8px;
-			padding-left:8px;
-			width:300px;
-			height:28px;
-			border-radius:10px;
-			border:1px solid grey;
-			
+		#filter_div{
+			margin-top:20px;
 		}
-		button{
-			/* background-image:url(../image/search_icon.png);
-			background-repeat:no-repeat;
-			background-position:0px 0px;
-			border:none;
-			width:40px;
-			height:40px; */
-			background:black;
-			color:white;
-			width:100px;
-			height:30px;
-			border-radius:10px;
-			font-size:14px;
-			font-weight:normal;
-			
+		
+		input[name=filter]{
+			width:30%;
 		}
+		
 		
 	</style>
 </head>
@@ -85,9 +69,10 @@ $(function(){
 <%@ include file="../header.jsp" %>
 <div class="content">
 	<h2>매칭 참여</h2>
-	<form method="get" id="search" align="right">
+	<br>
+	<form method="get" id="search">
 		<div>
-			<select name="sports" class="select_style">
+			<select name="sports" class="btn btn-secondary btn-lm dropdown-toggle">
 				<option value="none">종목 선택</option>
 				<c:forEach var="item" items="${sportsNameList}" varStatus="list">
 					<c:choose>
@@ -100,7 +85,7 @@ $(function(){
 					</c:choose>	
 				</c:forEach>
 			</select>
-			<select name="option" class="select_style">
+			<select name="option" class="btn btn-secondary btn-lm dropdown-toggle">
 				<c:choose>
 					<c:when test="${param.option eq 'none'}">
 						<option value="none" selected>검색</option>	
@@ -120,39 +105,52 @@ $(function(){
 				<c:choose>
 					<c:when test="${param.option eq 'title'}">
 						<option value="title" selected>제목</option>	
-					</c:when>
+					</c:when> 
 					<c:otherwise>
 						<option value="title">제목</option>
 					</c:otherwise>
 				</c:choose>
 			</select>
-			<lable>경기장</lable>
-			<input type="text" name="filter" value="${param.filter}" class="search_style">
-			<button type="submit" id="search_btn">검색하기</button>
+
+			<div class="input-group mb-3" id="filter_div">
+				<input type="text" name="filter" value="${param.filter}" class="form-control" aria-describedby="button-addon2" style="width: 250px; display:inline">
+				<button type="submit" id="search_btn" class="btn btn-info" >검색하기</button>
+			
+			</div>
+		<!-- 	<lable>경기장</lable> -->
 		</div>
 	<br>
 	</form>
-	<table border="1" class="table_style" align="center" id="matching_list">
-		<tr class="table_title">
+	<table border="1" align="center" id="matching_list" class="table table-hover">
+		<tr class="table-primary">
 			<td hidden=true>id</td>
-			<td>순서</td>
-			<td>방이름</td>
-			<td>인원</td>
-			<td>종목</td>
-			<td>지역명</td>
-			<td>경기날짜</td>
+			<th scope="col">순서</th>
+			<th scope="col">방이름</th>
+			<th scope="col">인원</th>
+			<th scope="col">종목</th>
+			<th scope="col">지역명</th>
+			<th scope="col">경기날짜</th>
 		</tr>
-	 	<c:forEach var="item" items="${createJoinList}" varStatus="list">
-	   		<tr align="center" class="table_content">
-	   			<td hidden=true>${item.mat_id}</td>
-	        	<td>${list.count}</td>
-	         	<td>${item.mat_title}</td>
-	         	<td>${item.nowjoin_people}/${item.mat_people}</td>
-	         	<td>${item.sports_name}</td>
-	         	<td>${item.location}</td>
-	         	<td>${item.play_date}</td>
-	        </tr>
-	 	</c:forEach>
+		<c:choose>
+			<c:when test="${fn:length(createJoinList)==0}">
+				<td>매칭 목록이 없습니다</td>
+			</c:when>
+			<c:otherwise>
+			
+				<c:forEach var="item" items="${createJoinList}" varStatus="list">
+	   				<tr align="center" class="table-secondary">
+	   					<td hidden=true>${item.mat_id}</td>
+	        			<th  scope="row">${list.count}</th>
+	         			<td>${item.mat_title}</td>
+	         			<td>${item.nowjoin_people}/${item.mat_people}</td>
+	         			<td>${item.sports_name}</td>
+	         			<td>${item.location}</td>
+	         			<td>${item.play_date}</td>
+	       			 </tr>
+	 			</c:forEach>
+			</c:otherwise>
+		
+		</c:choose>
 
 	</table>	
 
