@@ -25,10 +25,8 @@ $(function(){
 <style>
 	
 	/* 테이블 전체 */
-	.table_style{
-		border-collapse:collapse;
-		line-height:1.5;
-		margin:20px 10px;
+	table{
+		background:white;
 		width:100%;
 		text-align:center;
 
@@ -47,7 +45,7 @@ $(function(){
 		width:
 	} */
 	
-	input[type=number]{
+/* 	input[type=number]{
 
 		color:black;
 		float:right;
@@ -59,9 +57,9 @@ $(function(){
 		margin-right:20px;
 		padding-left:10px;
 		
-	}
+	} */
 	
-	button{
+/* 	button{
 		background:black;
 		color:white;
 		float:right;
@@ -71,7 +69,9 @@ $(function(){
 		font-size:15px;
 		font-weight:bold;
 	
-	}
+	} */
+
+
 	
 	#stadium_map{
 		
@@ -82,11 +82,11 @@ $(function(){
 		margin-right:50px;
 	}
 	
-	#join_btn{
-		clear:both; /* float 속성 해제 */
-		margin-bottom:150px;
-	
-	}
+ /* 	#join_btn{
+		background:black;
+	 	
+	} */
+
 	
 	.map_title{
 	
@@ -112,17 +112,18 @@ $(function(){
 <%-- <h1>${param.res_number}</h1> --%>
 <div class="content">
 	<h2>매칭 상세정보</h2>
-	<table class="table_style" border="1">
+	<br>
+	<table class="table table" border="1">
 		<tr>
-			<td class="td_title">방이름</td>
+			<th class="table-dark" scope="row">방이름</td>
 			<td colspan="5">${createJoin.mat_title}</td>
 		</tr>
 		<tr>
-			<td class="td_title">경기날짜</td>
+			<th class="table-dark" scope="row">경기날짜</td>
 			<td>${createJoin.play_start}~${createJoin.play_end}</td>
-			<td class="td_title">인원 수</td>
+			<th class="table-dark" scope="row">인원 수</td>
 			<td>${createJoin.nowjoin_people}/${createJoin.mat_people}</td>
-			<td class="td_title">1인당 예상가격</td>
+			<th class="table-dark" scope="row">1인당 예상가격</td>
 			<td>약 <fmt:parseNumber value="${createJoin.stadium_price/createJoin.mat_people}" integerOnly="true"/>원</td>
 		</tr>
 		<tr>
@@ -218,19 +219,22 @@ $(function(){
 		    geocoder.coord2Address(coords.getLng(), coords.getLat(), callback);
 		}
 	</script>
+	<br>
+	
+	<div id="join_btn" class="input-group mb-3" align="right" style="display:flex; justify-content:flex-end;">
+		<form method="post" id="apply" action="apply">	
+			<input type="text" name="mat_id" value="${createJoin.mat_id}" hidden="true">
+			<input type="number" name="together" min="1" placeholder="참여 인원 수를 입력해 주세요" required autofocus class="form-control" aria-describedby="button-addon2" style="width: 250px; display:inline">
+			
+			<button type="submit" class="btn btn-primary" id="button-addon2">참가하기</button>
+		</form>
+	
+	</div>
 	
 
 </div>
 
 
-<div class="content" id="join_btn">
-	<form method="post" id="apply" action="apply">
-		<input type="text" name="mat_id" value="${createJoin.mat_id}" hidden="true">
-		<button type="submit">참가하기</button>
-		<input type="number" name="together" min="1" placeholder="참여 인원 수를 입력해 주세요" required autofocus>
-	</form>
-	
-</div>
 <%@ include file="../footer.jsp" %>
 <script>
 
