@@ -10,9 +10,11 @@
 <title>Insert title here</title>
 </head>
 <body>
-	
-<div class="content" text-align="center" id="here">
-		<h2>경기장 목록</h2>
+<!-- 경기장 리스트 나오는 부분 -->
+
+	<div class="content" text-align="center" id="here">
+		<div style="color: gray; font: bold 2.0em/1.0em Verdana;">🧾경기장 목록</div><br>
+		
 		<table border="1" class="table table-hover" align="center">
 		  <thead>
 			<tr align="center"  class="table-secondary">
@@ -26,9 +28,9 @@
 			 </thead>
   	<tbody>
 			<c:forEach var="stadium" items="${stadiumList}">
-				<tr align="center" >
-					<td><a href="stadiumDetail?id=${stadium.stadium_id}">${stadium.stadium_id}</a></td>
-					<td>${stadium.stadium_name}</td>
+			<tr align="center" >
+					<td>${stadium.stadium_id}</td>
+					<td><a href="stadiumDetail?id=${stadium.stadium_id}">${stadium.stadium_name}</a></td>
 					<td>${stadium.payment_method}</td>
 					<td>${stadium.stadium_number}</td>
 					<td>${stadium.sports_name}</td>

@@ -15,6 +15,11 @@
 	text-align: center;
 	font-size: 30px;
 }
+
+.outer {
+  text-align: center;
+}
+
 </style>
 <meta charset="UTF-8">
 <title>경기장정보</title>
@@ -93,13 +98,14 @@
 				    <span class="visually-hidden">Next</span>
 				  </button>
 				</div><br>
-							
-					<hr>
-		<!--<h2>경기장검색</h2>-->
+		</div><br>
+	
+	<!--<h2>경기장검색</h2>-->
+	<div class="outer">
 		<label for="sports" style="float: center"></label>
 		<!-- <select class="form-select" aria-label="Default select example" id="sports" id="sports" size="1">  -->
 		<select class="btn btn-secondary btn-lm dropdown-toggle"
-			aria-label="Default select example" id="sports" id="sports" size="1">
+			aria-label="Default select example" id="sports" id="sports" size="1" style="color:darkgray">
 			<option value="">경기장 종목선택</option>
 			<option value="농구장">농구</option>
 			<option value="배구장">배구</option>
@@ -116,7 +122,7 @@
 		<label for="loc" style="float: left"> </label>
 		<!--  	<select class="form-select" aria-label="Default select example" id="loc" id="loc" size="1">-->
 		<select class="btn btn-secondary btn-lm dropdown-toggle"
-			aria-label="Default select example" id="loc" id="loc" size="1">
+			aria-label="Default select example" id="loc" id="loc" size="1" style="color:darkgray">
 			<option value="">지역선택</option>
 			<option value="강남구">강남구</option>
 			<option value="과천시">과천시</option>
@@ -138,8 +144,10 @@
 			class="btn btn-secondary btn-lm" size="1">검색하기</button>
 </div>
 
+<!-- 경기장 리스트 나오는 부분 -->
+
 	<div class="content" text-align="center" id="here">
-		<div style="color: gray; font: bold 2.0em/1.0em Verdana;"">경기장 목록</div><br>
+		<div style="color: gray; font: bold 2.0em/1.0em Verdana;">🧾경기장 목록</div><br>
 		
 		<table border="1" class="table table-hover" align="center">
 		  <thead>
