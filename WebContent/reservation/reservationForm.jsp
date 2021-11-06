@@ -8,127 +8,134 @@
 <head>
 <meta charset="UTF-8">
 <title>경기장 예약</title>
-<!-- <link rel="stylesheet"
-	href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-
-<link href="../css/contentStyle.css" rel="stylesheet" type="text/css">
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script> -->
 <style>
-.reserveChoice {
-	width: 70%;
 
-}
-
-.reserveDetails {
-	width: 30%;
-	padding: 30px;
-}
-
-.flex-row {
-	display: flex;
-}
 
 .refer {
 	font-size: 12px;
 	text-align: left;
+	width: auto;
 }
 </style>
 
 </head>
 <body>
-	<%-- <%@ include file="../header.jsp"%> --%>
 	<jsp:include page="../header.jsp"></jsp:include> 
-	<div class="content"><h2>경기장 예약</h2></div>
-	<section class="content flex-row">
-		<section class="reserveChoice">
-			<!-- 아이디${user_id } -->
-			<!-- <span>종목선택</span> -->
-			<select id="sports_name" name="sports_name">
-				<!-- 종목 9개 고정 -->
-				<option selected>종목선택(9)</option>
-				<option value="농구장">농구</option>
-				<option value="배구장">배구</option>
-				<option value="배드민턴장">배드민턴</option>
-				<option value="야구장">야구</option>
-				<option value="족구장">족구</option>
-				<option value="축구장">축구</option>
-				<option value="탁구장">탁구</option>
-				<option value="테니스장">테니스</option>
-				<option value="풋살장">풋살</option>
-			</select> 
-			
-			<!-- GetRegionServlet > regionList.jsp -->
-			<select id="region">
-				<option>지역선택(0)</option>
-			</select>
-			
-			<span><input type="text" id="datepicker" name="datepicker" value="📅 경기일 선택"></span>
+	<nav>
+	    <div class="m-4 py-2 ">
+		  <h4>경기장 예약</h4>
+	    </div>
+	</nav>
+	<section class=" d-flex">
+		<!-- 경기장 정보 -->
+	    <section class="col-8"> <!-- bg-warning--> 
+	    
+	    	  <!-- 검색 섹션 -->
+			  <article class="d-flex mx-4">
+			  	<!-- 종목선택 -->
+			    <div class="col-2 m-1">
+				  <select class="form-select" id="sports_name" name="sports_name">
+				    <option selected>🏆 종목 선택(9)</option>
+					<option value="농구장">농구</option>
+					<option value="배구장">배구</option>
+					<option value="배드민턴장">배드민턴</option>
+					<option value="야구장">야구</option>
+					<option value="족구장">족구</option>
+					<option value="축구장">축구</option>
+					<option value="탁구장">탁구</option>
+					<option value="테니스장">테니스</option>
+					<option value="풋살장">풋살</option>
+				  </select>
+				</div>
+				<!-- 지역선택: GetRegionServlet sports_name 전달 > regionList.jsp -->
+				<div class="col-2 m-1">
+				  <select class="form-select" id="region">
+			  		<option>🚕 지역 선택(0)</option>
+				  </select>
+				</div>
+				<!-- 날짜선택, 함수실행-->
+				<div class="col-4 m-1">
+			  	  <input type="text" class="form-control" id="datepicker" name="datepicker" value="📅 예약일 선택" /> <!-- onchange="call2(this) -->
+			    </div>
+			<!--     <div class="col-4 m-1">
+			      <input type="button" id="resultCnt" name="resertCnt" class="btn btn-light disabled" value="총 0건 검색"/>
+			    </div> ${" 총 "}${fn:length(availStadiumList)}${"건 검색"} -->
+			  </article>
+			  
+		  	  <!-- 경기장 확인 GetStadiumServlet > availStaduimList.jsp -->
+			  <article>
+			  	  <div id="availStadium"></div> <!-- 원래 p태그 -->
+			  </article>
+		  </section>
 
-			<!-- GetStadiumServlet > availStaduimList.jsp -->
-			<p id="availStaduim"></p>
-
-
-		</section>
 
 		<!-- 나의예약정보 -->
-		<aside class="reserveDetails">
-			<form name="reserveInfo" method="post" action="stadiumConfirmed" onsubmit='return btnActive("${user_id}")'>
-				<h3>나의 예약 정보</h3>
-				<hr>
-				<table>
-					<tr>
-						<td>🌈 경기장소</td>
-						<td>
-							<span id='stadium_name'></span> 
-							<!-- stadium_id2 form으로 서버에 전송 --> 
-							<input type='hidden' id='stadium_id2' name='stadium_id' value=''>
-						</td>
-					</tr>
-					<tr>
-						<td>🌈 경기일자</td>
-						<!-- form으로 서버에 전송 -->
-						<td>
-							<span id='date'></span>
-							<input type='hidden' id='play_date' name='play_date' value=''>
-						</td>
-					</tr>
-					<tr>
-						<td>🌈 경기시간</td>
-						<td>
-							<span id='time'></span>
-							<input type='hidden' id='play_time' name='play_time' value=''>
-						</td>
-					</tr>
-					<tr>
-						<td>🌈 취소기간</td>
-						<td>
-							<span id="canceledDate"></span>
-						</td>
-					</tr>
-					<tr>
-						<td></td>
-						<td class="refer">(이용일 5일 전까지 취소 가능)</td>
-					</tr>
-					<tr>
-						<td>🌈 결제금액</td>
-						<td>
-							<span id="price"></span>
-							<input type='hidden' id="stadium_price" name='stadium_price' value=''>
-						</td>
-					</tr>
-					<tr>
-						<td></td>
-						<td class="refer">평일(40,000원/시간), 주말(60,000원/시간)</td>
-					</tr>
+		<aside class="col-4 bg-dark">
+			<div class="">
+			  <form name="reserveInfo" method="post" action="stadiumConfirmed" onsubmit='return btnActive("${user_id}")'>
+			  <!-- 테이블 -->
+				<table class="table table-hover mx-4 bg-info">
+				    <thead>
+					  <tr class="table-active">
+					    <th scope="col" colspan="2" class="font-weight-bold">상세 예약 정보</th>
+					  </tr>
+					</thead>
+					<tbody>
+						<tr>
+							<th scope="row">🌈 경기장소</th>
+							<td>
+								<span id='stadium_name2'></span> 
+								<!-- stadium_id2 form으로 서버에 전송 --> 
+								<input type='hidden' id='stadium_id2' name='stadium_id2' value=''>
+							</td>
+						</tr>
+						<tr>
+							<th scope="row">🌈 경기일자</th>
+							<!-- form으로 서버에 전송 -->
+							<td>
+								<span id='date'></span>
+								<input type='hidden' id='play_date' name='play_date' value=''>
+							</td>
+						</tr>
+						<tr>
+							<th scope="row">🌈 경기시간</th>
+							<td>
+								<span id='time'></span>
+								<input type='hidden' id='play_time' name='play_time' value=''>
+							</td>
+						</tr>
+						<tr>
+							<th scope="row">🌈 취소기간</th>
+							<td>
+								<span id="canceledDate"></span>
+								<br>
+								<span id='canceledDateEx' class="refer"></span>
+								
+							</td>
+						</tr>
+						<tr>
+							<th scope="row">🌈 결제금액</th>
+							<td>
+								<span id="price"></span>
+								<input type='hidden' id="stadium_price" name='stadium_price' value=''>
+								<br>
+								<span id='priceEx' class="refer"></span>
+							</td>
+						</tr>
+					</tbody>
 				</table>
-				<br> <input type="submit" id="reserveBtn" value="예약하기" />
+				<br> 
+				<div>
+				  <input type="submit" id="reserveBtn" value="예약하기" class="btn btn-warning"/>
+				</div>
 			</form>
+		  </div>
 		</aside>
 	</section>
-	<%@ include file="../footer.jsp"%>
+	<jsp:include page="../footer.jsp"></jsp:include> 
+	<!-- jsjsjsjsjsjs -->
 	<script>
-		//종목선택 > 지역옵션 표시
+		//종목선택 > 지역옵션 표시(o)
 		$(function() {
 			$("#sports_name").change(function() {
 				$.ajax({
@@ -143,7 +150,7 @@
 			});
 		});
 		
-		//날짜선택 > 예약가능 경기장 표시
+		//날짜선택 > 예약가능 경기장 표시(0)
 		$(function() {
 			$("#datepicker").change(function() {
 				$.ajax({ //날짜,종목,지역이 서블릿으로 넘어감
@@ -154,7 +161,7 @@
 						"region" : $("#region").val()
 					},
 					success : function(responseData) {
-						$("#availStaduim").html(responseData);
+						$("#availStadium").html(responseData);
 					}
 				});
 			});
@@ -236,21 +243,23 @@
 			  $("#canceledDate").html(canceledDate(dateStr));
 			  $("#price").html(showCalPrice(dateStr));
 			  $("#stadium_price").val(calPrice(dateStr));
+			  $("#canceledDateEx").html("(이용일 5일 전까지 취소 가능)");
+			  $("#priceEx").html("평일(40,000원/시간), 주말(60,000원/시간)");
+			  $("#resultCnt").html($("#count").val());
 			  
 		  });
-		  
+		  	   
 		 	
-		 // 예약날짜 나의예약정보에 선택시 경기장소, 예약시간 출력
-		 function call(obj){
-				  
-			var stadium = $(obj).parent().parent().parent().parent().find("h3").html().replace(/>/g,"&gt;");
-			var stadium_id = $(obj).parent().parent().parent().parent().find("#stadium_id").val();
+ 		 // 예약날짜 나의예약정보에 선택시 예약시간,경기장소 출력
+ 		 function call(obj){
+			//예약시간	  
 			$("#play_time").val($(obj).val());
 			$("#time").html($(obj).val());
-			$("#stadium_name").html(stadium);
-			$("#stadium_id2").val(stadium_id);
+			//장소이름&장소ID
+			$("#stadium_name2").html($("#stadium_name").val());
+			$("#stadium_id2").val($("#stadium_id").val());
 		 }
- 		 
+ 		  		 
  		 //로그인되지 않았을 시 예약불가, 알람창 띄움
 		 function btnActive(user_id){
  			if( user_id == '' || user_id == null) {
