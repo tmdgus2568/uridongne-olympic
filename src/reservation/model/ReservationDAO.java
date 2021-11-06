@@ -99,7 +99,6 @@ public class ReservationDAO {
 			DBConnection.dbClose(null, st, rs);
 			DBConnection.dbClose(conn, st2, rs2);
 		}
-		System.out.println(stadiumList);
 
 		return stadiumList;
 	}
@@ -151,7 +150,7 @@ public class ReservationDAO {
 		stadium.setStadium_name(rs.getString("stadium_name"));
 		stadium.setStadium_start(rs.getString("stadium_start"));
 		stadium.setStadium_number(rs.getInt("stadium_number"));
-
+		
 		return stadium;
 	}
 
