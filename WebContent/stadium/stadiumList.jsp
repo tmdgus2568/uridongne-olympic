@@ -118,7 +118,10 @@
 			<option value="풋살장">풋살</option>
 		</select>
 		
-		<!-- 	<label for="loc" style="float: left">지역선택</label> -->
+		
+		
+		
+		<!-- dfdfdfd	<label for="loc" style="float: left">지역선택</label> -->
 		<label for="loc" style="float: left"> </label>
 		<!--  	<select class="form-select" aria-label="Default select example" id="loc" id="loc" size="1">-->
 		<select class="btn btn-secondary btn-lm dropdown-toggle"
