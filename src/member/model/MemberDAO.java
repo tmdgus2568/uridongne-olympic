@@ -281,4 +281,73 @@ public class MemberDAO {
 		return res;
 	}
 
+	public List<MatCreateJoinVO> matchingApplyInfo(String user_id) {
+		List<MatCreateJoinVO> appList = new ArrayList<>();
+		String sql = "select *"
+				+ " from matching_apply a"
+				+ " join matching_create c on (a.mat_id = c.mat_id)"
+				+ " join stadium_reservation s on (c.res_number = s.res_number)"
+				+ " join stadium d on (s.stadium_id = d.stadium_id)"
+				+ " where a.user_id =?";
+		Connection conn = null;
+		PreparedStatement st = null;
+		ResultSet rs = null;
+
+		try {
+			conn = DBConnection.dbConnect(path);
+			st = conn.prepareStatement(sql); // prepareStatement통해서 보냄
+			st.setString(1, user_id);
+			rs = st.executeQuery();
+			while (rs.next()) {
+				appList.add(makeApp(rs));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			DBConnection.dbClose(conn, st, rs);
+		}
+
+		return appList;
+	}
+	
+	private MatCreateJoinVO makeApp(ResultSet rs) throws SQLException {
+		
+		MatCreateJoinVO matApply = new MatCreateJoinVO();
+		matApply.setMat_id(rs.getInt("mat_id"));
+		matApply.setMat_content(rs.getString("mat_content"));
+		matApply.setMat_people(rs.getInt("mat_people"));
+		matApply.setNowjoin_people(rs.getInt("nowjoin_people"));
+		matApply.setMat_status(rs.getString("mat_status"));
+		matApply.setSports_name(rs.getString("sports_name"));
+		matApply.setLocation(rs.getString("location"));
+		matApply.setMat_title(rs.getString("mat_title"));
+		matApply.setPlay_date(rs.getDate("play_date"));
+		matApply.setRes_number(rs.getInt("res_number"));
+		matApply.setStadium_price(rs.getInt("together"));	//stadium에 담아버리기
+		
+		return matApply;
+	}
+
+	public int cancelMatching(int mat_id) {
+		int result = 0; // update 건수
+
+		String sql = "update matching_create set mat_status = '취소' where mat_id = ?";
+
+		PreparedStatement st = null; // ?를 활용하면 PreparedStatement!
+		Connection con = null;
+
+		try {
+			con = DBConnection.dbConnect(path);
+			st = con.prepareStatement(sql); // sql문을 준비한다.
+
+			st.setInt(1, mat_id);
+			result = st.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			DBConnection.dbClose(con, st, null);
+		}
+		return result;
+	}
+
 }

@@ -5,147 +5,111 @@
 <!DOCTYPE html>
 <html>
 <head>
-
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <style type="text/css">
-#left_main ul {
-	list-style-type: none;
-	padding: 0px;
-	margin: 0px;
-	width: 100px;
-	background: white;
+.nav>li>a:hover {
+	background: #ff7f50;
+	color: #fff;
+}
+
+.main-container {
+	width: 1080px;
+	display: grid;
+	grid-template-columns: 150px 920px;
+	gap: 10px; /* 구역간의 간격 */
+}
+
+.box1 {
+	width: 100%;
 	height: 100%;
-	overflow: auto;
-	position: fixed;
+	text-align: left;
+	height: 100%;
 }
 
-#left_main li a {
-	text-decoration: none;
-	padding: 10px;
-	display: block;
-	color: #000;
-	font-weight: bold;
+.box2 {
+	width: 100%;
+	height: 100%;
+	display: center;
+	flex-direction: column; /* 세로 정렬 */
+	background-color: yelow;
 }
 
-#left_main li a:hover {
-	background: #333;
-	color: #fff;
+th, td {
+	vertical-align: middle;
 }
 
-#left_main li a.home {
-	background: #333;
-	color: #fff;
-}
-
-.cd1 {
-	margin-left: 120px;
-}
-
-.dropdown {
-	position: relative;
-	display: inline-block;
-}
-
-.dropdown-content {
-	display: none;
-	position: absolute;
-	background-color: #f9f9f9;
-	min-width: 160px;
-	box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
-	z-index: 1;
-}
-
-.dropdown-content a {
-	color: black;
-	padding: 12px 16px;
-	text-decoration: none;
-	display: block;
-}
-
-.dropdown-content a:hover {
-	background-color: #f1f1f1
-}
-
-.dropdown:hover .dropdown-content {
-	display: block;
-}
-
-.dropdown:hover .dropbtn {
-	background-color: #3e8e41;
+td {
+	width: 400px;
 }
 </style>
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<link href="../css/bootstrap.min.css" rel="stylesheet" type="text/css">
 
 </head>
 <body>
-
 	<%@ include file="../header.jsp"%>
-	<div class="content">
-		<div id="main" style="margin-top: 10px;">
-			<div id="left_main"
-				style="height: 300px; width: 100px; margin-right: 10px; float: left;">
-
-				<ul>
-					<li><a href="mypage">마이페이지</a></li>
-					<li><a href="reserveinfo">경기장예약</a></li>
-					<li class="dropdown">
-						<div class="dropdown-menu">
-							<a>매칭</a>
-						</div>
-						<div class="dropdown-content">
-							<a href="matchingcreateinfo">매칭생성</a> <a href="matchingapplyinfo">매칭참여</a>
-						</div>
-					<li><a class="home" href="reviewinfo">리뷰</a></li>
-				</ul>
-			</div>
-
-			<div id="right_main"
-				style="height: 300px; width: 490px; float: left;">
-				<h2>리뷰 정보</h2>
-				<table border="1" class="table_style" align="center"
-					id="review_list">
-					<tr class="table_title">
-						<td>예약번호</td>
-						<td>경기장 이름</td>
-						<td>경기장 종류</td>
-						<td>경기장 이용일</td>
-						<td>경기장 이용시간</td>
-						<td>경기장 이용 요금</td>
-						<td>예약현황</td>
-						<td>매칭여부</td>
-						<td>취소</td>
+	<div class="main-container">
+		<div class="box1">
+			<ul class="nav nav-pills flex-column">
+				<li class="nav-item"><a class="nav-link" href="mypage">마이페이지</a></li>
+				<li class="nav-item"><a class="nav-link active" href="reserveinfo">경기장예약</a></li>
+				<li class="nav-item dropdown"><a
+					class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#"
+					role="button" aria-haspopup="true" aria-expanded="false">매칭</a>
+					<div class="dropdown-menu">
+						<a class="dropdown-item" href="matchingcreateinfo">매칭개설</a> <a
+							class="dropdown-item" href="matchingapplyinfo">매칭참여</a>
+					</div></li>
+				<li class="nav-item"><a class="nav-link"
+					href="reviewinfo">리뷰</a></li>
+			</ul>
+		</div>
+		<div class="box2" style="float: right; text-align: center;">
+			<table class="table table-hover" id="reserve_list">
+				<thead>
+					<tr style="text-align: left;">
+						<th colspan="2">경기장예약정보</th>
 					</tr>
-					<c:choose>
-						<c:when test="${empty resList}">
-							<tr height="10">
-								<td colspan="5">
-									<p align="center">
-										<b><span style="font-style: italic; font-size: 12pt;">예약
-												내역이 없습니다.</span></b>
-									</p>
-								</td>
+				</thead>
+				<tr class="table-primary">
+					<td>예약번호</td>
+					<td class="stadium_name">경기장</td>
+					<td>종류</td>
+					<td>이용일</td>
+					<td>이용시간</td>
+					<td>이용 요금</td>
+					<td>예약현황</td>
+					<td>취소</td>
+				</tr>
+				<c:choose>
+					<c:when test="${empty resList}">
+						<tr class="table-secondary" height="10">
+							<td colspan="9">
+								<p align="center">
+									<b><span style="font-style: italic; font-size: 12pt;">예약
+											내역이 없습니다.</span></b>
+								</p>
+							</td>
+						</tr>
+					</c:when>
+					<c:when test="${!empty resList}">
+						<c:forEach var="res" items="${resList }">
+							<tr align="center" class="table-secondary">
+								<td>${res.res_number}</td>
+								<td>${res.stadium_name}</td>
+								<td>${res.sports_name}</td>
+								<td>${res.play_date}</td>
+								<td>${res.play_start}-${res.play_end}</td>
+								<td>${res.stadium_price }</td>
+								<td>${res.res_status }</td>
+								<td><button type="button" class="btn btn-primary">예약취소</button></td>
 							</tr>
-						</c:when>
-						<c:when test="${!empty resList}">
-							<c:forEach var="res" items="${resList }">
-								<tr align="center" class="table_content">
-									<td>${res.res_number}</td>
-									<td>${res.stadium_name}</td>
-									<td>${res.sports_name}</td>
-									<td>${res.play_date}</td>
-									<td>${res.play_start}-${res.play_end}</td>
-									<td>${res.stadium_price }</td>
-									<td>${res.res_status }</td>
-									<td>${res.matching}</td>
-									<td><button>취소</button></td>
-								</tr>
-							</c:forEach>
-						</c:when>
-					</c:choose>
-				</table>
-			</div>
+						</c:forEach>
+					</c:when>
+				</c:choose>
+			</table>
 		</div>
 	</div>
 	<%@ include file="../footer.jsp"%>
