@@ -98,10 +98,10 @@
 				    <span class="visually-hidden">Next</span>
 				  </button>
 				</div><br>
-		</div><br>
+			<br>
 	
 	<!--<h2>경기장검색</h2>-->
-	<div class="outer">
+	
 		<label for="sports"></label>
 		<!-- <select class="form-select" aria-label="Default select example" id="sports" id="sports" size="1">  -->
 		<select class="btn btn-secondary btn-lm dropdown-toggle"
@@ -142,7 +142,7 @@
 		</select>
 		<button id="searchButton" type="button"
 			class="btn btn-secondary btn-lm" size="1">검색하기</button>
-</div>
+		</div>
 
 <!-- 경기장 리스트 나오는 부분 -->
 
