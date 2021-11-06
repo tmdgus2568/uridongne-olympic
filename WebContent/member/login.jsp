@@ -14,6 +14,10 @@ h5 {
 }
 </style>
 
+<script
+	src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.2/dist/js/bootstrap.bundle.min.js"></script>
+<link href="../css/bootstrap.min.css" rel="stylesheet" type="text/css">
+
 <!-- 네이버 로그인 스크립트 -->
 <script type="text/javascript"
 	src="https://static.nid.naver.com/js/naverLogin_implicit-1.0.3.js"
@@ -66,29 +70,36 @@ h5 {
 	<%@ include file="../header.jsp"%>
 	<div class="content">
 		<div class="loginform" align="center">
-			<h3>LOGIN</h3>
 			<h5>${message }</h5>
 			<form name="frmLogin" action="generallogincheck" method="post">
 				<table>
 					<tr>
-						<td>아이디</td>
-						<td><input type="text" id="user_id" name="user_id">
+						<td>
+							<div class="form-floating mb-3">
+								<input type="text" class="form-control" id="user_id"
+									name="user_id" placeholder="아이디를 입력해주세요"> <label
+									for="floatingInput">ID</label>
+							</div>
+						</td>
 					</tr>
 					<tr>
-						<td>비밀번호</td>
-						<td><input type="password" id="user_pw" name="user_pw"></td>
+						<td>
+							<div class="form-floating">
+								<input type="password" class="form-control" id="user_pw"
+									name="user_pw" placeholder="비밀번호를 입력해주세요" style="width: 300pt; height: 40pt;"> <label
+									for="floatingPassword">Password</label>
+							</div>
+						</td>
 					</tr>
 				</table>
-				<input type="submit" value="로그인">
+				<button type="submit" style="width: 300pt; height: 40pt; margin: 10pt;"
+					class="btn btn-primary" value="로그인">로그인</button>
 			</form>
 
-			<br> <a href="joinForm.jsp"><img height="40"
-				src="../image/generaljoin.png" /></a>
-				<br> <a onclick="kakaoLogin();"
-				href="javascript:void(0)"> <img height="40"
-				src="../image/kakaologin.png" /></a><br>
-
-
+			<br> <a href="joinForm.jsp"><img width="400" src="../image/generallogin.png" /></a> <br><br> 
+			<p style="font-size: 20px">OR</p><a
+				onclick="kakaoLogin();" href="javascript:void(0)"> <img
+				 width="394" src="../image/kakaologin.png" /></a><br>
 			<div id="naver_id_login"></div>
 
 			<form name="socialFrmLogin" id="socialFrmLogin"
@@ -106,7 +117,7 @@ h5 {
 		var naver_id_login = new naver_id_login("LesoS08CKTFNELCZN_Ia",
 				"http://localhost:9090/uridongne-olympic/member/callback.jsp");
 		var state = naver_id_login.getUniqState();
-		naver_id_login.setButton("green", 3, 43);
+		naver_id_login.setButton("green", 3, 85);
 		naver_id_login
 				.setDomain("http://localhost:9090/uridongne-olympic/member/login.jsp");
 		naver_id_login.setState(state);

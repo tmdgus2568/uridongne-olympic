@@ -34,6 +34,8 @@ public class MemberInfoUpdateServlet extends HttpServlet {
 		
 		HttpSession session = request.getSession();
 		session.setAttribute("member", member);
+		System.out.println(member);
+		System.out.println();
 		response.sendRedirect("mypage.jsp");
 	}
 

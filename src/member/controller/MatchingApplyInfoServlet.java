@@ -1,41 +1,41 @@
 package member.controller;
 
 import java.io.IOException;
+import java.util.List;
+
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
+import matching.model.MatCreateJoinVO;
+import member.model.MemberService;
+import member.model.MemberVO;
 
 /**
  * Servlet implementation class MatchingApplyInfo
  */
-@WebServlet("/memeber/matchingapplyinfo")
+@WebServlet("/member/matchingapplyinfo")
 public class MatchingApplyInfoServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public MatchingApplyInfoServlet() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
 
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		response.getWriter().append("Served at: ").append(request.getContextPath());
-	}
+		
+		HttpSession session = request.getSession();
+		MemberVO member = (MemberVO) session.getAttribute("member");
+		String path = getServletContext().getRealPath(".");
+		MemberService service = new MemberService(path);
+		String user_id = member.getUser_id();
+		List<MatCreateJoinVO> appList = service.matchingApplyInfo(user_id);
+		System.out.println(user_id);
+		System.out.println(appList);
+		request.setAttribute("appList", appList);
+		RequestDispatcher rd = request.getRequestDispatcher("matchingAppplyInfo.jsp");
+		rd.forward(request, response);
 
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		doGet(request, response);
 	}
 
 }

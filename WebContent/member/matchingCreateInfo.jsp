@@ -7,76 +7,42 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<link href="../css/tableStyle.css" rel="stylesheet" type="text/css">
-<link href="../css/contentStyle.css" rel="stylesheet" type="text/css">
 
 <style type="text/css">
-#left_main ul {
-	list-style-type: none;
-	padding: 0px;
-	margin: 0px;
-	width: 100px;
-	background: white;
+.nav>li>a:hover {
+	background: #ff7f50;
+	color: #fff;
+}
+
+.main-container {
+	width: 1080px;
+	display: grid;
+	grid-template-columns: 150px 830px;
+	gap: 10px; /* 구역간의 간격 */
+}
+
+.box1 {
+	width: 100%;
 	height: 100%;
-	overflow: auto;
-	position: fixed;
+	text-align: left;
+	height: 100%;
 }
 
-#left_main li a {
-	text-decoration: none;
-	padding: 10px;
-	display: block;
-	color: #000;
-	font-weight: bold;
+.box2 {
+	width: 100%;
+	height: 100%;
+	display: center;
+	flex-direction: column; /* 세로 정렬 */
+	background-color: yelow;
 }
 
-#left_main li a:hover {
-	background: #333;
-	color: #fff;
-}
-
-#left_main li a.home {
-	background: #333;
-	color: #fff;
-}
-
-.cd1 {
-	margin-left: 120px;
-}
-
-.dropdown {
-	position: relative;
-	display: inline-block;
-}
-
-.dropdown-content {
-	display: none;
-	position: absolute;
-	background-color: #f9f9f9;
-	min-width: 160px;
-	box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
-	z-index: 1;
-}
-
-.dropdown-content a {
-	color: black;
-	padding: 12px 16px;
-	text-decoration: none;
-	display: block;
-}
-
-.dropdown-content a:hover {
-	background-color: #f1f1f1
-}
-
-.dropdown:hover .dropdown-content {
-	display: block;
-}
-
-.dropdown:hover .dropbtn {
-	background-color: #3e8e41;
+th, td {
+	vertical-align: middle;
 }
 </style>
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<link href="../css/bootstrap.min.css" rel="stylesheet" type="text/css">
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 
@@ -84,28 +50,30 @@
 <body>
 
 	<%@ include file="../header.jsp"%>
-	<div class="content">
-		<div id="left_main"
-			style="height: 300px; width: 100px; margin-right: 10px; float: left;">
-			<ul>
-				<li><a href="mypage">마이페이지</a></li>
-				<li><a href="reserveinfo">경기장예약</a></li>
-				<li class="dropdown">
+	<div class="main-container">
+		<div class="box1">
+			<ul class="nav nav-pills flex-column">
+				<li class="nav-item"><a class="nav-link" href="mypage">마이페이지</a></li>
+				<li class="nav-item"><a class="nav-link" href="reserveinfo">경기장예약</a></li>
+				<li class="nav-item dropdown"><a
+					class="nav-link dropdown-toggle active" data-bs-toggle="dropdown"
+					href="#" role="button" aria-haspopup="true" aria-expanded="false">매칭</a>
 					<div class="dropdown-menu">
-						<a class="home">매칭</a>
-					</div>
-					<div class="dropdown-content">
-						<a class="home" href="matchingcreateinfo">매칭생성</a> <a
-							href="matchingapplyinfo">매칭참여</a>
-					</div>
-				<li><a href="reviewinfo">리뷰</a></li>
+						<a class="dropdown-item" href="matchingcreateinfo">매칭개설</a> <a
+							class="dropdown-item" href="matchingapplyinfo">매칭참여</a>
+					</div></li>
+				<li class="nav-item"><a class="nav-link" href="reviewinfo">리뷰</a></li>
 			</ul>
 		</div>
-		<div id="right_main" style="height: 300px; width: 490px; float: left;">
-			<h2>매칭 개설 정보</h2>
-			<table border="1" class="table_style" align="center"
-				id="matching_list">
-				<tr class="table_title">
+
+		<div class="box2" style="float: right; text-align: center;">
+			<table class="table table-hover" id="matching_list">
+				<thead>
+					<tr>
+						<th>매칭개설정보</th>
+					</tr>
+				</thead>
+				<tr class="table-primary">
 					<td hidden=true>id</td>
 					<td>순서</td>
 					<td>방이름</td>
@@ -118,8 +86,8 @@
 				</tr>
 				<c:choose>
 					<c:when test="${empty matList}">
-						<tr height="10">
-							<td colspan="5">
+						<tr class="table-secondary" height="10">
+							<td colspan="8">
 								<p align="center">
 									<b><span style="font-style: italic; font-size: 12pt;">생성한
 											매칭이 없습니다.</span></b>
@@ -129,7 +97,7 @@
 					</c:when>
 					<c:when test="${!empty matList}">
 						<c:forEach var="item" items="${matList}" varStatus="list">
-							<tr align="center" class="table_content">
+							<tr align="center" class="table-secondary">
 								<td hidden=true>${item.mat_id}</td>
 								<td>${list.count}</td>
 								<td>${item.mat_title}</td>
@@ -138,15 +106,28 @@
 								<td>${item.location}</td>
 								<td>${item.play_date}</td>
 								<td>${item.mat_status}</td>
-								<td><button>매칭취소</button></td>
+								<td><button type="button" class="btn btn-primary"
+										onclick="matchingcancel('${item.mat_id}')">매칭취소</button></td>
 							</tr>
 						</c:forEach>
 					</c:when>
-
 				</c:choose>
 			</table>
+
+			<form action=""></form>
 		</div>
 	</div>
 	<%@ include file="../footer.jsp"%>
+
+	<script>
+		function matchingcancel(mat_id) {
+			if (!confirm("정말 취소하시겠습니까?")) {
+				return false;
+			} else {
+				console.log(mat_id);
+				location.href = "matchingcancel?mat_id=" + +mat_id;
+				}
+		};
+	</script>
 </body>
 </html>

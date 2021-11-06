@@ -48,4 +48,12 @@ public class MemberService {
 		return dao.resInfo(user_id);
 	}
 
+	public List<MatCreateJoinVO> matchingApplyInfo(String user_id) {
+		return dao.matchingApplyInfo(user_id);
+	}
+
+	public int cancelMatching(int mat_id) {
+		return dao.cancelMatching(mat_id);
+	}
+
 }
