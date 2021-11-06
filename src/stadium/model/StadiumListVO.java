@@ -17,7 +17,7 @@ public class StadiumListVO {
 	int stadium_number;
 	int mat_max;	
 	int stadium_parking;	
-	int stadium_shower;	
+	String stadium_shower;	
 	String stadium_char;
 	String location;
 	int review_num;
@@ -38,7 +38,7 @@ public class StadiumListVO {
 	public StadiumListVO(String stadium_id, String stadium_name, String sports_name, String payment_method,
 			String stadium_address, String address_x, String address_y, String stadium_phone, String stadium_start,
 			String stadium_end, String stadium_photo, int stadium_number, int mat_max, int stadium_parking,
-			int stadium_shower, String stadium_char, String location, int review_num, int res_number,
+			String stadium_shower, String stadium_char, String location, int review_num, int res_number,
 			String review_star, Date review_date, String review_content, String review_photo, String user_id) {
 		super();
 		this.stadium_id = stadium_id;
@@ -68,8 +68,6 @@ public class StadiumListVO {
 	}
 
 
-	
-	
 
 	public String getStadium_id() {
 		return stadium_id;
@@ -239,13 +237,13 @@ public class StadiumListVO {
 
 
 
-	public int getStadium_shower() {
+	public String getStadium_shower() {
 		return stadium_shower;
 	}
 
 
 
-	public void setStadium_shower(int stadium_shower) {
+	public void setStadium_shower(String stadium_shower) {
 		this.stadium_shower = stadium_shower;
 	}
 
@@ -359,7 +357,6 @@ public class StadiumListVO {
 
 
 
-	
 	@Override
 	public String toString() {
 		return "StadiumListVO [stadium_id=" + stadium_id + ", stadium_name=" + stadium_name + ", sports_name="
@@ -374,5 +371,5 @@ public class StadiumListVO {
 	}
 
 
-	
+
 }
