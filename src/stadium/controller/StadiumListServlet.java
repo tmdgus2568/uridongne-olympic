@@ -27,7 +27,8 @@ public class StadiumListServlet extends HttpServlet {
 			throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		String path = getServletContext().getRealPath(".");
-		StadiumListService stadiumlistService = new StadiumListService(path);
+		StadiumListService stadiumlistService = new
+				StadiumListService(path);
 		List<StadiumListVO> stadiumList = stadiumlistService.selectAllService();
 	
 		request.setAttribute("stadiumList", stadiumList);  //db데이터를 저장

@@ -190,7 +190,7 @@ public class StadiumListDAO {
 			stadium.setStadium_number(rs.getInt("stadium_number"));
 			stadium.setMat_max(rs.getInt("mat_max"));
 			stadium.setStadium_parking(rs.getInt("stadium_parking"));
-			stadium.setStadium_shower(rs.getInt("stadium_shower"));
+			stadium.setStadium_shower(rs.getString("stadium_shower"));
 			stadium.setStadium_char(rs.getString("stadium_char"));
 			stadium.setLocation(rs.getString("location"));
 			stadium.setReview_star(rs.getString("review_star"));
