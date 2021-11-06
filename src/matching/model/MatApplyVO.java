@@ -36,6 +36,12 @@ public class MatApplyVO {
 	public void setTogether(int together) {
 		this.together = together;
 	}
+
+	@Override
+	public String toString() {
+		return "MatApplyVO [mat_id=" + mat_id + ", user_id=" + user_id + ", together=" + together + "]";
+	}
+	
 	
 	
 

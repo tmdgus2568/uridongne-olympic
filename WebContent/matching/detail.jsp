@@ -224,7 +224,8 @@ $(function(){
 	<div id="join_btn" class="input-group mb-3" align="right" style="display:flex; justify-content:flex-end;">
 		<form method="post" id="apply" action="apply">	
 			<input type="text" name="mat_id" value="${createJoin.mat_id}" hidden="true">
-			<input type="number" name="together" min="1" placeholder="참여 인원 수를 입력해 주세요" required autofocus class="form-control" aria-describedby="button-addon2" style="width: 250px; display:inline">
+			<input type="number" name="together" min="1" placeholder="참여 인원 수를 입력해 주세요" 
+			required autofocus class="form-control" aria-describedby="button-addon2" style="width: 250px; display:inline">
 			
 			<button type="submit" class="btn btn-primary" id="button-addon2">참가하기</button>
 		</form>
