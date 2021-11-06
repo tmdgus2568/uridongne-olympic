@@ -64,6 +64,14 @@ public class MatCreateServlet extends HttpServlet {
 		// 다음으로 누르면 MatCreateServlet로 이동 -> 객체를 보내므로 post로 보냄 
 		request.setCharacterEncoding("utf-8");
 		
+		HttpSession session = request.getSession();
+		RequestDispatcher rd;
+		
+		if(session.getAttribute("member") == null) {
+			rd = request.getRequestDispatcher("../member/login.jsp");
+			rd.forward(request, response);
+			return;
+		}
 		ReservationVO reservation = makeReserv(request);
 		
 		String dbPath = getServletContext().getRealPath(".");
@@ -74,7 +82,7 @@ public class MatCreateServlet extends HttpServlet {
 		request.setAttribute("reservation", reservation);
 		request.setAttribute("stadium", stadium);
 		
-		RequestDispatcher rd = request.getRequestDispatcher("createForm.jsp");
+		rd = request.getRequestDispatcher("createForm.jsp");
 		rd.forward(request, response);
 		
 	}
