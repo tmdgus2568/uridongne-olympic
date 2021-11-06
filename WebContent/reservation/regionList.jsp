@@ -10,12 +10,20 @@
 	<title>Insert title here</title>
 </head>
 <body>
-	<!-- <span>지역선택</span> -->
-	<select id="region" name="region">
-		<option selected>지역선택${"("}${fn:length(regionList)}${")"} </option>
+	<!-- 지역선택> -->
+		<div >
+	      <select class="form-select" id="region" name="region"> <!--   name="region" -->
+			<option selected>🚕 지역 선택${"("}${fn:length(regionList)}${")"} </option>
+			<c:forEach items="${regionList}" var="region">
+				<option >${region}</option>
+			</c:forEach>
+		  </select>
+	    </div>
+<%-- 	<select id="region" name="region">
+		<option selected>선택${"("}${fn:length(regionList)}${")"} </option>
 		<c:forEach items="${regionList}" var="region">
 			<option >${region}</option>
 		</c:forEach>
-	</select>
+	</select> --%>
 </body>
 </html>
