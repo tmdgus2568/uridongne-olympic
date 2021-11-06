@@ -20,6 +20,7 @@
   text-align: center;
 }
 
+
 </style>
 <meta charset="UTF-8">
 <title>경기장정보</title>
@@ -44,12 +45,22 @@
 	});
 </script>
 
+
+<style type="text/css"> 
+a { text-decoration:none } 
+</style> 
+
+
 </head>
 
 <body>
 	<%@ include file="../header.jsp"%>
 	<div class="content" text-align="center">
-	<!-- 					<div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
+	
+				<!-- 	메인페이지에서 사용..메인에 양보 			
+	
+	
+				<div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
 					  <div class="carousel-inner">
 					    <div class="carousel-item active">
 					      <img src="../image/11.PNG" class="d-block w-100 h-80"" alt="../image/11.PNG">
@@ -71,7 +82,8 @@
 					  </button>
 					</div>
 					
-					 -->
+					
+					
 				<div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
 				  <div class="carousel-indicators">
 				    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
@@ -99,13 +111,15 @@
 				  </button>
 				</div><br>
 			<br>
-	
+	 				-->
+	 
+	 
 	<!--<h2>경기장검색</h2>-->
-	
+		<div style="color: gray; font: bold 2.0em/1.0em Verdana;">🔎경기장 검색</div><br>
 		<label for="sports"></label>
 		<!-- <select class="form-select" aria-label="Default select example" id="sports" id="sports" size="1">  -->
 		<select class="btn btn-secondary btn-lm dropdown-toggle"
-			aria-label="Default select example" id="sports" id="sports" size="1" style="color:darkgray">
+			aria-label="Default select example" id="sports" id="sports" size="1" style="color:black">
 			<option value="">경기장 종목선택</option>
 			<option value="농구장">농구</option>
 			<option value="배구장">배구</option>
@@ -125,7 +139,7 @@
 		<label for="loc" style="float: left"> </label>
 		<!--  	<select class="form-select" aria-label="Default select example" id="loc" id="loc" size="1">-->
 		<select class="btn btn-secondary btn-lm dropdown-toggle"
-			aria-label="Default select example" id="loc" id="loc" size="1" style="color:darkgray">
+			aria-label="Default select example" id="loc" id="loc" size="1" style="color:black">
 			<option value="">지역선택</option>
 			<option value="강남구">강남구</option>
 			<option value="과천시">과천시</option>
@@ -144,12 +158,13 @@
 			<option value="광진구">광진구</option>
 		</select>
 		<button id="searchButton" type="button"
-			class="btn btn-secondary btn-lm" size="1">검색하기</button>
-		</div>
+			class="btn btn-info" size="1">검색하기</button>
+		</div><br><br>
 
 <!-- 경기장 리스트 나오는 부분 -->
 
 	<div class="content" text-align="center" id="here">
+		
 		<div style="color: gray; font: bold 2.0em/1.0em Verdana;">🧾경기장 목록</div><br>
 		
 		<table border="1" class="table table-hover" align="center">

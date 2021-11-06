@@ -108,7 +108,7 @@
 			<img src="${stadium.stadium_photo}"
 				class="figure-img img-fluid rounded" height: 100px;>
 			<br>
-			<font size="2" style="color: darkgray; font: bold 1.0em/1.8em Verdana;" >
+			<font size="2" style="color: dark; font: bold 1.0em/1.8em Verdana;" >
 			<table width="100%">
 			<td>📝 평점: <script>
 		  	for(let i=1; i<=${stadium.review_star }; i++){
