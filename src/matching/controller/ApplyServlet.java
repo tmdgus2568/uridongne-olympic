@@ -45,15 +45,6 @@ public class ApplyServlet extends HttpServlet {
 		request.setCharacterEncoding("utf-8");
 		RequestDispatcher rd;
 		
-		if(session.getAttribute("member") == null) {
-			if(session.getAttribute("member") == null) {
-				rd = request.getRequestDispatcher("../member/login.jsp");
-				rd.forward(request, response);
-				return;
-			}
-			
-		}
-		
 		// apply 테이블에 저장 
 		MemberVO member = (MemberVO)session.getAttribute("member"); 
 		apply.setUser_id(member.getUser_id());

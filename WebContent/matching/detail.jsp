@@ -10,7 +10,14 @@
 <link href="../css/contentStyle.css" rel="stylesheet" type="text/css">
 <script type="text/javascript">
 $(function(){
+	 var member = '${member.user_id}';
+	 
 	 $("#apply").submit(function() {
+		
+		 if(member == null || member == ""){
+			 alert("로그인 후 이용해 주세요");
+			 return false;
+		 }
 		 
 		 if(!confirm("정말 매칭에 참여하시겠습니까?")){
 			 return false;
@@ -96,7 +103,7 @@ $(function(){
 	}
 	
 	.stadium_deatil_info_title{
-		font-size:40px;
+		font-size:35px;
 	}
 	.stadium_detail_info_sub2{
 		font-size:20px;
@@ -111,19 +118,19 @@ $(function(){
 
 <%-- <h1>${param.res_number}</h1> --%>
 <div class="content">
-	<h2>매칭 상세정보</h2>
+	<div style="color: gray; font: bold 2.0em/1.2em Verdana;">📌매칭 상세정보</div>
 	<br>
 	<table class="table table" border="1">
 		<tr>
-			<th class="table-dark" scope="row">방이름</td>
+			<th class="table-secondary" scope="row">방이름</td>
 			<td colspan="5">${createJoin.mat_title}</td>
 		</tr>
 		<tr>
-			<th class="table-dark" scope="row">경기날짜</td>
-			<td>${createJoin.play_start}~${createJoin.play_end}</td>
-			<th class="table-dark" scope="row">인원 수</td>
+			<th class="table-secondary" scope="row">경기날짜</td>
+			<td>${createJoin.play_date} ${createJoin.play_start}~${createJoin.play_end}</td>
+			<th class="table-secondary" scope="row">인원 수</td>
 			<td>${createJoin.nowjoin_people}/${createJoin.mat_people}</td>
-			<th class="table-dark" scope="row">1인당 예상가격</td>
+			<th class="table-secondary" scope="row">1인당 예상가격</td>
 			<td>약 <fmt:parseNumber value="${createJoin.stadium_price/createJoin.mat_people}" integerOnly="true"/>원</td>
 		</tr>
 		<tr>
@@ -136,7 +143,7 @@ $(function(){
 
 </div>
 <div class="content" id="stadium_info" text-align="center">
-	<h2>경기장 정보</h2>
+	<div style="color: gray; font: bold 2.0em/1.2em Verdana;">📌경기장 정보</div>
 		<!-- 카카오맵  -->
 	<p style="margin-top: -12px">
 		<em class="link"> <a href="javascript:void(0);"
@@ -145,7 +152,7 @@ $(function(){
 		</em>
 	</p>
 	<div id="stadium_map"></div>
-	<div id="stadium_deatil_info">
+	<div id="stadium_deatil_info" style="color: black; font: bold 1.0em/1.8em Verdana;">
 		<h1 class="stadium_deatil_info_title">${createJoin.stadium_name}</h1>
 		<%-- ${createJoin.stadium_address} --%>
 		<div id="stadium_detail_info_sub"></div>
@@ -227,7 +234,7 @@ $(function(){
 			<input type="number" name="together" min="1" placeholder="참여 인원 수를 입력해 주세요" 
 			required autofocus class="form-control" aria-describedby="button-addon2" style="width: 250px; display:inline">
 			
-			<button type="submit" class="btn btn-primary" id="button-addon2">참가하기</button>
+			<button type="submit" class="btn btn-primary" id="join">참가하기</button>
 		</form>
 	
 	</div>

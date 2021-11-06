@@ -11,7 +11,7 @@
 <style>
 	#message{
 		text-align:center;
-		margin-top:200px;
+		margin-top:100px;
 	}
 
 </style>
@@ -24,27 +24,65 @@
 			<c:when test="${param.page eq 'create'}">
 				<c:choose>
 					<c:when test="${param.message eq 'success'}">
-						<h1>매칭 생성에 성공하였습니다 !!</h1>
+						<h3>매칭 생성에 성공하였습니다 !!</h3>
 					</c:when>
 					<c:when test="${param.message eq 'failed'}">
-						<h1>매칭 생성에 실패하였습니다..</h1>
+						<h3>매칭 생성에 실패하였습니다..</h3>
 					</c:when>
 				</c:choose>	
 			</c:when>
 			<c:when test="${param.page eq 'apply'}">
 				<c:choose>
 					<c:when test="${param.message eq 'success'}">
-						<h1>매칭 참여에 성공하였습니다 !!</h1>
+						<h3>매칭 참여에 성공하였습니다 !!</h3>
 					</c:when>
 					<c:when test="${param.message eq 'failed'}">
-						<h1>매칭 참여에 실패하였습니다..</h1>
+						<h3>매칭 참여에 실패하였습니다..</h3>
 					</c:when>
 				</c:choose>	
 			</c:when>
 		</c:choose>	
-	
-	
 	</div>
+	<br><br><br>
+	<c:choose>
+		<c:when test="${param.page eq 'create'}">
+			<c:choose>
+				<c:when test="${param.message eq 'success'}">
+						<div class="d-flex justify-content-center">
+							<button type="button" class="btn btn-primary m-1" onClick="location.href='../member/matchingcreateinfo'">생성한 매칭 확인하러 가기</button>
+							<button type="button" class="btn btn-secondary m-1" onClick="location.href='../member/reserveinfo.jsp'">Home</button>
+						</div>
+				</c:when>
+				<c:when test="${param.message eq 'failed'}">
+						<div class="d-flex justify-content-center">
+							<button type="button" class="btn btn-primary m-1" onClick="location.href='../matching/stadium'">돌아가기</button>
+							<button type="button" class="btn btn-secondary m-1" onClick="location.href='../member/reserveinfo.jsp'">Home</button>
+						</div>
+				</c:when>
+			</c:choose>	
+		</c:when>
+	</c:choose>
+	<c:choose>
+		<c:when test="${param.page eq 'apply'}">
+			<c:choose>
+				<c:when test="${param.message eq 'success'}">
+						<div class="d-flex justify-content-center">
+							<button type="button" class="btn btn-primary m-1" onClick="location.href='../member/matchingapplyinfo'">참여한 매칭 확인하러 가기</button>
+							<button type="button" class="btn btn-secondary m-1" onClick="location.href='../member/reserveinfo.jsp'">Home</button>
+						</div>
+					
+				</c:when>
+				<c:when test="${param.message eq 'failed'}">
+						<div class="d-flex justify-content-center">
+							<button type="button" class="btn btn-primary m-1" onClick="location.href='../matching/list'">돌아가기</button>
+							<button type="button" class="btn btn-secondary m-1" onClick="location.href='../member/reserveinfo.jsp'">Home</button>
+						</div>
+					
+				</c:when>
+			</c:choose>	
+		</c:when>
+	</c:choose>
+
 
 </div>
 <%@ include file="../footer.jsp" %>

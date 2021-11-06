@@ -67,11 +67,6 @@ public class MatCreateServlet extends HttpServlet {
 		HttpSession session = request.getSession();
 		RequestDispatcher rd;
 		
-		if(session.getAttribute("member") == null) {
-			rd = request.getRequestDispatcher("../member/login.jsp");
-			rd.forward(request, response);
-			return;
-		}
 		ReservationVO reservation = makeReserv(request);
 		
 		String dbPath = getServletContext().getRealPath(".");
