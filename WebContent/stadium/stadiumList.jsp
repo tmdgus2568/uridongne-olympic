@@ -102,7 +102,7 @@
 	
 	<!--<h2>경기장검색</h2>-->
 	<div class="outer">
-		<label for="sports" style="float: center"></label>
+		<label for="sports"></label>
 		<!-- <select class="form-select" aria-label="Default select example" id="sports" id="sports" size="1">  -->
 		<select class="btn btn-secondary btn-lm dropdown-toggle"
 			aria-label="Default select example" id="sports" id="sports" size="1" style="color:darkgray">
