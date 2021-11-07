@@ -1,6 +1,8 @@
 package matching.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -45,7 +47,7 @@ public class MatCreateServlet extends HttpServlet {
 		stadiumService = new StadiumListService(dbPath);
 		StadiumListVO stadium = stadiumService.selectDetail(request.getParameter("stadium_id"));
 	
-			
+		
 		
 		request.setAttribute("stadium", stadium);
 		
@@ -66,12 +68,13 @@ public class MatCreateServlet extends HttpServlet {
 		
 		HttpSession session = request.getSession();
 		RequestDispatcher rd;
+		System.out.println("stadium_id2 : " + request.getParameter("stadium_id2"));
 		
 		ReservationVO reservation = makeReserv(request);
 		
 		String dbPath = getServletContext().getRealPath(".");
 		stadiumService = new StadiumListService(dbPath);
-		StadiumListVO stadium = stadiumService.selectDetail(request.getParameter("stadium_id"));
+		StadiumListVO stadium = stadiumService.selectDetail(request.getParameter("stadium_id2"));
 	
 			
 		request.setAttribute("reservation", reservation);
@@ -85,24 +88,26 @@ public class MatCreateServlet extends HttpServlet {
 	
 	private ReservationVO makeReserv(HttpServletRequest request) {
 		
-		HttpSession session = request.getSession(); //세션가져오기
-		
-		//바인딩한 객체 이름(member)으로 객체 돌려주기
+		HttpSession session = request.getSession();
 		MemberVO member = (MemberVO)session.getAttribute("member"); 
-
 		
-		String stadiumId = request.getParameter("stadium_id");
+		String stadiumId = request.getParameter("stadium_id2");
 		String playDate = request.getParameter("play_date");
 		playDate = playDate.replace("/", "-");
+		
+//		System.out.println("stadium_id2 : " + stadiumId);
+		System.out.println("playDate : " + playDate);
 		java.sql.Date date = java.sql.Date.valueOf(playDate);
 		String playTime = request.getParameter("play_time");
-		String startTime = playTime.substring(0, 5);
-		String endTime = playTime.substring(6, 11);
+		String startTime = substrTime(playTime).get(0);
+		String endTime = substrTime(playTime).get(1);
 		int price = Integer.parseInt(request.getParameter("stadium_price"));
+		
+		System.out.println(stadiumId); ////////////////////////////////////////////////////테스트지우기
 		
 		ReservationVO rvo = new ReservationVO();
 		
-		rvo.setMatching(1); //매칭 
+		rvo.setMatching(0); //매칭 X
 		rvo.setPlay_date(date);
 		rvo.setPlay_end(endTime);
 	    rvo.setPlay_start(startTime);
@@ -110,11 +115,23 @@ public class MatCreateServlet extends HttpServlet {
 	    rvo.setStadium_id(stadiumId);
 	    rvo.setStadium_price(price);
 	    rvo.setUser_id(member.getUser_id());
-	    
-	    System.out.println("matcreate: " + rvo);
-	    
 		
 		return rvo;
+	   
+	}
+	
+	private List<String> substrTime(String playTime) {
+		List<String> times = new ArrayList<>();
+		// split > 10:00~12:00 (2시간) 
+		String[] hours = playTime.split("~|\\s");
+		
+		for(String hour : hours) {
+			times.add(hour);
+		}
+		
+		System.out.println(times);
+		
+		return times;
 	}
 
 }
