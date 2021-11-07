@@ -33,8 +33,8 @@ form td{
 	text-align: left;
 	width: auto;
 	text-align: left;
-
 }
+
 </style>
 
 </head>
@@ -70,7 +70,7 @@ form td{
 				 	<option>🚕 지역 선택(0)</option>
 				  </select>
 				</div>
-				<!-- 날짜선택, 함수실행-->
+				<!-- 날짜선택 -->
 				<div class="m-1">
 			  	  <input type="button" style="width: 200px; color:black; text-align: left;" class="btn btn-secondary col-12" id="datepicker" name="datepicker" value="📅 예약일 선택"/>
 			    </div> 

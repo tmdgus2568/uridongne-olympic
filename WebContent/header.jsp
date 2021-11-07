@@ -183,14 +183,14 @@ apiURL += "&service_provider=NAVER";%>
 
 			<div class="collapse navbar-collapse" id="navbarColor01">
 				<ul class="navbar-nav me-auto">
-					<li class="nav-item"><a class="nav-link active"
+					<li class="nav-item mx-2"><a class="nav-link active"
 						href="/uridongne-olympic/main/uridongneMain.jsp">홈 <span
 							class="visually-hidden">(current)</span>
 					</a></li>
-					<li class="nav-item"><a class="nav-link"
+					<li class="nav-item mx-3"><a class="nav-link"
 						href="/uridongne-olympic/stadium/stadiumList">경기장정보</a></li>
 					<li class="nav-item dropdown"><a
-						class="nav-link dropdown-toggle" data-bs-toggle="dropdown"
+						class="nav-link dropdown-toggle mx-2" data-bs-toggle="dropdown"
 						href="#" role="button" aria-haspopup="true" aria-expanded="false">예약</a>
 						<div class="dropdown-menu">
 							<a class="dropdown-item"
@@ -198,9 +198,9 @@ apiURL += "&service_provider=NAVER";%>
 								class="dropdown-item" href="/uridongne-olympic/matching/stadium">매칭
 								예약</a>
 						</div></li>
-					<li class="nav-item"><a class="nav-link"
+					<li class="nav-item mx-2"><a class="nav-link"
 						href="/uridongne-olympic/matching/list">매칭참여</a></li>
-					<li class="nav-item"><a class="nav-link"
+					<li class="nav-item mx-2"><a class="nav-link"
 						href="/uridongne-olympic/review/list">리뷰</a></li>
 				</ul>
 
