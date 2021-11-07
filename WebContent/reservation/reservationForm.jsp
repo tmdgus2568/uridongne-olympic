@@ -8,7 +8,7 @@
 <head>
 <meta charset="UTF-8">
 <title>경기장 예약</title>
-<link href="Font.css" rel="stylesheet" type="text/css" />
+<link href="../css/Font.css" rel="stylesheet" type="text/css" />
 <!-- <link href="https://hangeul.pstatic.net/hangeul_static/css/nanum-square-round.css" rel="stylesheet"> -->
 <style>
 form th{
