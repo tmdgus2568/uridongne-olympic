@@ -25,9 +25,13 @@ public class MatchingCancelServlet extends HttpServlet {
 		MemberService service = new MemberService(path);
 		int mat_id = (Integer.parseInt(request.getParameter("mat_id")));
 		String play_date = request.getParameter("play_date");
+		
+		System.out.println(mat_id);
+		System.out.println(play_date);
+		
 		play_date = play_date.replace("/", "-");
 		java.sql.Date date = java.sql.Date.valueOf(play_date);
-		int result = service.cancelReserve(mat_id, date);
+		int result = service.cancelMatching(mat_id, date);
 		response.getWriter().write(result+"");
 		
 	}

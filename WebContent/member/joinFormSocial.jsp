@@ -14,8 +14,6 @@ form {
 </head>
 <body>
 	<%@ include file="../header.jsp"%>
-	<h3>소셜 로그인 추가정보 입력하기</h3>
-
 	<%
 	String user_id = request.getParameter("social_user_id");
 	String user_email = request.getParameter("social_user_email");

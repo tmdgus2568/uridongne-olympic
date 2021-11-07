@@ -63,7 +63,7 @@ header { /* 헤더 */
 				url : '/v1/user/unlink',
 				success : function(response) {
 					console.log(response)
-					location.href = "member/logout";
+					location.href = "/uridongne-olympic/member/logout";
 				},
 				fail : function(error) {
 					console.log(error)

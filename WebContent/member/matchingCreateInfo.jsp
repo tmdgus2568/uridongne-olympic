@@ -79,7 +79,7 @@ table {
 		<table class="table table-hover" id="matching_list">
 			<thead>
 				<tr>
-					<th colspan="2" height="80px;" style="padding-bottom: 14px;"><div
+					<th colspan="8" height="80px;" style="padding-bottom: 14px;"><div
 							style="color: gray; font: bold 2.0em/1.0em NanumSquareRound;"
 							align="left">⛷️매칭 개설 정보</div></th>
 				</tr>
@@ -135,8 +135,7 @@ table {
 			if (!confirm("정말 취소하시겠습니까?")) {
 				return false;
 			} else {
-				$
-						.ajax({
+				$.ajax({
 							url : '${pageContext.request.contextPath}/member/matchingcancel?mat_id='
 									+ mat_id + "&play_date=" + play_date,
 							type : 'get',
@@ -144,6 +143,8 @@ table {
 								console.log("1 = 삭제가능 / 0 = 삭제불가 : " + data);
 								if (data == 0) {
 									alert("매칭 취소 기한이 지났습니다.")
+								}else {
+									location.href="matchingcreateinfo";
 								}
 							},
 							error : function() {
