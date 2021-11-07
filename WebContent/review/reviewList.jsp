@@ -113,9 +113,9 @@ div .input {
 									<div class="input">
 										<input name="stadium_name" type="text" value="${poss.stadium_name }" readonly size="40">					
 										<input name="sports_name" type="text" value="${poss.sports_name }" readonly size="8">	
-										<input name="res_date" type="text" value="${poss.res_date }" readonly size="6">							
-										<input name="play_date" type="text" value="${poss.play_date }" readonly size="6">								
-										<input name="res_number" type="text" value="${poss.res_number }" readonly size="1">
+										<input name="res_date" type="text" value="${poss.res_date }" readonly size="10">							
+										<input name="play_date" type="text" value="${poss.play_date }" readonly size="10">								
+										<input name="res_number" type="text" value="${poss.res_number }" readonly size="3">
 									</div>								
 									<input type="submit" class="btn btn-default" value="선택">
 									<br>

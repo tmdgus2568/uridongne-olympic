@@ -60,7 +60,7 @@ public class ReviewListServlet extends HttpServlet {
 		 if(obj != null) {
 					 
 			 MemberVO member = (MemberVO)obj;
-			 reviewlistposs = reviewlistService.selectPossibleReview(member.getUser_id());
+			 reviewlistposs = reviewlistService.selectPossibleReview(member.getUser_name());
 		 }
  
 		request.setAttribute("reviewList", reviewList);//"사용할변수", 조회된 내용 전부 저장
