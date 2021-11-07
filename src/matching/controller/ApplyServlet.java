@@ -52,8 +52,17 @@ public class ApplyServlet extends HttpServlet {
 		apply.setMat_id(Integer.parseInt(request.getParameter("mat_id")));
 		apply.setTogether(Integer.parseInt(request.getParameter("together")));
 		
+		int isMatCreater = applyService.isSelectByUserAndRes(member.getUser_id(), 
+										Integer.parseInt(request.getParameter("mat_id")));
+		
+		// 만약 매칭 개설자라면 103 코드를 보낸다 -> 매칭 개설자라 추가 불가 
+		if(isMatCreater == 0) {
+			rd = request.getRequestDispatcher("confirm.jsp?page=apply&message=103");
+			rd.forward(request, response);
+			return;
+		}
+		
 		int result = applyService.insertApply(apply);
-//		System.out.println("result : " + result);
 		
 		switch(result) {
 		

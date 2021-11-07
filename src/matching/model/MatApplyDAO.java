@@ -53,9 +53,7 @@ public class MatApplyDAO {
 					st.setInt(1, apply.getMat_id());
 					rs = st.executeQuery();
 					if(rs.next()) {
-						
-//						if(rs.getInt("nowjoin_people") <= rs.getInt("mat_people")
-//								|| !(rs.getString("user_id").equals(apply.getUser_id()))) {
+
 						if(rs.getInt("nowjoin_people") <= rs.getInt("mat_people")) {
 							
 							conn.commit();
@@ -85,8 +83,6 @@ public class MatApplyDAO {
 			}
 			
 		}
-		
-		
 		finally {
 			DBConnection.dbClose(conn, st, null);
 		}
@@ -100,6 +96,46 @@ public class MatApplyDAO {
 		return result;
 		
 		
+	}
+	
+	
+	// 매칭 개설자가 매칭 참여하는 것을 막음
+	// matching_create 테이블안에 현재 유저와 현재 이 매칭의 아이디가 모두 포함되어있는 데이터가 있다면
+	// 참여하지 못하게 
+	// result:
+	// 	0 -> 실패 
+	//  1 -> 성공 
+	public int isSelectByUserAndRes(String user_id, int mat_id) {
+		Connection conn = null;
+		PreparedStatement st = null;
+		String sql = "select * from matching_create m inner join "
+				+ "stadium_reservation r on m.res_number = r.res_number "
+				+ "where user_id=? and mat_id=?";
+		ResultSet rs = null;
+		
+		try {
+			
+			conn = DBConnection.dbConnect(path);
+			st = conn.prepareStatement(sql);
+			st.setString(1,user_id);
+			st.setInt(2, mat_id);
+			
+			rs = st.executeQuery();
+			
+			// rs에 있다면 매칭 개설자이므로 막아놔야한다 
+			if(rs.next()) {
+				return 0;
+				
+			}
+			
+			
+		}catch (SQLException e) {
+			// TODO: handle exception
+			e.printStackTrace();
+		}finally {
+			DBConnection.dbClose(conn, st, rs);
+		}
+		return 1;
 	}
 
 }

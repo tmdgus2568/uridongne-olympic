@@ -138,7 +138,9 @@ $(function(){
 		</thead>
 		<c:choose>
 			<c:when test="${fn:length(createJoinList)==0}">
-				<td align="center" colspan="6">매칭 목록이 없습니다</td>
+				<td align="center" colspan="6">
+				<b><span style="font-style: italic; font-size: 15pt;">매칭 참여 가능한 목록이 없습니다.</span></b>
+				</td>
 			</c:when>
 			<c:otherwise>
 			

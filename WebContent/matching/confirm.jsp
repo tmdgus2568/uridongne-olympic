@@ -27,7 +27,7 @@
 						<h3>🌟🌟매칭 생성이 완료되었습니다!🌟🌟</h3>
 					</c:when>
 					<c:when test="${param.message eq 'failed'}">
-						<h3>🌟🌟매칭 생성에 실패하였습니다.🌟🌟</h3>
+						<h3>😭매칭 생성에 실패하였습니다😭</h3>
 					</c:when>
 				</c:choose>	
 			</c:when>
@@ -37,13 +37,16 @@
 						<h3>🌟🌟매칭 참여가 완료되었습니다!🌟🌟</h3>
 					</c:when>
 					<c:when test="${param.message eq 'failed'}">
-						<h3>🌟🌟매칭 참여에 실패하였습니다.🌟🌟</h3>
+						<h3>😭매칭 참여에 실패하였습니다😭</h3>
 					</c:when>
 					<c:when test="${param.message eq '101'}">
-						<h3>🌟🌟이미 참여한 매칭입니다.🌟🌟</h3>
+						<h3>😭이미 참여한 매칭입니다😭</h3>
 					</c:when>
 					<c:when test="${param.message eq '102'}">
-						<h3>🌟🌟참여 인원수가 초과되었습니다.🌟🌟</h3>
+						<h3>😭참여 인원수가 초과되었습니다😭</h3>
+					</c:when>
+					<c:when test="${param.message eq '103'}">
+						<h3>😭해당 매칭에 참여하실 수 없습니다(개설자)😭</h3>
 					</c:when>
 				</c:choose>	
 			</c:when>
@@ -95,9 +98,14 @@
 				<c:when test="${param.message eq '102'}">
 						<div class="d-flex justify-content-center">
 							<button type="button" class="btn btn-primary m-1" onClick="location.href='../matching/list'">돌아가기</button>
-							<button type="button" class="btn btn-secondary m-1" onClick="location.href='../member/reserveinfo.jsp'">Home</button>
+							<button type="button" class="btn btn-secondary m-1" onClick="location.href='../main/uridongneMain.jsp'">Home</button>
 						</div>
-					
+				</c:when>
+				<c:when test="${param.message eq '103'}">
+						<div class="d-flex justify-content-center">
+							<button type="button" class="btn btn-primary m-1" onClick="location.href='../matching/list'">돌아가기</button>
+							<button type="button" class="btn btn-secondary m-1" onClick="location.href='../main/uridongneMain.jsp'">Home</button>
+						</div>
 				</c:when>
 			</c:choose>	
 		</c:when>
