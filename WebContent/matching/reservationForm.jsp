@@ -7,7 +7,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>경기장 예약</title>
+<title>매칭 경기장 예약</title>
 <link href="../css/Font.css" rel="stylesheet" type="text/css" />
 <!-- <link href="https://hangeul.pstatic.net/hangeul_static/css/nanum-square-round.css" rel="stylesheet"> -->
 <style>
@@ -275,15 +275,25 @@ form td{
 			var sid = $(obj).parent().parent().parent().parent().find("#stadium_id").val();
 			$("#stadium_name2").html(sname);
 			$("#stadium_id2").val(sid);
-			//날짜&가격
+			//날짜
 			var dateStr = $("#datepicker").val();
 			$("#date").html(dateStr);
 			$("#play_date").val(dateStr);
 			$("#canceledDate").html(canceledDate(dateStr));
-			$("#price").html(showCalPrice(dateStr));
-			$("#stadium_price").val(calPrice(dateStr));
 			$("#canceledDateEx").html("(이용일 5일 전까지 취소 가능)");
-			$("#priceEx").html("평일(40,000원/시간), 주말(60,000원/시간)");
+			//가격
+			var payment = $(obj).parent().parent().parent().parent().find("#payment_method").val();
+			console.log(payment);
+			if(payment == "무료") {
+				$("#price").html("무료");
+				$("#stadium_price").val(0);
+				$("#priceEx").html("시간약속을 꼭! 지켜주세요.");
+			} else {
+				$("#price").html(showCalPrice(dateStr));
+				$("#stadium_price").val(calPrice(dateStr));
+				$("#priceEx").html("평일(40,000원/시간), 주말(60,000원/시간)");
+			}
+ 		 
 			//종목$지역
 			$("#nSports").html($("#sports_name").val());
 			$("#nlocation").html($("#region").val());

@@ -145,7 +145,7 @@ $(function(){
 			
 		</table>
 		<div align="right">
-			<div>인당 예상 가격</div>
+			<div>1인당 예상 가격</div>
 			<div class="money">약 <span id="price" style="color: black; font-weight: bold; font-size: 35px;">${reservation.stadium_price}</span> 원</div>
 		
 		</div>
