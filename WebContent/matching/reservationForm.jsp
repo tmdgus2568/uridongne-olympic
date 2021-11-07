@@ -158,7 +158,7 @@ form td{
 	  		<jsp:include page="../footer.jsp"></jsp:include> 
 		</aside>
 	</section>
-	<jsp:include page="../reservation/test.jsp"></jsp:include> <!-- 지우기지우기지우기지우기지우기 -->
+	<%-- <jsp:include page="../reservation/test.jsp"></jsp:include> --%> <!-- 지우기지우기지우기지우기지우기 -->
 	<!-- jsjsjsjsjsjs -->
 	<script>
 		//종목선택 > 지역옵션 표시(o)

@@ -2,7 +2,7 @@
 
 @font-face {
     font-family: 'NanumSquareRound';
-    src: url('../reservation/NanumSquareRoundOTFR.otf') format('truetype');
+    src: url('../css/NanumSquareRoundOTFR.otf') format('truetype');
 }
 
 * {
