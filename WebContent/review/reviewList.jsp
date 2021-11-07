@@ -20,7 +20,7 @@ div .input {
 	<%-- <%@ include file="../header.jsp"%> --%>
 	<jsp:include page="../header.jsp"></jsp:include>
 	<div class="content">
-		<div style="color: gray; font: bold 2.0em/1.0em Verdana;">🔎리뷰 검색</div><br>
+		<div style="color: gray; font-weight: bold; font-size: 35px;">🔎리뷰 검색</div><br>
 		
 		<form method="get" id="search">
 			<div>
@@ -41,7 +41,7 @@ div .input {
 		</form>
 
 	<div class="content" text-align="center" id="here">
-	<div style="color: gray; font: bold 2.0em/1.0em Verdana;">🧾리뷰 목록</div><br>
+	<div style="color: gray; font-weight: bold; font-size: 35px;">🧾리뷰 목록</div><br>
 		<table border="1" class="table table-hover">
   			<thead>
    				<tr align="center" class="table-secondary">

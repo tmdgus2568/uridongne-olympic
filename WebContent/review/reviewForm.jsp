@@ -22,7 +22,7 @@
 <jsp:include page="../header.jsp"></jsp:include>
 <div class="content">
 	<form action="reviewinsert" name="reviewForm" method="post">
-	<div style="color: gray; font: bold 2.0em/1.0em Verdana;">✏리뷰 작성</div><br>
+	<div style="color: gray; font-weight: bold; font-size: 35px;">✏리뷰 작성</div><br>
 	<h1 style="text-align: center">${member.user_id}님 후기를 남겨주세요!</h1>
 	<h3 style="text-align: center">${param.stadium_name}시설 이용에 얼마나 만족하셨나요?</h3>
 

@@ -115,7 +115,7 @@ a { text-decoration:none }
 	 
 	 
 	<!--<h2>경기장검색</h2>-->
-		<div style="color: gray; font: bold 2.0em/1.0em Verdana;">🔎경기장 검색</div><br>
+		<div style="color: gray; font-weight: bold; font-size: 35px;">🔎경기장 검색</div><br>
 		<label for="sports"></label>
 		<!-- <select class="form-select" aria-label="Default select example" id="sports" id="sports" size="1">  -->
 		<select class="btn btn-secondary btn-lm dropdown-toggle"
@@ -165,7 +165,7 @@ a { text-decoration:none }
 
 	<div class="content" text-align="center" id="here">
 		
-		<div style="color: gray; font: bold 2.0em/1.0em Verdana;">🧾경기장 목록</div><br>
+		<div style="color: gray; font-weight: bold; font-size: 35px;">🧾경기장 목록</div><br>
 		
 		<table border="1" class="table table-hover" align="center">
 		  <thead>

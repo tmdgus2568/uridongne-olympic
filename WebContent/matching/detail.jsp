@@ -118,7 +118,7 @@ $(function(){
 
 <%-- <h1>${param.res_number}</h1> --%>
 <div class="content">
-	<div style="color: gray; font: bold 2.0em/1.2em Verdana;">📌매칭 상세정보</div>
+	<div style="color: gray; font-weight: bold; font-size: 35px;">📌 매칭 상세정보</div>
 	<br>
 	<table class="table table" border="1">
 		<tr>
@@ -143,7 +143,7 @@ $(function(){
 
 </div>
 <div class="content" id="stadium_info" text-align="center">
-	<div style="color: gray; font: bold 2.0em/1.2em Verdana;">📌경기장 정보</div>
+	<div style="color: gray; font-weight: bold; font-size: 35px;">📌 경기장 정보</div>
 		<!-- 카카오맵  -->
 	<p style="margin-top: -12px">
 		<em class="link"> <a href="javascript:void(0);"
