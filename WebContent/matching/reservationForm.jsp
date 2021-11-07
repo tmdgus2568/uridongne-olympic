@@ -287,7 +287,7 @@ form td{
 			if(payment == "무료") {
 				$("#price").html("무료");
 				$("#stadium_price").val(0);
-				$("#priceEx").html("시간약속을 꼭! 지켜주세요.");
+				$("#priceEx").html("해당 구장은 별도의 요금을 받지 않습니다.");
 			} else {
 				$("#price").html(showCalPrice(dateStr));
 				$("#stadium_price").val(calPrice(dateStr));

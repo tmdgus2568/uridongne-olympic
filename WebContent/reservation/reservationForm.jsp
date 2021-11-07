@@ -9,7 +9,6 @@
 <meta charset="UTF-8">
 <title>경기장 예약</title>
 <link href="../css/Font.css" rel="stylesheet" type="text/css" />
-<!-- <link href="https://hangeul.pstatic.net/hangeul_static/css/nanum-square-round.css" rel="stylesheet"> -->
 <style>
 form th{
 	height: 70px;
@@ -52,7 +51,6 @@ form td{
 			  <article class="d-flex mx-5">
 			  	<!-- 종목선택 -->
 			    <div class="m-1">
-				  <!-- <select class="form-select" id="sports_name" name="sports_name"> -->
 				  <select class="btn btn-secondary btn-lm dropdown-toggle" id="sports_name" name="sports_name" style="height: 40px; color:black; text-align: left; ">
 				    <option selected>🏆 종목 선택(9)</option>
 					<option value="농구장">농구</option>
@@ -68,7 +66,6 @@ form td{
 				</div>
 				<!-- 지역선택: GetRegionServlet sports_name 전달 > regionList.jsp -->
 				<div class="m-1">
-				  <!-- <select class="form-select" id="region"> -->
 				 <select class="btn btn-secondary btn-lm dropdown-toggle" id="region" name="region" style="color:black; text-align: left; height: 40px;">
 				 	<option>🚕 지역 선택(0)</option>
 				  </select>
@@ -76,7 +73,7 @@ form td{
 				<!-- 날짜선택, 함수실행-->
 				<div class="m-1">
 			  	  <input type="button" style="width: 200px; color:black; text-align: left;" class="btn btn-secondary col-12" id="datepicker" name="datepicker" value="📅 예약일 선택"/>
-			    </div> <!-- class="form-control" -->
+			    </div> 
 			    <div class="m-1">
 			      <input type="button" class="btn btn-primary" id="researchBtn" name="researchBtn"  value="검색하기"/>
 			    </div> 
@@ -162,9 +159,8 @@ form td{
 		</aside>
 	</section>
 	<jsp:include page="../footer.jsp"></jsp:include> 
-	<!-- javascript -->
 	<script>
-		//종목선택 > 지역옵션 표시(o)
+		//종목선택 > 지역옵션 표시
 		$(function() {
 			$("#sports_name").change(function() {
 				$.ajax({
@@ -179,10 +175,10 @@ form td{
 			});
 		});
 		
-		//날짜선택 > 예약가능 경기장 표시(0)
+		//날짜선택 > 예약가능 경기장 표시
 		$(function() {
 			$("#researchBtn").click(function() {
-				$.ajax({ //날짜,종목,지역이 서블릿으로 넘어감
+				$.ajax({
 					url : "getStadiumByDate",
 					data : {
 						"datepicker" : $("#datepicker").val(),
@@ -265,7 +261,7 @@ form td{
 		  }
 		  		  	   
 		 	
- 		 // 예약날짜 선택시 예약상세정보 출력
+ 		 // 예약시간 선택시 예약상세정보 출력
  		 function call(obj){
 			//예약시간	  
 			$("#play_time").val($(obj).val());
@@ -287,14 +283,13 @@ form td{
 			if(payment == "무료") {
 				$("#price").html("무료");
 				$("#stadium_price").val(0);
-				$("#priceEx").html("시간약속을 꼭! 지켜주세요.");
+				$("#priceEx").html("해당 구장은 별도의 요금을 받지 않습니다.");
 			} else {
 				$("#price").html(showCalPrice(dateStr));
 				$("#stadium_price").val(calPrice(dateStr));
 				$("#priceEx").html("평일(40,000원/시간), 주말(60,000원/시간)");
 			}
- 		 
-			//종목$지역
+			//종목&지역
 			$("#nSports").html($("#sports_name").val());
 			$("#nlocation").html($("#region").val());
 		 }

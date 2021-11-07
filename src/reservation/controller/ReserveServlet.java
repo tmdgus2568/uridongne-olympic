@@ -18,15 +18,15 @@ public class ReserveServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
 	
 		HttpSession session = request.getSession();
 		Object obj = session.getAttribute("member"); 
 		
+		//로그인했을 때 user id와 name 가져오기
 		if(obj != null) {
 			 
 			 MemberVO member = (MemberVO)obj;
-			 request.setAttribute("user_id", member.getUser_id());//"사용할변수", 조회된 내용 전부 저장	
+			 request.setAttribute("user_id", member.getUser_id());
 			 request.setAttribute("user_name", member.getUser_name());
 		 }
 		
