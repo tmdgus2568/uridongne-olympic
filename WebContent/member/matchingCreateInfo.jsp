@@ -5,15 +5,17 @@
 <!DOCTYPE html>
 <html>
 <head>
+<link href="../css/contentStyle.css" rel="stylesheet" type="text/css">
 <meta charset="UTF-8">
 <title>매칭 개설 정보</title>
 <style type="text/css">
-
 @font-face {
-    font-family: 'NanumSquareRound';
-    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_two@1.0/NanumSquareRound.woff') format('woff');
-    font-weight: normal;
-    font-style: normal;
+	font-family: 'NanumSquareRound';
+	src:
+		url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_two@1.0/NanumSquareRound.woff')
+		format('woff');
+	font-weight: normal;
+	font-style: normal;
 }
 
 .nav>li>a:hover {
@@ -25,12 +27,6 @@
 	width: 130px;
 	height: 100px;
 	float: left;
-}
-
-.box2 {
-	display: center;
-	flex-direction: column; /* 세로 정렬 */
-	float: none;
 }
 
 table {
@@ -64,9 +60,10 @@ table {
 </head>
 <body>
 	<%@ include file="../header.jsp"%>
-	<div class="main-container" style="display: table">
+	<div class="main-container" style="display: table; height: 500px;">
 		<div class="box1">
-			<ul class="nav nav-pills flex-column" style="font-family: NanumSquareRound;">
+			<ul class="nav nav-pills flex-column"
+				style="font-family: NanumSquareRound;">
 				<li class="nav-item"><a class="nav-link" href="mypage">마이페이지</a></li>
 				<li class="nav-item"><a class="nav-link" href="reserveinfo">경기장예약</a></li>
 				<li class="nav-item dropdown"><a
@@ -79,12 +76,12 @@ table {
 				<li class="nav-item"><a class="nav-link" href="reviewinfo">리뷰</a></li>
 			</ul>
 		</div>
-
 		<table class="table table-hover" id="matching_list">
 			<thead>
 				<tr>
-										<th colspan="2" height="80px;" style="padding-bottom: 14px;"><div
-							style="color: gray; font: bold 2.0em/1.0em NanumSquareRound;" align="left">⛷️매칭 개설 정보</div></th>
+					<th colspan="2" height="80px;" style="padding-bottom: 14px;"><div
+							style="color: gray; font: bold 2.0em/1.0em NanumSquareRound;"
+							align="left">⛷️매칭 개설 정보</div></th>
 				</tr>
 			</thead>
 			<tr class="table-secondary" style="font-family: NanumSquareRound;">
@@ -100,18 +97,19 @@ table {
 			</tr>
 			<c:choose>
 				<c:when test="${empty matList}">
-					<tr class="table-secondary" height="10" style="font-family: NanumSquareRound;">
+					<tr class="table-secondary" height="10"
+						style="font-family: NanumSquareRound;">
 						<td colspan="8" style="background-color: white">
 							<p align="center">
 								<span style="font-style: italic; font-size: 12pt;">생성한
-										매칭이 없습니다.</span>
+									매칭이 없습니다.</span>
 							</p>
 						</td>
 					</tr>
 				</c:when>
 				<c:when test="${!empty matList}">
 					<c:forEach var="item" items="${matList}" varStatus="list">
-						<tr align="center"  style="font-family: NanumSquareRound;">
+						<tr align="center" style="font-family: NanumSquareRound;">
 							<td hidden=true>${item.mat_id}</td>
 							<td>${list.count}</td>
 							<td>${item.mat_title}</td>
