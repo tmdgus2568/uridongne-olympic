@@ -6,12 +6,22 @@
 <!DOCTYPE html>
 <html>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>로그인</title>
 <link href="../css/contentStyle.css" rel="stylesheet" type="text/css">
 <style type="text/css">
 h5 {
 	color: red;
 }
+
+@font-face {
+	font-family: 'NanumSquareRound';
+	src:
+		url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_two@1.0/NanumSquareRound.woff')
+		format('woff');
+	font-weight: normal;
+	font-style: normal;
+}
+
 </style>
 
 <script
@@ -70,8 +80,8 @@ h5 {
 	<%@ include file="../header.jsp"%>
 	<div class="content">
 		<div class="loginform" align="center">
-			<h5>${message }</h5>
-			<form name="frmLogin" action="generallogincheck" method="post">
+			<h5 style="font-family: NanumSquareRound;">${message }</h5>
+			<form name="frmLogin" action="generallogincheck" method="post"  style="font-family: NanumSquareRound;">
 				<table>
 					<tr>
 						<td>

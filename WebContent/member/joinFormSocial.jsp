@@ -3,7 +3,14 @@
 <!DOCTYPE html>
 <html>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>회원가입 (소셜로그인)</title>
+<style>
+form {
+	margin: 0 auto;
+	width: 370px;
+}
+</style>
+<script type="text/javascript" src="http://ajax.aspnetcdn.com/ajax/jquery/jquery-1.4.4.min.js"></script>
 </head>
 <body>
 	<%@ include file="../header.jsp"%>
@@ -15,40 +22,29 @@
 	String login_platform = request.getParameter("login_platform");
 	%>
 
-	<form action="memberjoin" method="post">
+	<form action="memberjoin" method="post" style="font-family: NanumSquareRound;">
 	<input type="hidden" id="user_id" name="user_id" value=<%=user_id%>>
 	<input type="hidden" id="user_email" name="user_email" value=<%=user_email%>>
 	<input type="hidden" id="login_platform" name="login_platform" value=<%=login_platform%>>
 	
 			<div class="form-group">
-				<label for="InputId" class="form-label mt-4">아이디</label> <input
-					type="text" class="form-control" id="user_id" name="user_id"
-					aria-describedby="emailHelp" placeholder="아이디를 입력해주세요"> <small
-					id="emailHelp" class="form-text text-muted">아이디는 영문자 </small>
-			</div>
-			<div class="form-group">
-				<label for="InputPassword" class="form-label mt-4">비밀번호</label> <input
-					type="password" class="form-control" id="user_pw" name="user_pw"
-					placeholder="비밀번호를 입력해주세요">
-			</div>
-			<div class="form-group">
-				<label for="InputName" class="form-label mt-4">이름</label> <input
+				<label for="user_name" class="form-label mt-4">이름</label> <input
 					type="text" class="form-control" id="user_name" name="user_name"
-					placeholder="이름을 입력해주세요">
+					placeholder="이름을 입력해주세요" required="required"><div class="check_font" id="name_check"></div>
 			</div>
 			<div class="form-group">
 				<label for="InputBirth" class="form-label mt-4">생년월일</label> <input
-					type="date" class="form-control" id="user_birth" name="user_birth">
+					type="date" class="form-control" id="user_birth" name="user_birth" required="required">
 			</div>
 			<div class="form-group">
 				<label for="InputEmail" class="form-label mt-4">이메일</label> <input
 					type="email" class="form-control" id="user_email" name="user_email"
-					placeholder="이메일을 입력해주세요">
+					 value=<%=user_email%> readonly="readonly">
 			</div>
 			<div class="form-group">
-				<label for="InputEmail" class="form-label mt-4">전화번호</label> <input
+				<label for="InputPhone" class="form-label mt-4">핸드폰번호</label> <input
 					type="text" class="form-control" id="user_phone" name="user_phone"
-					placeholder="숫자만 입력해주세요">
+					placeholder="핸드폰번호를 입력해주세요"><div class="check_font" id="phone_check" required="required"></div>
 			</div>
 			<div class="form-group">
 				<label for="InputCity" class="form-label mt-4">도시</label> <input
@@ -57,7 +53,7 @@
 			</div>
 			<div class="form-group">
 				<label for="InputState" class="form-label mt-4">구</label> <select
-					class="form-select" id="user_state" name="user_state">
+					class="form-select" id="user_state" name="user_state" required="required">
 					<option value="강남구">강남구</option>
 					<option value="강동구">강동구</option>
 					<option value="강북구">강북구</option>
@@ -100,7 +96,6 @@
 				<input class="form-check-input" type="checkbox" name="user_interest" value="테니스"> 테니스 &nbsp;&nbsp;
 		</fieldset>
 		<br>
-			<input type="hidden" id="login_platform" name="login_platform" value="일반"> 
 			
 			<div align="center">
 			<button type="submit" class="btn btn-primary" value="회원가입">회원가입</button>
@@ -108,5 +103,46 @@
 			</div>
 	</form>
 	<%@ include file="../footer.jsp"%>
+	
+<script>
+
+//모든 공백 체크 정규식
+var empJ = /\s/g;
+//아이디 정규식
+var idJ = /^[a-z0-9]{4,12}$/;
+// 비밀번호 정규식
+var pwJ = /^[A-Za-z0-9]{4,12}$/; 
+// 이름 정규식
+var nameJ = /^[가-힣]{2,6}$/;
+// 이메일 검사 정규식
+var mailJ = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
+// 휴대폰 번호 정규식
+var phoneJ = /^01([0|1|6|7|8|9]?)?([0-9]{3,4})?([0-9]{4})$/;
+
+//이름
+$("#user_name").blur(function() {
+	if (nameJ.test($(this).val())) {
+			console.log(nameJ.test($(this).val()));
+			$("#name_check").text('');
+	} else {
+		$('#name_check').text('한글 2-6글자를 입력해주세요.');
+		$('#name_check').css('color', 'red');
+	}
+});
+
+
+// 휴대전화
+$('#user_phone').blur(function(){
+	if(phoneJ.test($(this).val())){
+		console.log(nameJ.test($(this).val()));
+		$("#phone_check").text('');
+	} else {
+		$('#phone_check').text('숫자로만 입력해주세요');
+		$('#phone_check').css('color', 'red');
+	}
+});
+
+</script>
+	
 </body>
 </html>

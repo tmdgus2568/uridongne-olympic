@@ -20,7 +20,6 @@
 	
 	/* 설정정보를 초기화하고 연동을 준비 */
 	naverLogin.init();
-	
 </script>
   </head>
   <body>

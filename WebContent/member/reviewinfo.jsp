@@ -6,37 +6,56 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>리뷰</title>
 <style type="text/css">
+
+@font-face {
+    font-family: 'NanumSquareRound';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_two@1.0/NanumSquareRound.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
 .nav>li>a:hover {
 	background: #ff7f50;
 	color: #fff;
 }
 
-.main-container {
-	width: 1080px;
-	display: grid;
-	grid-template-columns: 150px 830px;
-	gap: 10px; /* 구역간의 간격 */
-}
-
 .box1 {
-	width: 100%;
-	height: 100%;
-	text-align: left;
-	height: 100%;
+	width: 130px;
+	height: 100px;
+	float: left;
 }
 
 .box2 {
-	width: 100%;
-	height: 100%;
 	display: center;
 	flex-direction: column; /* 세로 정렬 */
-	background-color: yelow;
+	float: none;
 }
 
-th, td {
-	vertical-align: middle;
+table {
+	width: 100%;
+	max-width: 1000px;
+	margin: auto;
+	display: block;
+	overflow-x: auto;
+	border-spacing: 0;
+	text-align: center;
+	position: absolute;
+	left: 50%;
+	transform: translateX(-50%);
+}
+
+.table-secondary {
+	text-align: center;
+}
+
+.table-secondary td {
+	width: 300px;
+}
+
+.table-secondary th {
+	width: 300px;
 }
 </style>
 <script
@@ -44,11 +63,10 @@ th, td {
 <link href="../css/bootstrap.min.css" rel="stylesheet" type="text/css">
 </head>
 <body>
-
 	<%@ include file="../header.jsp"%>
-	<div class="main-container">
+	<div class="main-container" style="display: table">
 		<div class="box1">
-			<ul class="nav nav-pills flex-column">
+			<ul class="nav nav-pills flex-column"  style="font-family: NanumSquareRound;">
 				<li class="nav-item"><a class="nav-link" href="mypage">마이페이지</a></li>
 				<li class="nav-item"><a class="nav-link" href="reserveinfo">경기장예약</a></li>
 				<li class="nav-item dropdown"><a
@@ -62,33 +80,33 @@ th, td {
 			</ul>
 		</div>
 
-		<div class="box2" style="float: right; text-align: center;">
 			<table class="table table-hover" id="review_list">
 				<thead>
 					<tr style="text-align: left;">
-						<th>매칭개설정보</th>
-					</tr>
+											<th colspan="4" height="80px;" style="padding-bottom: 14px;"><div
+							style="color: gray; font: bold 2.0em/1.0em NanumSquareRound;" align="left">⛹️리뷰</div></th>
+				</tr>
 				</thead>
-				<tr class="table-primary">
-					<td>경기장</td>
-					<td>경기일</td>
-					<td>후기</td>
-					<td>평점</td>
+				<tr class="table-secondary" style="font-family: NanumSquareRound;">
+					<th>경기장</th>
+					<th>경기일</th>
+					<th>후기</th>
+					<th>평점</th>
 				</tr>
 				<c:choose>
 					<c:when test="${empty reviewList}">
-						<tr class="table-secondary" height="10">
-							<td colspan="5">
-								<p align="center">
-									<b><span style="font-style: italic; font-size: 12pt;">작성한
-											후기가 없습니다.</span></b>
+						<tr class="table-secondary" height="10" style="font-family: NanumSquareRound;">
+							<td colspan="5" style="background-color: white">
+							<p align="center" >
+									<span style="font-style: italic; font-size: 12pt;">작성한
+											후기가 없습니다.</span>
 								</p>
 							</td>
 						</tr>
 					</c:when>
 					<c:when test="${!empty reviewList}">
 						<c:forEach var="review" items="${reviewList }">
-							<tr align="center" class="table-secondary">
+							<tr align="center" style="font-family: NanumSquareRound;">
 								<td>${review.stadium_name}</td>
 								<td>${review.play_date }</td>
 								<td>${review.review_content }</td>
@@ -99,7 +117,6 @@ th, td {
 				</c:choose>
 			</table>
 		</div>
-	</div>
 	<%@ include file="../footer.jsp"%>
 </body>
 </html>
