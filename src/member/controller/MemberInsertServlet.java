@@ -30,7 +30,7 @@ public class MemberInsertServlet extends HttpServlet {
 		MemberService service = new MemberService(path);
 		service.memberInsert(mem);
 		
-		RequestDispatcher rd = request.getRequestDispatcher("login.jsp");
+		RequestDispatcher rd = request.getRequestDispatcher("joinConfirmed.jsp");
 		rd.forward(request, response);
 	}
 	

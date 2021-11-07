@@ -21,10 +21,10 @@ public class LogoutServlet extends HttpServlet {
 		HttpSession session = request.getSession();
 		if (session.getAttribute("member") != null) {
 			session.removeAttribute("member");
-			session.invalidate();	//네이버를 위해
+			//session.invalidate();	//네이버를 위해
 		}
 		System.out.println("로그아웃 성공");
-		response.sendRedirect("/uridongne-olympic/main/uridongneMain.jsp");
+		response.sendRedirect("/uridongne-olympic/main/mainpage");
 
 	}
 

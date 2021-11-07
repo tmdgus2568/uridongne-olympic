@@ -38,6 +38,14 @@ header { /* 헤더 */
 	text-align: center;
 	line-height: 120px;
 }
+
+#logo{
+	padding-top:30px;
+	margin:10px auto;
+	text-align:center;
+	width:50%;
+	display: block;
+}
 </style>
 </head>
 
@@ -63,7 +71,7 @@ header { /* 헤더 */
 				url : '/v1/user/unlink',
 				success : function(response) {
 					console.log(response)
-					location.href = "member/logout";
+					location.href = "/uridongne-olympic/member/logout";
 				},
 				fail : function(error) {
 					console.log(error)
@@ -92,7 +100,7 @@ apiURL += "&service_provider=NAVER";%>
 
 	<div id="wrapper">
 		<div>
-			<h1 class="header-text">우리동네올림픽</h1>
+			<img id="logo" width="400" src="../image/logo.png" />
 
 			<%
 			session = request.getSession();
