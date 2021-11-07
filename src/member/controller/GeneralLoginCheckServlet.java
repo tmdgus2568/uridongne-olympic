@@ -48,7 +48,7 @@ public class GeneralLoginCheckServlet extends HttpServlet {
 			HttpSession session = request.getSession();
 			System.out.println("로그인 성공");
 			session.setAttribute("member", member);
-			response.sendRedirect("/uridongne-olympic/header.jsp");
+			response.sendRedirect("/uridongne-olympic/main/uridongneMain.jsp");
 		}
 	}
 }

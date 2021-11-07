@@ -40,7 +40,7 @@ public class SocialLoginCheckServlet extends HttpServlet {
 		} else {
 			HttpSession session = request.getSession();
 			session.setAttribute("member", member);
-			response.sendRedirect("/uridongne-olympic/header.jsp");
+			response.sendRedirect("/uridongne-olympic/main/uridongneMain.jsp");
 		}
 	}
 

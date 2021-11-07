@@ -24,7 +24,7 @@ public class LogoutServlet extends HttpServlet {
 			session.invalidate();	//네이버를 위해
 		}
 		System.out.println("로그아웃 성공");
-		response.sendRedirect("/uridongne-olympic/header.jsp");
+		response.sendRedirect("/uridongne-olympic/main/uridongneMain.jsp");
 
 	}
 
