@@ -1,5 +1,6 @@
 package member.model;
 
+import java.sql.Date;
 import java.util.List;
 
 import matching.model.MatCreateJoinVO;
@@ -52,8 +53,16 @@ public class MemberService {
 		return dao.matchingApplyInfo(user_id);
 	}
 
-	public int cancelMatching(int mat_id) {
-		return dao.cancelMatching(mat_id);
+	public int cancelMatching(int mat_id, Date date) {
+		return dao.cancelMatching(mat_id, date);
+	}
+
+	public int idCheck(String user_id) {
+		return dao.idCheck(user_id);
+	}
+
+	public int cancelReserve(int res_number, Date date) {
+		return dao.cancelReserve(res_number, date);
 	}
 
 }

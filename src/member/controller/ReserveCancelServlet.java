@@ -1,8 +1,6 @@
 package member.controller;
 
 import java.io.IOException;
-import java.sql.Date;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -12,10 +10,10 @@ import javax.servlet.http.HttpServletResponse;
 import member.model.MemberService;
 
 /**
- * Servlet implementation class MatchingCancelServlet
+ * Servlet implementation class ReserveCancelServlet
  */
-@WebServlet("/member/matchingcancel")
-public class MatchingCancelServlet extends HttpServlet {
+@WebServlet("/member/reservecancel")
+public class ReserveCancelServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
@@ -23,13 +21,12 @@ public class MatchingCancelServlet extends HttpServlet {
 
 		String path = getServletContext().getRealPath(".");
 		MemberService service = new MemberService(path);
-		int mat_id = (Integer.parseInt(request.getParameter("mat_id")));
+		int res_number = (Integer.parseInt(request.getParameter("res_number")));
 		String play_date = request.getParameter("play_date");
 		play_date = play_date.replace("/", "-");
 		java.sql.Date date = java.sql.Date.valueOf(play_date);
-		int result = service.cancelReserve(mat_id, date);
+		int result = service.cancelReserve(res_number, date);
 		response.getWriter().write(result+"");
-		
 	}
 
 }

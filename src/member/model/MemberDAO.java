@@ -1,6 +1,7 @@
 package member.model;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -8,8 +9,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import matching.model.MatCreateJoinVO;
-import matching.model.MatCreateVO;
-import review.model.ReviewInfoVO;
 import review.model.ReviewListVO;
 import uridongne.util.DBConnection;
 
@@ -327,11 +326,15 @@ public class MemberDAO {
 		
 		return matApply;
 	}
+	
+	//"update matching_create set mat_status = '취소' where mat_id = ? "
+	//+ "and to_date(play_date, 'YYYY-MM-DD') - to_date(SYSDATE + 9/24,'YYYY-MM-DD') -5 < 0";
 
-	public int cancelMatching(int mat_id) {
+	public int cancelMatching(int mat_id, Date date) {
 		int result = 0; // update 건수
 
-		String sql = "update matching_create set mat_status = '취소' where mat_id = ?";
+		String sql = "update matching_create set mat_status = '취소' where mat_id = ?"
+				+ " and (to_date(?, 'YYYY-MM-DD') - to_date(SYSDATE + 9/24,'YYYY-MM-DD') -5) >= 0";
 
 		PreparedStatement st = null; // ?를 활용하면 PreparedStatement!
 		Connection con = null;
@@ -339,14 +342,74 @@ public class MemberDAO {
 		try {
 			con = DBConnection.dbConnect(path);
 			st = con.prepareStatement(sql); // sql문을 준비한다.
-
 			st.setInt(1, mat_id);
-			result = st.executeUpdate();
+			st.setDate(2, date);
+			result = st.executeUpdate(); // 실행만 한다. (sql 넣지 않음)
+			
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
 			DBConnection.dbClose(con, st, null);
 		}
+		
+		System.out.println(result);
+
+		return result;
+	}
+
+	public int idCheck(String user_id) {
+		int result = 0; // update 건수
+
+		String sql = "select * from member where user_id = ?";
+
+		PreparedStatement st = null; // ?를 활용하면 PreparedStatement!
+		Connection con = null;
+		ResultSet rs = null;
+
+		try {
+			con = DBConnection.dbConnect(path);
+			st = con.prepareStatement(sql); // sql문을 준비한다.
+			st.setString(1, user_id);
+			rs = st.executeQuery(); // 실행만 한다. (sql 넣지 않음)
+			if(rs.next()) {
+				result = 0;  // 이미 존재하는 경우, 생성 불가능
+			} else {
+				result = 1;  // 존재하지 않는 경우, 생성 가능
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			DBConnection.dbClose(con, st, null);
+		}
+
+		return result;
+	}
+
+	public int cancelReserve(int res_number, Date date) {
+		int result = 0; // update 건수
+
+		String sql = "update stadium_reservation set res_status = '취소' where res_number = ?"
+				+ " and (to_date(?, 'YYYY-MM-DD') - to_date(SYSDATE + 9/24,'YYYY-MM-DD') -5) >= 0";
+
+		PreparedStatement st = null; // ?를 활용하면 PreparedStatement!
+		Connection con = null;
+
+		try {
+			con = DBConnection.dbConnect(path);
+			st = con.prepareStatement(sql); // sql문을 준비한다.
+			st.setInt(1, res_number);
+			st.setDate(2, date);
+			result = st.executeUpdate(); // 실행만 한다. (sql 넣지 않음)
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			DBConnection.dbClose(con, st, null);
+		}
+		
+		System.out.println(result);
+
 		return result;
 	}
 
