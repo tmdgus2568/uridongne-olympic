@@ -14,20 +14,6 @@ div .input {
 </style>
 <meta charset="UTF-8">
 <title>리뷰</title>
-<script>
-/* $(function() {
-	$("#search_btn").click(
-			function() {
-				$.ajax({
-					url : "reviewSearch",
-					data : "search=" + $("#search").val()
-					success : function(resposedata) {
-						$("#here").html(resposedata);
-					}
-				});
-			});
-}); */
-</script>
 </head>
 
 <body>
@@ -38,7 +24,6 @@ div .input {
 		
 		<form method="get" id="search">
 			<div>
-			<!-- <label for="search"> </label> -->
 				<select name="option" class="btn btn-secondary btn-lm dropdown-toggle">
 					<option value="none">검색</option>
 					<option value="user_id">작성자</option>
@@ -48,7 +33,7 @@ div .input {
 				<br>
 				<div class="input-group mb-3" id="filter_div">
         			<input type="text" name="search" value="${param.search }" class="form-control" aria-describedby="button-addon2" style="width: 250px; display:inline">
-        			<button type="submit" id="search_btn" class="btn btn-info">검색하기</button>
+        			<button type="submit" id="search_btn" class="btn btn-primary">검색하기</button>
      			
 				</div>
 			
@@ -101,7 +86,7 @@ div .input {
 
 		<!-- Trigger the modal with a button -->
 		<c:if test="${reviewPosslist!=null}">
-			<button type="modalBtn" class="btn btn-info btn-lg"
+			<button type="modalBtn" class="btn btn-primary btn-lg"
 				data-bs-toggle="modal" data-bs-target="#myModal" style="float: right;">리뷰 남기기</button>
 		</c:if>
 		
