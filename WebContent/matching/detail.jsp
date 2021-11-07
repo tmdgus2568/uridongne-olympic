@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -131,15 +132,23 @@ $(function(){
 			<th class="table-secondary" scope="row">인원 수</td>
 			<td>${createJoin.nowjoin_people}/${createJoin.mat_people}</td>
 			<th class="table-secondary" scope="row">1인당 예상가격</td>
-			<td>약 <fmt:parseNumber value="${createJoin.stadium_price/createJoin.mat_people}" integerOnly="true"/>원</td>
+			<td>
+				<c:choose>
+					<c:when test="${createJoin.stadium_price eq 0}">
+						무료
+					</c:when>
+					<c:otherwise>
+						약 <fmt:parseNumber value="${createJoin.stadium_price/createJoin.mat_people}" integerOnly="true"/>원
+					</c:otherwise>
+				</c:choose>
+			
+			</td>
 		</tr>
 		<tr>
 			<td colspan="6" style="text-align:left;">${createJoin.mat_content}</td>
 		</tr>
 	
 	</table>
-
-	<%-- <div>내용: ${createJoin.mat_content}</div> --%>
 
 </div>
 <div class="content" id="stadium_info" text-align="center">

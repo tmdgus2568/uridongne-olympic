@@ -50,6 +50,7 @@ div.times{
           <p class="my-1" style="font-weight: bold; font-size: 30px; color: black;">🔆 ${stadium.stadium_name}</p>
 		  <input type="hidden" id="stadium_id" name="stadium_id" value="${stadium.stadium_id}">
 		  <input type="hidden" id="stadium_name" name="stadium_name" value="${stadium.stadium_name}">
+		  <input type="hidden" id="payment_method" name="payment_method" value="${stadium.payment_method}">
  	  	  <div class="d-flex my-4">
 			<div class="details">최대인원${" "}${stadium.stadium_number}${"명"}</div>
 			<div class="details">${stadium.payment_method}</div>
