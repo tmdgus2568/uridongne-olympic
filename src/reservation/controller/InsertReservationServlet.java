@@ -42,16 +42,8 @@ public class InsertReservationServlet extends HttpServlet {
 		
 		HttpSession session = request.getSession();
 		MemberVO member = (MemberVO)session.getAttribute("member"); 
-//		
-//		//바인딩한 객체 이름(member)으로 객체 돌려주기
-//		MemberVO member = (MemberVO)session.getAttribute("member"); 
-//		// 테스트용, session 확인 필요
-//		if(member == null) {
-//			member = new MemberVO();
-//			member.setUser_id("000");
-//		}
 		
-		String stadiumId = request.getParameter("stadium_id");
+		String stadiumId = request.getParameter("stadium_id2");
 		String playDate = request.getParameter("play_date");
 		playDate = playDate.replace("/", "-");
 		java.sql.Date date = java.sql.Date.valueOf(playDate);
@@ -59,6 +51,8 @@ public class InsertReservationServlet extends HttpServlet {
 		String startTime = substrTime(playTime).get(0);
 		String endTime = substrTime(playTime).get(1);
 		int price = Integer.parseInt(request.getParameter("stadium_price"));
+		
+		System.out.println(stadiumId); ////////////////////////////////////////////////////테스트지우기
 		
 		ReservationVO rvo = new ReservationVO();
 		
@@ -76,19 +70,14 @@ public class InsertReservationServlet extends HttpServlet {
 	
 	private List<String> substrTime(String playTime) {
 		List<String> times = new ArrayList<>();
-		String startTime = null;
-		String endTime = null;
-		int hour = Integer.parseInt(playTime.substring(0, 1));
-		if(hour < 3) {
-			startTime = playTime.substring(0, 5);
-			endTime = playTime.substring(6, 11);
-		} else {
-			startTime = "0" + playTime.substring(0, 4);
-			endTime = "0" + playTime.substring(5, 10);
+		// split > 10:00~12:00 (2시간) 
+		String[] hours = playTime.split("~|\\s");
+		
+		for(String hour : hours) {
+			times.add(hour);
 		}
 		
-		times.add(startTime);
-		times.add(endTime);
+		System.out.println(times);
 		
 		return times;
 	}

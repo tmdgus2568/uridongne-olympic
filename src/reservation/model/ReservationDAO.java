@@ -53,7 +53,8 @@ public class ReservationDAO {
 
 		// 선택한 경기장&날짜에 예약된 리스트 가져오기
 		String reservedListSql = "select substr(play_start,1,2) stime, substr(play_end,1,2) etime "
-				+ "from stadium_reservation " + "where play_date = to_date(?,'yyyy/mm/dd') " + "and stadium_id = ?";
+				+ "from stadium_reservation " + "where play_date = to_date(?,'yyyy/mm/dd') " 
+				+ "and stadium_id = ? and res_status not in('취소')";
 		// 선택한 지역에 있는 경기장 정보 가져오기
 		String stadiumListSql = "select stadium_name, sports_name, stadium_id, stadium_number, "
 				+ "stadium_start, stadium_end, payment_method " + "from stadium "

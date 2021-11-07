@@ -13,6 +13,7 @@
 div.times{
   	overflow: auto;
   	white-space: nowrap;
+  	vertical-align: middle;
 }
 
 .details {
@@ -22,12 +23,14 @@ div.times{
 	border-radius: 5px;
 	margin-right: 5px;
 	padding: 3px 5px;
+	height: 25px;
 }
 
-#count{
-	margin: 30px;
-	font-size: 12px;
-	color: gray;
+#line {
+	background-color: #fff;
+	border-top: 2px dotted #bbb;
+	height: 4px;
+	/* background: url(line01.png) repeat-x 0 0; */
 }
 
 </style>
@@ -35,34 +38,24 @@ div.times{
 <body>
 	<c:set var="path" value="${pageContext.request.contextPath}"/>
 	
-<%--     <div id="count">
-    	<p >${"총"}${fn:length(availStadiumList)}${"건 검색"}</p>
-	</div> --%>
 	
-	<fieldset>
-	  <br>
-	  <hr class="mx-4">
+	<fieldset> <!-- parent5 -->
+	  <div class="m-4"> </div>
+	  <p class="mx-5 px-1" style="font-size: 15px; color: gray;">${" 총 "}${fn:length(availStadiumList)}${"건이 검색되었습니다."}</p>
+	  <hr class="mx-5">
+	  
 	  <c:forEach items="${availStadiumList}" var="stadium" varStatus="status">
-		<input type="hidden" id="stadium_id" name="stadium_id" value="${stadium.stadium_id}">
-		<input type="hidden" id="stadium_name" name="stadium_name" value="${stadium.stadium_name}">
-		<div id="stadiumList" class=" mx-4">
-				  
+		<div id="stadiumList" class="mx-5"> <!-- parent 4 -->
 		  <!-- 종목명/상세정보 -->
-		  <!-- <br> -->
-		  <div class="form-group">
-		  	
-  		    <h5>🔆 ${stadium.stadium_name}</h5>
-		  </div>
- 	  	  <div class="d-flex my-3">
+		  <br><br>
+          <p class="my-1" style="font-weight: bold; font-size: 30px;">🔆 ${stadium.stadium_name}</p>
+		  <input type="hidden" id="stadium_id" name="stadium_id" value="${stadium.stadium_id}">
+		  <input type="hidden" id="stadium_name" name="stadium_name" value="${stadium.stadium_name}">
+ 	  	  <div class="d-flex my-4">
 			<div class="details">최대인원${" "}${stadium.stadium_number}${"명"}</div>
 			<div class="details">${stadium.payment_method}</div>
 			<button class="details" onclick="window.open('${path}/stadium/stadiumDetail?id=${stadium.stadium_id}')">상세보기</button>
 		  </div>
-<%-- 		  <div class="form-group d-flex">
-		    <span class="badge rounded-pill bg-secondary mx-3">최대인원${" "}${stadium.stadium_number}${"명"}</span>
-            <span class="badge rounded-pill bg-secondary mx-3">${stadium.payment_method}</span>
-            <span class="badge rounded-pill bg-dark mx-3" onclick="window.open('${path}/stadium/stadiumDetail?id=${stadium.stadium_id}')">상세보기</span>
-		  </div> --%>
 	
 	      <fmt:parseNumber value="${fn:substring(stadium.stadium_start,0,2)}" var="starttime"/>
 		  <fmt:parseNumber value="${fn:substring(stadium.stadium_end,0,2)}" var="endtime"/>
@@ -84,7 +77,7 @@ div.times{
 			  </c:forEach>
 			  <!-- 예약가능/불가 표기 -->
  			  <c:if test="${cnt2 > 0}">
-				<div class="form-group btn btn-dark disabled my-2"> <!-- 예약불가 -->
+				<div class="form-group btn btn-dark disabled my-3"> <!-- 예약불가 -->
 				  <label class="form-check-label">
 				  	<input type="radio"  class="btn-check" id="disavail" name="disavail" value="${time}:00" disabled>
 				  	${time}:00 ~ ${time + 2}:00
@@ -93,7 +86,7 @@ div.times{
 				<div class="m-1"></div>
 			  </c:if>
 			  <c:if test="${cnt2 == 0}">
-				<div class="form-group btn btn-secondary my-2" aria-label="Basic radio toggle button"> <!-- 예약가능btn-outline-warning -->
+				<div class="form-group btn btn-secondary my-3" aria-label="Basic radio toggle button"> <!-- 예약가능btn-outline-warning -->
 				  <label class="form-check-label">
 				    <input type="radio" class="form-check-input" id="avail" name="avail" onchange="call(this)" value="${time}:00~${time + 2}:00 (2시간)">
 					${time}:00 ~ ${time + 2}:00 <!--  -->
@@ -103,22 +96,9 @@ div.times{
 			  </c:if>
 			</c:forEach>
 		  </div>
-		  <!-- <br> -->
-		  <hr>
+		  <hr id="line">
 		</div>
 	  </c:forEach>
 	</fieldset>
-<script>
-
-	 function call2(obj){
-		 
-		var result = document.getElementById("count").value;
-		
-		
-			
-		alert(result);
-			  
-	}
-</script>
 </body>
 </html>
