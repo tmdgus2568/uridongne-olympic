@@ -151,6 +151,8 @@ table {
 								console.log("1 = 삭제가능 / 0 = 삭제불가 : " + data);
 								if (data == 0) {
 									alert("예약 취소 기한이 지났습니다.")
+								} else {
+									location.href="reserveinfo";
 								}
 							},
 							error : function() {
