@@ -19,81 +19,41 @@
 </script>
 </head>
 <body>
-<%@ include file="../header.jsp"%>
+<jsp:include page="../header.jsp"></jsp:include>
 <div class="content">
-	<h2>후기 작성</h2>
+	<form action="reviewinsert" name="reviewForm" method="post">
+	<div style="color: gray; font: bold 2.0em/1.0em Verdana;">✏리뷰 작성</div><br>
 	<h1 style="text-align: center">${member.user_id}님 후기를 남겨주세요!</h1>
 	<h3 style="text-align: center">${param.stadium_name}시설 이용에 얼마나 만족하셨나요?</h3>
 
-	<form action="reviewinsert" name="reviewForm" method="post">
-	<fieldset>
 	<div hidden="true">
 	<input type="text" name="res_number" value="${param.res_number }"></div>
-	
-	<%-- <div hidden="true">
-	<input type="text" name="res_number" value="${param.res_number }"></div>
-		<table border=0 align="center">
-		<tr>
-				<!-- 평점 선택창 -->
-    			<f:label path="rating">
-	    			<td align="right">평가:</td>
-	    			<td align="left">
-		    			<div class="star-rating space-x-4 mx-auto">
-		    			
-							<input type="radio" id="5-stars" name="review_star" value="5"/>
-							<label for="5-stars" class="star pr-4">★</label>
-							<input type="radio" id="4-stars" name="review_star" value="4"/>
-							<label for="4-stars" class="star">★</label>
-							<input type="radio" id="3-stars" name="review_star" value="3"/>
-							<label for="3-stars" class="star">★</label>
-							<input type="radio" id="2-stars" name="review_star" value="2"/>
-							<label for="2-stars" class="star">★</label>
-							<input type="radio" id="1-star" name="review_star" value="1"/>
-							<label for="1-star" class="star">★</label>
-						</div>
-					</td>
-				</f:label>				
-			</tr>
-			<tr>
-				<td align="right" valign="top"><br>후기:</td>
-				<td colspan=2><textarea name="review_content" rows="10" cols="65"
-						maxlength="4000"></textarea></td>
-			</tr>
 
-			<tr>
-				<td align="right"></td>
-				<td colspan="2" align="center">
-				<input type="submit" value="등록하기" /> 
-				<input type=button value="돌아가기" onClick="backToList(this.form)" /></td>
-			</tr>
-		</table> --%>
 		<div class="form-group">
 			<label for="starRating" class="form-label mt-4">평점</label>
-			<div class="star-rating space-x-4 mx-auto">
-		    			
-							<input type="radio" id="5-stars" name="review_star" value="5"/>
-							<label for="5-stars" class="star pr-4">★</label>
-							<input type="radio" id="4-stars" name="review_star" value="4"/>
-							<label for="4-stars" class="star">★</label>
-							<input type="radio" id="3-stars" name="review_star" value="3"/>
-							<label for="3-stars" class="star">★</label>
-							<input type="radio" id="2-stars" name="review_star" value="2"/>
-							<label for="2-stars" class="star">★</label>
-							<input type="radio" id="1-star" name="review_star" value="1"/>
-							<label for="1-star" class="star">★</label>
-						</div>
+				<div class="star-rating space-x-4 mx-auto">		    			
+					<input type="radio" id="5-stars" name="review_star" value="5"/>
+					<label for="5-stars" class="star pr-4">★</label>
+					<input type="radio" id="4-stars" name="review_star" value="4"/>
+					<label for="4-stars" class="star">★</label>
+					<input type="radio" id="3-stars" name="review_star" value="3"/>
+					<label for="3-stars" class="star">★</label>
+					<input type="radio" id="2-stars" name="review_star" value="2"/>
+					<label for="2-stars" class="star">★</label>
+					<input type="radio" id="1-star" name="review_star" value="1"/>
+					<label for="1-star" class="star">★</label>
+				</div>
 		</div>
 		
 		<div class="form-group">
       		<label for="textarea" class="form-label mt-4">후기</label>
-      		<textarea class="form-control" id="exampleTextarea" rows="3"></textarea>
+      		<textarea name="review_content" class="form-control" id="exampleTextarea" rows="3" placeholder="후기를 작성해주세요."></textarea>
     	</div>
-    	</fieldset>
-<!-- !!!!!!!!!!!!!!!!!!버튼 function!!!!!!!!!!!!!!!!!!!!!!! -->
-    	<button type="submit" class="btn btn-primary" value="등록하기" onClick>등록하기</button>
-    	<button type="submit" class="btn btn-primary" value="돌아가기" onClick="backToList(this.form)">돌아가기</button>
-    	<!-- <input type="submit" value="등록하기" /> 
-		<input type=button value="돌아가기" onClick="backToList(this.form)" /> -->
+		<br>
+	<div align="center">		
+    	<button type="submit" class="btn btn-primary" value="등록하기">등록하기</button>
+    	<button type="back" class="btn btn-primary" value="돌아가기" onClick="backToList(this.form)">돌아가기</button>    		
+	</div>
 	</form>
 	</div>
 <%@ include file="../footer.jsp"%>
