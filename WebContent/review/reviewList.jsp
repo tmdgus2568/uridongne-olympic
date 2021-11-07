@@ -14,20 +14,6 @@ div .input {
 </style>
 <meta charset="UTF-8">
 <title>리뷰</title>
-<script>
-/* $(function() {
-	$("#search_btn").click(
-			function() {
-				$.ajax({
-					url : "reviewSearch",
-					data : "search=" + $("#search").val()
-					success : function(resposedata) {
-						$("#here").html(resposedata);
-					}
-				});
-			});
-}); */
-</script>
 </head>
 
 <body>
@@ -38,7 +24,6 @@ div .input {
 		
 		<form method="get" id="search">
 			<div>
-			<!-- <label for="search"> </label> -->
 				<select name="option" class="btn btn-secondary btn-lm dropdown-toggle">
 					<option value="none">검색</option>
 					<option value="user_id">작성자</option>
