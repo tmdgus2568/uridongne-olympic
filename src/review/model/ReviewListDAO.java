@@ -94,16 +94,26 @@ public class ReviewListDAO {// 리뷰 대상자 거르기, 리뷰 목록 보여�
 	}
 
 	// 리뷰 쓰기 가능한 대상자:리뷰가 null이면서 경기 종료 시간은 지난 예약
-	public List<ReviewInfoVO> selectPossibleReview(String user_id) {
+	public List<ReviewInfoVO> selectPossibleReview(String user_name) {
 		List<ReviewInfoVO> reviewPoss = new ArrayList<>();
 		String sql = "select stadium_name, sports_name, res_date, play_date, stadium_reservation.res_number"
+				+ " from review"
+				+ " right outer join stadium_reservation on(stadium_reservation.res_number=review.res_number)"
+				+ " join stadium on(stadium.stadium_id=stadium_reservation.stadium_id)"
+				+ " join member on(stadium_reservation.user_id=member.user_id)"
+				+ " where review_num is null\r\n"
+				+ " and play_date<to_char(localtimestamp, 'rr/mm/dd')"
+				+ " and user_name = ?"
+				+ " order by res_date, play_date";				
+				/*"select stadium_name, sports_name, res_date, play_date, stadium_reservation.res_number"
 				+ " from review"
 				+ " right outer join stadium_reservation on(stadium_reservation.res_number=review.res_number)"
 				+ " join stadium on(stadium.stadium_id=stadium_reservation.stadium_id)" 
 				+ " where review_num is null"
 				+ " and play_date<to_char(localtimestamp, 'rr/mm/dd')"
 				+ " and user_id = ?"
-				+ " order by res_date, play_date";
+				+ " order by res_date, play_date";*/
+				
 		Connection conn = null;
 		PreparedStatement st = null;
 		ResultSet rs = null;
@@ -111,7 +121,7 @@ public class ReviewListDAO {// 리뷰 대상자 거르기, 리뷰 목록 보여�
 		try {
 			conn = DBConnection.dbConnect(path);
 			st = conn.prepareStatement(sql); // prepareStatement통해서 보냄
-			st.setString(1, user_id);//가변으로 받는 변수는 ""없음
+			st.setString(1, user_name);//가변으로 받는 변수는 ""없음
 			rs = st.executeQuery();// rs:결과 받는
 			while (rs.next()) {
 				reviewPoss.add(makeReviewPoss(rs));

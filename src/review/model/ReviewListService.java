@@ -21,7 +21,7 @@ public class ReviewListService {
 	}
 
 	// 리뷰 가능 대상자 검색
-	public List<ReviewInfoVO> selectPossibleReview(String user_id) {
-		return reviewlistDAO.selectPossibleReview(user_id);
+	public List<ReviewInfoVO> selectPossibleReview(String user_name) {
+		return reviewlistDAO.selectPossibleReview(user_name);
 	}
 }
