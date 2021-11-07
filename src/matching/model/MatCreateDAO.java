@@ -262,8 +262,6 @@ public class MatCreateDAO {
 		mcrs.setAddress_y(rs.getString("address_y"));
 		mcrs.setLocation(rs.getString("location"));
 		
-		System.out.println(mcrs);
-		
 		return mcrs;
 	}
 	

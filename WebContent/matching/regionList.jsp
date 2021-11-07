@@ -10,12 +10,14 @@
 	<title>Insert title here</title>
 </head>
 <body>
-	<!-- <span>지역선택</span> -->
-	<select id="region" name="region">
-		<option selected>지역선택${"("}${fn:length(regionList)}${")"} </option> <!-- 지역의 갯수는 어떻게 check해서 넣지? -->
-		<c:forEach items="${regionList}" var="region">
-			<option >${region}</option>
-		</c:forEach>
-	</select>
+	<!-- 지역선택> -->
+		<div >
+		<select class="btn btn-secondary btn-lm dropdown-toggle" aria-label="Default select example"  id="region" name="region" size="1" style="color:black; text-align: left;">
+			<option selected>🚕 지역 선택${"("}${fn:length(regionList)}${")"} </option>
+			<c:forEach items="${regionList}" var="region">
+				<option >${region}</option>
+			</c:forEach>
+		  </select>
+	    </div>
 </body>
 </html>
