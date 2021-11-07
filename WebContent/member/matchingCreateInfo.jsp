@@ -93,7 +93,8 @@ table {
 				<th>지역명</th>
 				<th>경기날짜</th>
 				<th>경기현황</th>
-				<th>취소하기</th>
+				<th>취소</th>
+				<th hidden=true>예약번호</th>
 			</tr>
 			<c:choose>
 				<c:when test="${empty matList}">
@@ -118,8 +119,9 @@ table {
 							<td>${item.location}</td>
 							<td>${item.play_date}</td>
 							<td>${item.mat_status}</td>
+							<td hidden=true>${item.res_number}</td>
 							<td><button type="button" class="btn btn-primary"
-									onclick="matchingcancel('${item.mat_id}', '${item.play_date}')">매칭취소</button></td>
+									onclick="matchingcancel('${item.mat_id}', '${item.play_date}', '${item.res_number}')">매칭취소</button></td>
 						</tr>
 					</c:forEach>
 				</c:when>
@@ -129,7 +131,7 @@ table {
 	<%@ include file="../footer.jsp"%>
 
 	<script>
-		function matchingcancel(mat_id, play_date) {
+		function matchingcancel(mat_id, play_date, res_number) {
 			console.log(mat_id);
 			console.log(play_date)
 			if (!confirm("정말 취소하시겠습니까?")) {
@@ -137,13 +139,14 @@ table {
 			} else {
 				$.ajax({
 							url : '${pageContext.request.contextPath}/member/matchingcancel?mat_id='
-									+ mat_id + "&play_date=" + play_date,
+									+ mat_id + "&play_date=" + play_date + "&res_number=" + res_number,
 							type : 'get',
 							success : function(data) {
 								console.log("1 = 삭제가능 / 0 = 삭제불가 : " + data);
 								if (data == 0) {
 									alert("매칭 취소 기한이 지났습니다.")
 								}else {
+									alert("매칭이 취소되었습니다.")
 									location.href="matchingcreateinfo";
 								}
 							},

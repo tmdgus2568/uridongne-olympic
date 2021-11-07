@@ -260,7 +260,7 @@ public class MemberDAO {
 
 	private ResInfoVO makeRes(ResultSet rs) throws SQLException {
 		ResInfoVO res = new ResInfoVO();
-		
+
 		res.setRes_number(rs.getInt("res_number"));
 		res.setStadium_id(rs.getString("stadium_id"));
 		res.setRes_date(rs.getDate("res_date"));
@@ -276,18 +276,15 @@ public class MemberDAO {
 		res.setAddress_x(rs.getString("address_x"));
 		res.setAddress_y(rs.getString("address_y"));
 		res.setStadium_phone(rs.getString("stadium_phone"));
-		
+
 		return res;
 	}
 
 	public List<MatCreateJoinVO> matchingApplyInfo(String user_id) {
 		List<MatCreateJoinVO> appList = new ArrayList<>();
-		String sql = "select *"
-				+ " from matching_apply a"
-				+ " join matching_create c on (a.mat_id = c.mat_id)"
+		String sql = "select *" + " from matching_apply a" + " join matching_create c on (a.mat_id = c.mat_id)"
 				+ " join stadium_reservation s on (c.res_number = s.res_number)"
-				+ " join stadium d on (s.stadium_id = d.stadium_id)"
-				+ " where a.user_id =?";
+				+ " join stadium d on (s.stadium_id = d.stadium_id)" + " where a.user_id =?";
 		Connection conn = null;
 		PreparedStatement st = null;
 		ResultSet rs = null;
@@ -308,11 +305,12 @@ public class MemberDAO {
 
 		return appList;
 	}
-	
+
 	private MatCreateJoinVO makeApp(ResultSet rs) throws SQLException {
-		
+
 		MatCreateJoinVO matApply = new MatCreateJoinVO();
 		matApply.setMat_id(rs.getInt("mat_id"));
+		matApply.setUser_id(rs.getString("user_id"));
 		matApply.setMat_content(rs.getString("mat_content"));
 		matApply.setMat_people(rs.getInt("mat_people"));
 		matApply.setNowjoin_people(rs.getInt("nowjoin_people"));
@@ -322,15 +320,16 @@ public class MemberDAO {
 		matApply.setMat_title(rs.getString("mat_title"));
 		matApply.setPlay_date(rs.getDate("play_date"));
 		matApply.setRes_number(rs.getInt("res_number"));
-		matApply.setStadium_price(rs.getInt("together"));	//stadium에 담아버리기
-		
+		matApply.setStadium_price(rs.getInt("together")); // stadium에 담아버리기
+
 		return matApply;
 	}
-	
-	//"update matching_create set mat_status = '취소' where mat_id = ? "
-	//+ "and to_date(play_date, 'YYYY-MM-DD') - to_date(SYSDATE + 9/24,'YYYY-MM-DD') -5 < 0";
 
-	public int cancelMatching(int mat_id, Date date) {
+	// "update matching_create set mat_status = '취소' where mat_id = ? "
+	// + "and to_date(play_date, 'YYYY-MM-DD') - to_date(SYSDATE +
+	// 9/24,'YYYY-MM-DD') -5 < 0";
+
+	public int cancelMatching(int mat_id, Date date, int res_number) {
 		int result = 0; // update 건수
 
 		String sql = "update matching_create set mat_status = '취소' where mat_id = ?"
@@ -345,14 +344,27 @@ public class MemberDAO {
 			st.setInt(1, mat_id);
 			st.setDate(2, date);
 			result = st.executeUpdate(); // 실행만 한다. (sql 넣지 않음)
-			
+
+			if (result == 1) {
+				PreparedStatement st2 = null;
+
+				try {
+					String sql2 = "update stadium_reservation set res_status = '취소' where res_number = ?";
+					st2 = con.prepareStatement(sql2); // sql문을 준비한다.
+					st2.setInt(1, res_number);
+					st2.executeUpdate();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				} finally {
+					DBConnection.dbClose(con, st, null);
+				}
+			}
+
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
 			DBConnection.dbClose(con, st, null);
 		}
-		
-		System.out.println(result);
 
 		return result;
 	}
@@ -371,12 +383,12 @@ public class MemberDAO {
 			st = con.prepareStatement(sql); // sql문을 준비한다.
 			st.setString(1, user_id);
 			rs = st.executeQuery(); // 실행만 한다. (sql 넣지 않음)
-			if(rs.next()) {
-				result = 0;  // 이미 존재하는 경우, 생성 불가능
+			if (rs.next()) {
+				result = 0; // 이미 존재하는 경우, 생성 불가능
 			} else {
-				result = 1;  // 존재하지 않는 경우, 생성 가능
+				result = 1; // 존재하지 않는 경우, 생성 가능
 			}
-			
+
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
@@ -401,16 +413,97 @@ public class MemberDAO {
 			st.setInt(1, res_number);
 			st.setDate(2, date);
 			result = st.executeUpdate(); // 실행만 한다. (sql 넣지 않음)
-			
+
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
 			DBConnection.dbClose(con, st, null);
 		}
-		
-		System.out.println(result);
 
 		return result;
 	}
 
+	public int cancelMatchingApply(int mat_id, String user_id, int together, Date date) {
+		int result = 0; // update 건수
+
+		String sql = "delete matching_apply where mat_id = ? and user_id = ?"
+				+ " and (to_date(?, 'YYYY-MM-DD') - to_date(SYSDATE + 9/24,'YYYY-MM-DD') -5) >= 0";
+
+		PreparedStatement st = null; // ?를 활용하면 PreparedStatement!
+		Connection con = null;
+
+		try {
+			con = DBConnection.dbConnect(path);
+			st = con.prepareStatement(sql); // sql문을 준비한다.
+			st.setInt(1, mat_id);
+			st.setString(2, user_id);
+			st.setDate(3, date);
+			result = st.executeUpdate(); // 실행만 한다. (sql 넣지 않음)
+
+			if (result == 1) {
+				PreparedStatement st2 = null;
+
+				try {
+					String sql2 = "update matching_create set nowjoin_people = nowjoin_people - ?";
+					st2 = con.prepareStatement(sql2); // sql문을 준비한다.
+					st2.setInt(1, together);
+					st2.executeUpdate();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				} finally {
+					DBConnection.dbClose(con, st, null);
+				}
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			DBConnection.dbClose(con, st, null);
+		}
+
+		return result;
+	}
+
+	public int changeMatchingApply(int mat_id, String user_id, int together, Date date, int newtogether) {
+		int result = 0; // update 건수
+
+		String sql = "update matching_apply set together = ? where mat_id = ? and user_id = ?"
+				+ " and (to_date(?, 'YYYY-MM-DD') - to_date(SYSDATE + 9/24,'YYYY-MM-DD') -5) >= 0";
+
+		PreparedStatement st = null; // ?를 활용하면 PreparedStatement!
+		Connection con = null;
+
+		try {
+			con = DBConnection.dbConnect(path);
+			st = con.prepareStatement(sql); // sql문을 준비한다.
+			st.setInt(1, newtogether);
+			st.setInt(2, mat_id);
+			st.setString(3, user_id);
+			st.setDate(4, date);
+			result = st.executeUpdate(); // 실행만 한다. (sql 넣지 않음)
+
+			if (result == 1) {
+				PreparedStatement st2 = null;
+
+				try {
+					String sql2 = "update matching_create set nowjoin_people = (nowjoin_people - ? + ?) where mat_id = ?";
+					st2 = con.prepareStatement(sql2); // sql문을 준비한다.
+					st2.setInt(1, together);
+					st2.setInt(2, newtogether);
+					st2.setInt(3, mat_id);
+					st2.executeUpdate();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				} finally {
+					DBConnection.dbClose(con, st, null);
+				}
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			DBConnection.dbClose(con, st, null);
+		}
+
+		return result;
+
+	}
 }
