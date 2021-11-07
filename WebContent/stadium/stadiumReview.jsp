@@ -14,16 +14,20 @@
 
 </head>
 <body>
-<%@ include file="../header.jsp"%>
-	<div class="content" text-align="center">
-		
-		<table border="1" class="table_style" align="center" id="stadiumList">
-			<tr class="table_title">
-				<td>작성자</td>
-				<td>경기장</td>
-				<td>후기</td>
-				<td>평점</td>
-			</tr>
+<%-- <%@ include file="../header.jsp"%> --%>
+<jsp:include page="../header.jsp"></jsp:include>
+	<div class="content">
+		<div style="color: gray; font: bold 2.0em/1.0em Verdana;">🧾상세 리뷰 목록</div><br>
+		<table border="1" class="table table-hover" align="center" id="stadiumList">
+			<thead>
+   				<tr align="center" class="table-secondary">
+					<td>작성자</td>
+					<td>경기장</td>
+					<td>후기</td>
+					<td>평점</td>
+				</tr>
+			</thead>
+			<tbody>
 			<c:choose>
 				<c:when test="${empty stadium}">
 					<tr height="10">
@@ -36,7 +40,7 @@
 				</c:when>
 				<c:when test="${!empty stadium}">
 					<c:forEach var="stadium" items="${stadium}">
-						<tr align="center" class="table_content">
+						<tr align="center">
 							<td>${stadium.user_id}</td>
 							<td>${stadium.stadium_name}</td>
 							<td>${stadium.review_content }</td>
@@ -53,3 +57,7 @@
 				</c:when>
 			</c:choose>
 		</table>
+</div>
+	<%@ include file="../footer.jsp"%>
+	</body>
+</html>
