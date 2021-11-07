@@ -43,7 +43,7 @@ form td{
 	<jsp:include page="../header.jsp"></jsp:include> 
 	<nav>
 		<br>
-		<div class="m-4 px-4" style="color: gray; font-weight: bold; font-size: 35px;">🔎 경기장 예약</div><br>
+		<div class="m-4 px-4" style="color: gray; font-weight: bold; font-size: 35px;">🔎 매칭 경기장 예약</div><br>
 	</nav>
 	<section class=" d-flex">
 		<!-- 경기장 정보 -->
