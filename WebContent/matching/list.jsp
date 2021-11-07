@@ -68,7 +68,7 @@ $(function(){
 <body>
 <%@ include file="../header.jsp" %>
 <div class="content">
-	<h2>매칭 참여</h2>
+	<div style="color: gray; font: bold 2.0em/1.2em Verdana;">매칭 참여</div>
 	<br>
 	<form method="get" id="search">
 		<div>
@@ -114,7 +114,7 @@ $(function(){
 
 			<div class="input-group mb-3" id="filter_div">
 				<input type="text" name="filter" value="${param.filter}" class="form-control" aria-describedby="button-addon2" style="width: 250px; display:inline">
-				<button type="submit" id="search_btn" class="btn btn-info" >검색하기</button>
+				<button type="submit" id="search_btn" class="btn btn-primary" >검색하기</button>
 			
 			</div>
 		<!-- 	<lable>경기장</lable> -->
@@ -122,15 +122,17 @@ $(function(){
 	<br>
 	</form>
 	<table border="1" align="center" id="matching_list" class="table table-hover">
-		<tr class="table-primary">
-			<td hidden=true>id</td>
-			<th scope="col">순서</th>
-			<th scope="col">방이름</th>
-			<th scope="col">인원</th>
-			<th scope="col">종목</th>
-			<th scope="col">지역명</th>
-			<th scope="col">경기날짜</th>
-		</tr>
+		<thead>
+			<tr class="table-secondary" align="center">
+				<td hidden=true>id</td>
+				<th scope="col">순서</th>
+				<th scope="col">방이름</th>
+				<th scope="col">인원</th>
+				<th scope="col">종목</th>
+				<th scope="col">지역명</th>
+				<th scope="col">경기날짜</th>
+			</tr>
+		</thead>
 		<c:choose>
 			<c:when test="${fn:length(createJoinList)==0}">
 				<td>매칭 목록이 없습니다</td>
@@ -138,7 +140,7 @@ $(function(){
 			<c:otherwise>
 			
 				<c:forEach var="item" items="${createJoinList}" varStatus="list">
-	   				<tr align="center" class="table-secondary">
+	   				<tr align="center" class="table-default">
 	   					<td hidden=true>${item.mat_id}</td>
 	        			<th  scope="row">${list.count}</th>
 	         			<td>${item.mat_title}</td>

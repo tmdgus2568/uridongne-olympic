@@ -236,6 +236,22 @@ public class MatCreateJoinVO {
 	public void setLocation(String location) {
 		this.location = location;
 	}
+	@Override
+	public String toString() {
+		return "MatCreateJoinVO [mat_id=" + mat_id + ", res_number=" + res_number + ", mat_people=" + mat_people
+				+ ", nowjoin_people=" + nowjoin_people + ", mat_status=" + mat_status + ", mat_title=" + mat_title
+				+ ", mat_content=" + mat_content + ", stadium_id=" + stadium_id + ", user_id=" + user_id + ", res_date="
+				+ res_date + ", play_date=" + play_date + ", play_start=" + play_start + ", play_end=" + play_end
+				+ ", stadium_price=" + stadium_price + ", res_status=" + res_status + ", matching=" + matching
+				+ ", stadium_name=" + stadium_name + ", sports_name=" + sports_name + ", payment_method="
+				+ payment_method + ", stadium_address=" + stadium_address + ", address_x=" + address_x + ", address_y="
+				+ address_y + ", stadium_phone=" + stadium_phone + ", stadium_start=" + stadium_start + ", stadium_end="
+				+ stadium_end + ", stadium_photo=" + stadium_photo + ", stadium_number=" + stadium_number + ", mat_max="
+				+ mat_max + ", stadium_parking=" + stadium_parking + ", stadium_shower=" + stadium_shower
+				+ ", stadium_char=" + stadium_char + ", location=" + location + "]";
+	}
+	
+	
 	
 	
 	

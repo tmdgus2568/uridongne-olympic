@@ -61,8 +61,9 @@
 		font-weight:normal;
 		font-size:12px;
 		vertical-align:bottom;
-		color:red;
+		color:grey;
 		align:center;
+		
 	}
 	
 	.buttons{
@@ -123,7 +124,7 @@ $(function(){
 <body>
 <%@ include file="../header.jsp" %>
 <div class="content">
-	<h2>매칭 생성</h2>
+	<div style="color: gray; font: bold 2.0em/1.2em Verdana;">매칭 생성</div>
 	<br>
 	<form method="post" id="create" action="confirm">
 		<table align="center" class="table_style">
@@ -154,7 +155,7 @@ $(function(){
 		</div>
 		<div align="right" class="buttons">
 	<!-- 		<input type="button" value="취소하기" id="cancel" class="btn btn-success"> -->
-			<input type="submit" value="생성하기" class="btn btn-success">
+			<input type="submit" value="생성하기" class="btn btn-primary">
 		</div>
 		
 		<div hidden="true">
