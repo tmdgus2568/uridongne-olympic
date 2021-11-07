@@ -158,7 +158,7 @@ a { text-decoration:none }
 			<option value="광진구">광진구</option>
 		</select>
 		<button id="searchButton" type="button"
-			class="btn btn-info" size="1">검색하기</button>
+			class="btn btn-primary" size="1">검색하기</button>
 		</div><br><br>
 
 <!-- 경기장 리스트 나오는 부분 -->
