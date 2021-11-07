@@ -43,7 +43,8 @@ public class ApplyServlet extends HttpServlet {
 		HttpSession session = request.getSession();
 		
 		request.setCharacterEncoding("utf-8");
-		RequestDispatcher rd;
+		RequestDispatcher rd = null;
+	
 		
 		// apply 테이블에 저장 
 		MemberVO member = (MemberVO)session.getAttribute("member"); 
@@ -53,13 +54,23 @@ public class ApplyServlet extends HttpServlet {
 		
 		int result = applyService.insertApply(apply);
 //		System.out.println("result : " + result);
-	
-		if(result > 0) {
-			
-			
-			rd = request.getRequestDispatcher("confirm.jsp?page=apply&message=success");
+		
+		switch(result) {
+		
+			case 1:
+				rd = request.getRequestDispatcher("confirm.jsp?page=apply&message=success");
+				break;
+			case 101:
+				rd = request.getRequestDispatcher("confirm.jsp?page=apply&message=101");
+				break;
+			case 102:
+				rd = request.getRequestDispatcher("confirm.jsp?page=apply&message=102");
+				break;
+			case 0:
+				rd = request.getRequestDispatcher("confirm.jsp?page=apply&message=failed");
+				break;
 		}
-		else rd = request.getRequestDispatcher("confirm.jsp?page=apply&message=failed");
+
 		
 		rd.forward(request, response);
 		

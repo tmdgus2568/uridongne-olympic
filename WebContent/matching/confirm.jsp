@@ -24,20 +24,26 @@
 			<c:when test="${param.page eq 'create'}">
 				<c:choose>
 					<c:when test="${param.message eq 'success'}">
-						<h3>매칭 생성에 성공하였습니다 !!</h3>
+						<h3>🌟🌟매칭 생성이 완료되었습니다!🌟🌟</h3>
 					</c:when>
 					<c:when test="${param.message eq 'failed'}">
-						<h3>매칭 생성에 실패하였습니다..</h3>
+						<h3>🌟🌟매칭 생성에 실패하였습니다.🌟🌟</h3>
 					</c:when>
 				</c:choose>	
 			</c:when>
 			<c:when test="${param.page eq 'apply'}">
 				<c:choose>
 					<c:when test="${param.message eq 'success'}">
-						<h3>매칭 참여에 성공하였습니다 !!</h3>
+						<h3>🌟🌟매칭 참여가 완료되었습니다!🌟🌟</h3>
 					</c:when>
 					<c:when test="${param.message eq 'failed'}">
-						<h3>매칭 참여에 실패하였습니다..</h3>
+						<h3>🌟🌟매칭 참여에 실패하였습니다.🌟🌟</h3>
+					</c:when>
+					<c:when test="${param.message eq '101'}">
+						<h3>🌟🌟이미 참여한 매칭입니다.🌟🌟</h3>
+					</c:when>
+					<c:when test="${param.message eq '102'}">
+						<h3>🌟🌟참여 인원수가 초과되었습니다.🌟🌟</h3>
 					</c:when>
 				</c:choose>	
 			</c:when>
@@ -73,6 +79,20 @@
 					
 				</c:when>
 				<c:when test="${param.message eq 'failed'}">
+						<div class="d-flex justify-content-center">
+							<button type="button" class="btn btn-primary m-1" onClick="location.href='../matching/list'">돌아가기</button>
+							<button type="button" class="btn btn-secondary m-1" onClick="location.href='../member/reserveinfo.jsp'">Home</button>
+						</div>
+					
+				</c:when>
+				<c:when test="${param.message eq '101'}">
+						<div class="d-flex justify-content-center">
+							<button type="button" class="btn btn-primary m-1" onClick="location.href='../matching/list'">돌아가기</button>
+							<button type="button" class="btn btn-secondary m-1" onClick="location.href='../member/reserveinfo.jsp'">Home</button>
+						</div>
+					
+				</c:when>
+				<c:when test="${param.message eq '102'}">
 						<div class="d-flex justify-content-center">
 							<button type="button" class="btn btn-primary m-1" onClick="location.href='../matching/list'">돌아가기</button>
 							<button type="button" class="btn btn-secondary m-1" onClick="location.href='../member/reserveinfo.jsp'">Home</button>

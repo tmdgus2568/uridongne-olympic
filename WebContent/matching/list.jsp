@@ -122,15 +122,17 @@ $(function(){
 	<br>
 	</form>
 	<table border="1" align="center" id="matching_list" class="table table-hover">
-		<tr class="table-secondary">
-			<td hidden=true>id</td>
-			<th scope="col">순서</th>
-			<th scope="col">방이름</th>
-			<th scope="col">인원</th>
-			<th scope="col">종목</th>
-			<th scope="col">지역명</th>
-			<th scope="col">경기날짜</th>
-		</tr>
+		<thead>
+			<tr class="table-secondary" align="center">
+				<td hidden=true>id</td>
+				<th scope="col">순서</th>
+				<th scope="col">방이름</th>
+				<th scope="col">인원</th>
+				<th scope="col">종목</th>
+				<th scope="col">지역명</th>
+				<th scope="col">경기날짜</th>
+			</tr>
+		</thead>
 		<c:choose>
 			<c:when test="${fn:length(createJoinList)==0}">
 				<td>매칭 목록이 없습니다</td>

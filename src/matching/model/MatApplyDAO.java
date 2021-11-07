@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.SQLIntegrityConstraintViolationException;
 
 import uridongne.util.DBConnection;
 
@@ -14,6 +15,10 @@ public class MatApplyDAO {
 	}
 	
 	// apply에 넣었으면 create의 nowjoin_people값을 더해준다 
+	// result 
+	//	:1 -> 성공
+	//	:101 -> 무결성제약 위반
+	//	:102 -> 참여인원 초과 
 	public int insertApply(MatApplyVO apply) {
 		Connection conn = null;
 		PreparedStatement st = null;
@@ -56,11 +61,13 @@ public class MatApplyDAO {
 							conn.commit();
 							return result;
 						}
+						result = 102;
 						
 					}
 					
+					
 				}
-				result = 0;
+				else result = 0;
 				conn.rollback();
 
 			}
@@ -71,7 +78,16 @@ public class MatApplyDAO {
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}finally {
+			switch(e.getErrorCode()) {
+				case 1: // 무결성 제약조건 
+					result=101;
+					break;
+			}
+			
+		}
+		
+		
+		finally {
 			DBConnection.dbClose(conn, st, null);
 		}
 		
