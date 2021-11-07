@@ -13,24 +13,28 @@
 <style>
 form th{
 	height: 70px;
-	padding: 10px;
+	/* padding: 10px; */
 	vertical-align: middle;
-	text-align; left
+	text-align: left;
 }
 form td{
-	padding: auto;
+	/* padding: auto; */
 	vertical-align: middle;
-	text-align; left
+	text-align: left;
+	font-size: 16px;
 }
 .select{
 	vertical-align: middle;
-	text-align; left
+	text-align: left;
+	color: black;
+	font-size: 15px;
 }
 .refer {
 	font-size: 12px;
 	text-align: left;
 	width: auto;
-	text-align; left
+	text-align: left;
+
 }
 </style>
 
@@ -97,20 +101,20 @@ form td{
 				<tbody>
 					<tr>
 						<th>&nbsp🌈 종목</th>
-						<td class="select">
-							<span id="nSports"></span> 
+						<td >
+							<span id="nSports" class="select"></span> 
 						</td>
 					</tr>
 					<tr>
 						<th>&nbsp🌈 지역</th>
-						<td class="select">
+						<td >
 							<span id="nlocation" class="select"></span> 
 						</td>
 					</tr>
 					<tr>
 						<th>&nbsp🌈 경기장소</th>
 						<td>
-							<span id='stadium_name2'></span> 
+							<span class="select" id='stadium_name2'></span> 
 							<!-- stadium_id2 form으로 서버에 전송 --> 
 							<input type='hidden' id='stadium_id2' name='stadium_id2' value=''>
 						</td>
@@ -119,21 +123,21 @@ form td{
 						<th>&nbsp🌈 경기일자</th>
 						<!-- form으로 서버에 전송 -->
 						<td>
-							<span id='date'></span>
+							<span class="select" id='date'></span>
 							<input type='hidden' id='play_date' name='play_date' value=''>
 						</td>
 					</tr>
 					<tr>
 						<th>&nbsp🌈 경기시간</th>
 						<td>
-							<span id='time'></span>
+							<span class="select" id='time'></span>
 							<input type='hidden' id='play_time' name='play_time' value='(2시간)'>
 						</td>
 					</tr>
 					<tr>
 						<th>&nbsp🌈 취소기간</th>
 						<td>
-							<span id="canceledDate"></span>
+							<span class="select" id="canceledDate"></span>
 							<br>
 							<span id='canceledDateEx' class="refer"></span>
 							
@@ -142,7 +146,7 @@ form td{
 					<tr>
 						<th>&nbsp🌈 결제금액</th>
 						<td>
-							<span id="price"></span>
+							<span class="select" id="price"></span>
 							<input type='hidden' id="stadium_price" name='stadium_price' value=''>
 							<br>
 							<span id='priceEx' class="refer"></span>
@@ -155,11 +159,10 @@ form td{
 			  <input type="submit" id="reserveBtn" value="예약하기" class="btn btn-lg btn-primary" style="width: 460px" />
 			</div>
 		  </form>
-	  		<jsp:include page="../footer.jsp"></jsp:include> 
 		</aside>
 	</section>
-	<jsp:include page="../reservation/test.jsp"></jsp:include> <!-- 지우기지우기지우기지우기지우기 -->
-	<!-- jsjsjsjsjsjs -->
+	<jsp:include page="../footer.jsp"></jsp:include> 
+	<!-- javascript -->
 	<script>
 		//종목선택 > 지역옵션 표시(o)
 		$(function() {
@@ -205,16 +208,6 @@ form td{
 				yearSuffix: "년"
 			});
 		});
-		
-		  //종목 불러오기
-		  $("#sports_name").change(function(){
-			  $("#nSports").html($(this).val());
-		  })
-		  
-		  //지역 불러오기
-		  $("#region").change(function(){
-			  $("#nlocation").html($(this).val());
-		  })		
 		
 		  // 문자열을 Date타입으로 변경하는 함수(dateStr 형식 = '2021/11/21')
 		  function toDate(dateStr)
@@ -291,6 +284,9 @@ form td{
 			$("#stadium_price").val(calPrice(dateStr));
 			$("#canceledDateEx").html("(이용일 5일 전까지 취소 가능)");
 			$("#priceEx").html("평일(40,000원/시간), 주말(60,000원/시간)");
+			//종목$지역
+			$("#nSports").html($("#sports_name").val());
+			$("#nlocation").html($("#region").val());
 		 }
  		  		 
  		 //로그인되지 않았을 시 예약불가, 알람창 띄움

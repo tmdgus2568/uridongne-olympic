@@ -52,7 +52,7 @@ public class InsertReservationServlet extends HttpServlet {
 		String endTime = substrTime(playTime).get(1);
 		int price = Integer.parseInt(request.getParameter("stadium_price"));
 		
-		System.out.println(stadiumId); ////////////////////////////////////////////////////테스트지우기
+		System.out.println(stadiumId);
 		
 		ReservationVO rvo = new ReservationVO();
 		
