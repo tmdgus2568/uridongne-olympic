@@ -152,6 +152,7 @@ table {
 								if (data == 0) {
 									alert("예약 취소 기한이 지났습니다.")
 								} else {
+									alert("예약이 취소되었습니다.")
 									location.href="reserveinfo";
 								}
 							},

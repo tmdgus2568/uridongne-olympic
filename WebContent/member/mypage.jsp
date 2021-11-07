@@ -62,7 +62,7 @@ table {
 		<div class="box1">
 			<ul class="nav nav-pills flex-column"
 				style="font-family: NanumSquareRound;">
-				<li class="nav-item"><a class="nav-link active">마이페이지</a></li>
+				<li class="nav-item"><a class="nav-link" href="mypage">마이페이지</a></li>
 				<li class="nav-item"><a class="nav-link" href="reserveinfo">경기장예약</a></li>
 				<li class="nav-item dropdown"><a
 					class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#"
@@ -106,7 +106,7 @@ table {
 				</tr>
 				<tr class="table-secondary" style="font-family: NanumSquareRound;">
 					<th>전화번호</th>
-					<td style="background-color: white">${member.getUser_phone() }</td>
+					<td style="background-color: white">0${member.getUser_phone() }</td>
 				</tr>
 				<tr class="table-secondary" style="font-family: NanumSquareRound;">
 					<th>도시</th>

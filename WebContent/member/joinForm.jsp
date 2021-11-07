@@ -183,7 +183,7 @@ $('#user_phone').blur(function(){
 		console.log(nameJ.test($(this).val()));
 		$("#phone_check").text('');
 	} else {
-		$('#phone_check').text('숫자로만 입력해주세요');
+		$('#phone_check').text('핸드폰번호를 숫자로 입력해주세요');
 		$('#phone_check').css('color', 'red');
 	}
 });
