@@ -27,12 +27,6 @@
 	float: left;
 }
 
-.box2 {
-	display: center;
-	flex-direction: column; /* 세로 정렬 */
-	float: none;
-}
-
 table {
 	width: 100%;
 	max-width: 400px;
@@ -63,7 +57,7 @@ table {
 <body>
 
 	<%@ include file="../header.jsp"%>
-	<div class="main-container" style="display: table">
+	<div class="content" style="display: table;">
 		<div class="box1">
 			<ul class="nav nav-pills flex-column"  style="font-family: NanumSquareRound;">
 				<li class="nav-item"><a class="nav-link active">마이페이지</a></li>

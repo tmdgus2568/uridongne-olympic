@@ -64,7 +64,7 @@ table {
 </head>
 <body>
 	<%@ include file="../header.jsp"%>
-	<div class="main-container" style="display: table">
+	<div class="main-container" style="display: table; height: 500px">
 		<div class="box1">
 			<ul class="nav nav-pills flex-column" style="font-family: NanumSquareRound;">
 				<li class="nav-item"><a class="nav-link" href="mypage">마이페이지</a></li>
