@@ -124,19 +124,15 @@ $(function(){
 <body>
 <%@ include file="../header.jsp" %>
 <div class="content">
-	<div style="color: gray; font: bold 2.0em/1.2em Verdana;">매칭 생성</div>
+	<div style="color: gray; font-weight: bold; font-size: 35px;">매칭 생성</div>
 	<br>
 	<form method="post" id="create" action="confirm">
 		<table align="center" class="table_style">
 			<tr>
-				<td class="td_title">제목</td>
 				<td><input type="text" name="title" class="form-control" placeholder="제목을 입력해 주세요" id="inputDefault" required autofocus></td>
 			</tr>
 			<tr>
-				<td class="td_title">내용</td>
-			</tr>
-			<tr>
-				<td colspan="2"><textarea class="form-control" id="exampleTextarea" rows="3" style="margin-top: 0px; margin-bottom: 0px; height: 350px;" name="content" placeholder="내용을 입력해 주세요"></textarea></td>
+				<td><textarea class="form-control" id="exampleTextarea" rows="3" style="margin-top: 0px; margin-bottom: 0px; height: 350px;" name="content" placeholder="내용을 입력해 주세요"></textarea></td>
 			</tr>
 			<tr>
 				<td colspan="2" class="people_count">
@@ -150,7 +146,7 @@ $(function(){
 		</table>
 		<div align="right">
 			<div>인당 예상 가격</div>
-			<div class="money">약 <span id="price">${reservation.stadium_price}</span> 원</div>
+			<div class="money">약 <span id="price" style="color: black; font-weight: bold; font-size: 35px;">${reservation.stadium_price}</span> 원</div>
 		
 		</div>
 		<div align="right" class="buttons">

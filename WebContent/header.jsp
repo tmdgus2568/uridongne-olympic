@@ -9,6 +9,7 @@
 <head>
 <meta charset="UTF-8">
 <title>우리동네올림픽</title>
+<link href="../css/Font.css" rel="stylesheet" type="text/css" />
 <style>
 @font-face {
 	font-family: 'NanumSquareRound';

@@ -55,14 +55,14 @@
 			<c:choose>
 				<c:when test="${param.message eq 'success'}">
 						<div class="d-flex justify-content-center">
-							<button type="button" class="btn btn-primary m-1" onClick="location.href='../member/matchingcreateinfo'">생성한 매칭 확인하러 가기</button>
-							<button type="button" class="btn btn-secondary m-1" onClick="location.href='../member/reserveinfo.jsp'">Home</button>
+							<button type="button" class="btn btn-primary m-1" onClick="location.href='../member/matchingcreateinfo'">확인하러 가기</button>
+							<button type="button" class="btn btn-secondary m-1" onClick="location.href='../main/uridongneMain.jsp'">Home</button>
 						</div>
 				</c:when>
 				<c:when test="${param.message eq 'failed'}">
 						<div class="d-flex justify-content-center">
 							<button type="button" class="btn btn-primary m-1" onClick="location.href='../matching/stadium'">돌아가기</button>
-							<button type="button" class="btn btn-secondary m-1" onClick="location.href='../member/reserveinfo.jsp'">Home</button>
+							<button type="button" class="btn btn-secondary m-1" onClick="location.href='../main/uridongneMain.jsp'">Home</button>
 						</div>
 				</c:when>
 			</c:choose>	
@@ -73,22 +73,22 @@
 			<c:choose>
 				<c:when test="${param.message eq 'success'}">
 						<div class="d-flex justify-content-center">
-							<button type="button" class="btn btn-primary m-1" onClick="location.href='../member/matchingapplyinfo'">참여한 매칭 확인하러 가기</button>
-							<button type="button" class="btn btn-secondary m-1" onClick="location.href='../member/reserveinfo.jsp'">Home</button>
+							<button type="button" class="btn btn-primary m-1" onClick="location.href='../member/matchingapplyinfo'">확인하러 가기</button>
+							<button type="button" class="btn btn-secondary m-1" onClick="location.href='../main/uridongneMain.jsp'">Home</button>
 						</div>
 					
 				</c:when>
 				<c:when test="${param.message eq 'failed'}">
 						<div class="d-flex justify-content-center">
 							<button type="button" class="btn btn-primary m-1" onClick="location.href='../matching/list'">돌아가기</button>
-							<button type="button" class="btn btn-secondary m-1" onClick="location.href='../member/reserveinfo.jsp'">Home</button>
+							<button type="button" class="btn btn-secondary m-1" onClick="location.href='../main/uridongneMain.jsp'">Home</button>
 						</div>
 					
 				</c:when>
 				<c:when test="${param.message eq '101'}">
 						<div class="d-flex justify-content-center">
 							<button type="button" class="btn btn-primary m-1" onClick="location.href='../matching/list'">돌아가기</button>
-							<button type="button" class="btn btn-secondary m-1" onClick="location.href='../member/reserveinfo.jsp'">Home</button>
+							<button type="button" class="btn btn-secondary m-1" onClick="location.href='../main/uridongneMain.jsp'">Home</button>
 						</div>
 					
 				</c:when>

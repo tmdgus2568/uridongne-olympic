@@ -30,7 +30,6 @@ div.times{
 	background-color: #fff;
 	border-top: 2px dotted #bbb;
 	height: 4px;
-	/* background: url(line01.png) repeat-x 0 0; */
 }
 
 </style>
@@ -48,7 +47,7 @@ div.times{
 		<div id="stadiumList" class="mx-5"> <!-- parent 4 -->
 		  <!-- 종목명/상세정보 -->
 		  <br><br>
-          <p class="my-1" style="font-weight: bold; font-size: 30px;">🔆 ${stadium.stadium_name}</p>
+          <p class="my-1" style="font-weight: bold; font-size: 30px; color: black;">🔆 ${stadium.stadium_name}</p>
 		  <input type="hidden" id="stadium_id" name="stadium_id" value="${stadium.stadium_id}">
 		  <input type="hidden" id="stadium_name" name="stadium_name" value="${stadium.stadium_name}">
  	  	  <div class="d-flex my-4">

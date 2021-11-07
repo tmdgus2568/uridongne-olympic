@@ -68,8 +68,7 @@ $(function(){
 <body>
 <%@ include file="../header.jsp" %>
 <div class="content">
-	<div style="color: gray; font: bold 2.0em/1.2em Verdana;">매칭 참여</div>
-	<br>
+	<div style="color: gray; font-weight: bold; font-size: 35px;">🔎매칭 검색</div><br>
 	<form method="get" id="search">
 		<div>
 			<select name="sports" class="btn btn-secondary btn-lm dropdown-toggle">
@@ -121,6 +120,10 @@ $(function(){
 		</div>
 	<br>
 	</form>
+	<br><br>
+	
+	
+	<div style="color: gray; font-weight: bold; font-size: 35px;">🧾매칭 목록</div><br>
 	<table border="1" align="center" id="matching_list" class="table table-hover">
 		<thead>
 			<tr class="table-secondary" align="center">
@@ -135,7 +138,7 @@ $(function(){
 		</thead>
 		<c:choose>
 			<c:when test="${fn:length(createJoinList)==0}">
-				<td>매칭 목록이 없습니다</td>
+				<td align="center" colspan="6">매칭 목록이 없습니다</td>
 			</c:when>
 			<c:otherwise>
 			

@@ -103,7 +103,7 @@
 	<div class="content" text-align="center">
 
 		<!-- 경기장 사진 -->
-		<br><div style="color: gray; font: bold 2.0em/1.2em Verdana;">📍 ${stadium.stadium_name}</div><br>
+		<br><div style="color: gray; font-weight: bold; font-size: 35px;">📍 ${stadium.stadium_name}</div><br>
 		<figure class="figure">
 			<img src="${stadium.stadium_photo}"
 				class="figure-img img-fluid rounded" height: 100px;>
@@ -155,7 +155,7 @@
 			<hr>
 			<table class="maptitle">
 				<!-- <h3>🗺 경기장 위치</h3> -->
-				<br><div style="color: gray; font: bold 2.0em/1.0em Verdana;">
+				<br><div style="color: gray; font-weight: bold; font-size: 35px;">
 				📌 경기장 위치</div>
 				<!-- 	  <img height="50" width="50" align="center" src="../image/kakao_map.png">  -->
 			</table>

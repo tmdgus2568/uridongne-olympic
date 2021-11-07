@@ -24,12 +24,12 @@ public class GetStadiumServlet extends HttpServlet {
 		String sports_name = request.getParameter("sports_name");
 		String region = request.getParameter("region");
 		String datepicker = request.getParameter("datepicker");
-		System.out.println(sports_name + datepicker + datepicker.getClass().getName() +  region);
+		System.out.println(sports_name + datepicker  +  region);
 		
 		String dbPath = getServletContext().getRealPath(".");
 		ReservationService service = new ReservationService(dbPath);
-		request.setAttribute("availStaduimList", service.getStadiumByDate(sports_name, region, datepicker)); // 3가지 조건에 맞는 걸 조회해야 하니, 파라미터 3개짜리 만들자
-		RequestDispatcher rd = request.getRequestDispatcher("availStaduimList.jsp");
+		request.setAttribute("availStadiumList", service.getStadiumByDate(sports_name, region, datepicker));
+		RequestDispatcher rd = request.getRequestDispatcher("availStadiumList.jsp");
 		rd.forward(request, response);
 	}
 
