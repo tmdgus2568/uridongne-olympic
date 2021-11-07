@@ -48,7 +48,7 @@ div .input {
 				<br>
 				<div class="input-group mb-3" id="filter_div">
         			<input type="text" name="search" value="${param.search }" class="form-control" aria-describedby="button-addon2" style="width: 250px; display:inline">
-        			<button type="submit" id="search_btn" class="btn btn-info">검색하기</button>
+        			<button type="submit" id="search_btn" class="btn btn-primary">검색하기</button>
      			
 				</div>
 			
@@ -101,7 +101,7 @@ div .input {
 
 		<!-- Trigger the modal with a button -->
 		<c:if test="${reviewPosslist!=null}">
-			<button type="modalBtn" class="btn btn-info btn-lg"
+			<button type="modalBtn" class="btn btn-primary btn-lg"
 				data-bs-toggle="modal" data-bs-target="#myModal" style="float: right;">리뷰 남기기</button>
 		</c:if>
 		
