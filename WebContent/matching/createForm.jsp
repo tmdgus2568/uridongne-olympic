@@ -124,7 +124,7 @@ $(function(){
 <body>
 <%@ include file="../header.jsp" %>
 <div class="content">
-	<div style="color: gray; font-weight: bold; font-size: 35px;">매칭 생성</div>
+	<div style="color: gray; font-weight: bold; font-size: 35px;">👫 매칭 생성</div>
 	<br>
 	<form method="post" id="create" action="confirm">
 		<table align="center" class="table_style">

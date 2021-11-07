@@ -20,6 +20,15 @@
 	font-style: normal;
 }
 
+option {
+	text-align: left;
+}
+
+a:link  { text-decoration: none; color: black;}
+a:visited { text-decoration: none; color: black;}
+a:active { text-decoration: none; color: black;} 
+A:hover { text-decoration: none; color: black;}
+
 #wrapper {
 	width: 960px;
 	margin: 0 auto;

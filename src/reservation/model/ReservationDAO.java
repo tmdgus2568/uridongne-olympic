@@ -51,15 +51,16 @@ public class ReservationDAO {
 	// 종목&지역&날짜에 따른 경기장 및 예약시간 조회
 	public List<AvailStadiumVO> getStadiumByDate(String sports_name, String region, String datepicker) {
 
-		// 선택한 경기장&날짜에 예약된 리스트 가져오기
-		String reservedListSql = "select substr(play_start,1,2) stime, substr(play_end,1,2) etime "
-				+ "from stadium_reservation " + "where play_date = to_date(?,'yyyy/mm/dd') " 
-				+ "and stadium_id = ? and res_status not in('취소')";
 		// 선택한 지역에 있는 경기장 정보 가져오기
 		String stadiumListSql = "select stadium_name, sports_name, stadium_id, stadium_number, "
 				+ "stadium_start, stadium_end, payment_method " + "from stadium "
 				+ "where sports_name = ? and location = ? order by stadium_name";
-
+		
+		// 선택한 경기장&날짜에 예약된 리스트 가져오기
+		String reservedListSql = "select substr(play_start,1,2) stime, substr(play_end,1,2) etime "
+				+ "from stadium_reservation " + "where play_date = to_date(?,'yyyy/mm/dd') " 
+				+ "and stadium_id = ? and res_status not in('취소')";
+		
 		List<AvailStadiumVO> stadiumList = new ArrayList<>();
 
 		Connection conn = null;
@@ -78,7 +79,7 @@ public class ReservationDAO {
 				stadiumList.add(vo);
 			}
 
-			// reservedListSql를 통해 예약시간정도를 stadiumList에 Map형식으로 저장
+			// reservedListSql를 통해 예약시간정보를 stadiumList에 Map형식으로 저장
 			st2 = conn.prepareStatement(reservedListSql);
 			for (AvailStadiumVO stadium : stadiumList) {
 				st2.setString(1, datepicker);
@@ -139,7 +140,7 @@ public class ReservationDAO {
 		return result;
 	}
 
-	
+	// 예약가능한 구장 리스트 값 저장
 	private AvailStadiumVO makeAvailStadium(ResultSet rs) throws SQLException {
 
 		AvailStadiumVO stadium = new AvailStadiumVO();

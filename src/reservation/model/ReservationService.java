@@ -6,13 +6,11 @@ import java.util.Set;
 public class ReservationService {
 
 	ReservationDAO dao;
-	
-	
-	public ReservationService(String path) {
 
-		dao= new ReservationDAO(path);
+	public ReservationService(String path) {
+		dao = new ReservationDAO(path);
 	}
-	
+
 	public Set<String> selectBySports(String sports) {
 		return dao.selectBySports(sports);
 	}
@@ -23,7 +21,7 @@ public class ReservationService {
 
 	public int insertReserveInfo(ReservationVO reservation) {
 		return dao.insertReserveInfo(reservation);
-		
+
 	}
 
 }

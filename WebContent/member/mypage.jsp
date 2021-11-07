@@ -74,7 +74,7 @@ table {
 				<li class="nav-item"><a class="nav-link" href="reviewinfo">리뷰</a></li>
 			</ul>
 		</div>
-		<div class="content">
+		<div>
 			<table class="table table-hover" id="mypage">
 				<thead>
 					<tr>

@@ -84,7 +84,7 @@ table {
 			</ul>
 		</div>
 
-		<div class="content">
+		<div>
 			<table class="table table-hover" id="matching_list">
 				<thead>
 					<tr style="text-align: left;">
