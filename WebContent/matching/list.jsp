@@ -54,7 +54,7 @@ $(function(){
 	 $("#search").submit(function() {
 		 console.log("here");
 		 console.log($("select[name=option]").val());
-		if($("select[name=option]").val() == "none"){
+		if(($("select[name=option]").val() == "none") && ($("select[name=sports]").val() == "none")){
 			alert("옵션을 반드시 선택해 주세요.");
 			return false;
 		}
@@ -143,7 +143,6 @@ $(function(){
 				</td>
 			</c:when>
 			<c:otherwise>
-			
 				<c:forEach var="item" items="${createJoinList}" varStatus="list">
 	   				<tr align="center" class="table-default">
 	   					<td hidden=true>${item.mat_id}</td>
@@ -156,7 +155,6 @@ $(function(){
 	       			 </tr>
 	 			</c:forEach>
 			</c:otherwise>
-		
 		</c:choose>
 
 	</table>	

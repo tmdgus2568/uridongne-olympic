@@ -47,7 +47,7 @@ public class MatApplyDAO {
 
 				// 다 성공했다면 
 				// 1. 총 인원수를 넘었는지 확인 -> 넘었으면 rollback 
-				// 2. 본인이 본인방에 신청넣으면 rollback 
+				// 2. 이미 참여한 매칭이면 rollback
 				if(result != 0) {
 					st = conn.prepareStatement(check_sql);
 					st.setInt(1, apply.getMat_id());

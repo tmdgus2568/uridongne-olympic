@@ -67,8 +67,6 @@ public class ListServlet extends HttpServlet {
 		
 		RequestDispatcher rd = request.getRequestDispatcher("list.jsp");
 		rd.forward(request, response);
-		
-		
 	}
 
 	/**

@@ -141,7 +141,6 @@ $(function(){
 						약 <fmt:parseNumber value="${createJoin.stadium_price/createJoin.mat_people}" integerOnly="true"/>원
 					</c:otherwise>
 				</c:choose>
-			
 			</td>
 		</tr>
 		<tr>

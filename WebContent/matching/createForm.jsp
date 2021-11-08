@@ -84,24 +84,20 @@
 <script>
 
 $(function(){
-	// 총 인원수가 최대 n명 의 n을 넘지 못하게 처리 
 	
+	// 총 인원수가 최대 n명 의 n을 넘지 못하게 처리 
 	// change event 처리 -> 가격 올림처리 
 	$('input[name=people]').change(function(){
 		var max = ${stadium.mat_max};
 		if($(this).val() > max){
 			alert("최대 수용 가능 인원을 넘었습니다");
 			$(this).val(max);
-			
 		}
 	
 		var prev_price = ${reservation.stadium_price};
 		var price = Math.ceil(Number(prev_price)/$(this).val());
 		
 		$('#price').text(price);
-		
-		
-		
 	});	
 	
 	$('#create').submit(function(){
