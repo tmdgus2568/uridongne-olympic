@@ -4,4 +4,4 @@
 2. 개발환경 
 > - 언어: Java, HTML, Javascript
 > - DB: Oracle
-> - 사용툴: Eclipse, SqlDeveloper
+> - 개발툴: Eclipse, SqlDeveloper
