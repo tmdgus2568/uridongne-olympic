@@ -34,7 +34,6 @@ form td{
 	width: auto;
 	text-align: left;
 }
-
 </style>
 
 </head>
@@ -212,7 +211,6 @@ form td{
 		      var sYear = yyyyMMdd.substring(0,4);
 		      var sMonth = yyyyMMdd.substring(5,7);
 		      var sDate = yyyyMMdd.substring(8,10);
-
 		      var date = new Date(Number(sYear), Number(sMonth)-1, Number(sDate));
 		      
 		      return date;
@@ -229,7 +227,6 @@ form td{
 		      var year = five.getFullYear();
 		      var month = ('0' + (five.getMonth() + 1)).slice(-2);
 		      var day = ('0' + five.getDate()).slice(-2);
-
 		      var dateString = year + '/' + month  + '/' + day;
 		      
 		      return dateString + " 11:59:59 까지";

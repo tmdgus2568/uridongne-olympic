@@ -69,13 +69,18 @@ public class InsertReservationServlet extends HttpServlet {
 	private List<String> substrTime(String playTime) {
 		
 		List<String> times = new ArrayList<>();
-		// 10:00~12:00 (2시간) > split
+		// 형식 > 08:00~10:00 (2시간)
 		String[] hours = playTime.split("~|\\s");
 
-		for (String hour : hours) {
-			times.add(hour);
+		for(int i = 0; i < (hours.length -1); i++) {
+			if (hours[i] == "(2시간)") {
+				continue;
+			} else if(Integer.parseInt(hours[i].substring(0,1)) > 2) {
+				times.add("0" + hours[i]);
+			} else {
+				times.add(hours[i]);
+			}
 		}
-
 		return times;
 	}
 }
