@@ -187,7 +187,7 @@ apiURL += "&service_provider=NAVER";%>
 						href="/uridongne-olympic/main/uridongneMain.jsp">홈 <span
 							class="visually-hidden">(current)</span>
 					</a></li>
-					<li class="nav-item mx-3"><a class="nav-link"
+					<li class="nav-item mx-2"><a class="nav-link"
 						href="/uridongne-olympic/stadium/stadiumList">경기장정보</a></li>
 					<li class="nav-item dropdown"><a
 						class="nav-link dropdown-toggle mx-2" data-bs-toggle="dropdown"

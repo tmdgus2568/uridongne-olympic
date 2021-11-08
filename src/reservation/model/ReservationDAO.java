@@ -23,6 +23,7 @@ public class ReservationDAO {
 
 	// 종목에 따른 경기장지역 조회
 	public Set<String> selectBySports(String sports) {
+		
 		Set<String> regionList = new HashSet<String>();
 		
 		String sql = "select location from stadium where sports_name = ? and location is not null";
