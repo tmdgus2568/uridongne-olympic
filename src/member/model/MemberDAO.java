@@ -444,9 +444,10 @@ public class MemberDAO {
 				PreparedStatement st2 = null;
 
 				try {
-					String sql2 = "update matching_create set nowjoin_people = nowjoin_people - ?";
+					String sql2 = "update matching_create set nowjoin_people = nowjoin_people - ? where mat_id = ?";
 					st2 = con.prepareStatement(sql2); // sql문을 준비한다.
 					st2.setInt(1, together);
+					st2.setInt(2, mat_id);
 					st2.executeUpdate();
 				} catch (SQLException e) {
 					e.printStackTrace();
